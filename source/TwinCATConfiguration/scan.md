@@ -1,6 +1,6 @@
 ## EtherCAT Slave の Scan
 
-TwinCATからEtherCATデバイスに対して “Scan”をかけて状況を見ることでデバイスのエラー・動作異常の原因を確認できる場合がある。
+TwinCATからEtherCATデバイスに対して “Scan”をかけて状況を見ることでデバイスのエラー・動作異常の原因を確認できる場合があります。
 
 ```{note}
 
@@ -13,7 +13,7 @@ TwinCATからEtherCATデバイスに対して “Scan”をかけて状況を見
 
 ### 新規Scan
 
-“New project”で新規のTwinCAT projectを作成し“Scan”するEtherCATで接続されるデバイスを構成を取込むことができる。
+“New project”で新規のTwinCAT projectを作成し“Scan”するEtherCATで接続されるデバイスを構成を取込むことができます。
 
 次図の通りの操作で、Slaveをスキャンし、PLCをRUNモードへ遷移させることができます。
 
