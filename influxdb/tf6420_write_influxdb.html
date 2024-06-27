@@ -1,0 +1,1192 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PLCプログラム &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4dbe4bdc"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'influxdb/tf6420_write_influxdb';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="InfluxDBによるクエリ" href="visualization.html" />
+    <link rel="prev" title="TF6420 のセットアップ" href="setup_tf6420_influxdb.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    TwinCAT テクニカルノート
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.1. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.2. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.3. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.1. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">PLCプログラム解説</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.2. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.1. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.2. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/fb_alarm_library.html">アラーム管理ライブリ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/relation_with_database.html">データベース連携</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/user_alarm.html">APIドキュメント</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.2. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なライセンス</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../database/index.html">6.3. TF6420 データベース</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">InfluxDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">PLCプログラム</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tf6311/index.html">6.4. TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.5. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.6. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.7. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_deploy_xae/index.html">Automation Interfaceを使ったプロジェクト更新の自動化（Powershell編）</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/influxdb/tf6420_write_influxdb.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PLCプログラム</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">ライブラリの仕様</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-deploy">ライブラリのインストールとパラメータ設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">データベース書込み専用のタスクとプログラム作成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">データベース書込みタスク作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データベース書込み部プログラム作成</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">計測用データ構造体の定義</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">計測用プログラム実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bufferdrecord">データバッファ付き計測実装例（BufferdRecord）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-adjust-influxdb-data-queue-buffer-size">任意のサイズのデータバッファ付き計測実装例（BufferdRecord）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bufferedrecord1">BufferedRecordで1個づつ記録したい場合</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directrecord">直接計測実装例（DirectRecord）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-adjust-data-buffer-size">評価とバッファサイズの調整</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="plc">
+<span id="section-influxdb-plc-library"></span><h1>PLCプログラム<a class="headerlink" href="#plc" title="Link to this heading">#</a></h1>
+<p>以下ライブラリを用いた実装方法について説明します。</p>
+<div class="tip admonition">
+<p class="admonition-title">公開先のGithubリポジトリ</p>
+<p>以下のリポジトリにて公開しています。プルリクエストをお待ちしています。</p>
+<p><a class="github reference external" href="https://github.com/Beckhoff-JP/tc_influxdb_client">Beckhoff-JP/tc_influxdb_client</a></p>
+</div>
+<p>このライブラリにより記録できるデータは以下の通りです。</p>
+<ul class="simple">
+<li><p>時系列に変動するTwinCATのサイクル精度（最短50μs）のデータ取得</p></li>
+<li><p>不定期に発生するイベントの状態変化記録</p></li>
+</ul>
+<p>ただし、データベースの抽出（読み出し）の機能はサポートしていません。</p>
+<p>本節の実装例においてPLC側でデータを収集し、データベースへ記録する方法について説明します。この際のタスク設定やデータを遅滞なく記録するためのデータバッファの調整方法について説明します。</p>
+<section id="id1">
+<h2>ライブラリの仕様<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>本ライブラリでは、データベース書込み用ファンクションブロック<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>と、様々な制御タスク上に配置する計測用ファンクションブロック<code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>、<code class="docutils literal notranslate"><span class="pre">DirectRecord</span></code>から構成されています。</p>
+<p>計測用ファンクションブロックのインスタンスは複数作成することができます（マルチチャンネル）。これらのチャンネルから個々にコマンドキューを通じて書込み指令がキューインされ、<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>のインスタンスに対して順次データ書込みを行います。</p>
+<p><code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>はグローバル変数として定義し、各計測用ファンクションブロックの引数にその参照を与える方法で実装します。</p>
+<figure class="align-default" id="figure-tsdb-library-feature">
+<img alt="" class="align-center" src="../_images/tsdb_library_feature.png" />
+<figcaption>
+<p><span class="caption-number">図 6.26 </span><span class="caption-text">本ライブラリの機能概要</span><a class="headerlink" href="#figure-tsdb-library-feature" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>計測用ファンクションブロックには、記録用バッファを持つ<code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>と、バッファを持たない<code class="docutils literal notranslate"><span class="pre">DeirectRecord</span></code>の2種類があります。データベースの書込みタスクの処理時間内に複数のデータを書き込む可能性がある場合は必ず<code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>をお使いください。バッファの配列を使って順次データを記録しますので、計測データ入力とデータベースへの書込み出力の速度差を吸収します。したがって、バッファサイズは計測サンプリング間隔やそのサイズと、データベースへの書込み速度とのバランスで最適値を設定する必要があります。その方法を<a class="reference internal" href="#section-adjust-data-buffer-size"><span class="std std-ref">評価とバッファサイズの調整</span></a>に示します。</p>
+<p>また、<code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>ファンクションブロックは、<a class="reference internal" href="#figure-cyclic-data-buffer"><span class="std std-numref">図 6.27</span></a>のとおり、事前に設定するチャンクサイズの指定に応じて、<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>へコマンドが指示される単位のデータサイズが最適化される機能があります。</p>
+<figure class="align-default" id="figure-cyclic-data-buffer">
+<img alt="" class="align-center" src="../_images/cyclic_data_buffer.png" />
+<figcaption>
+<p><span class="caption-number">図 6.27 </span><span class="caption-text">データバッファとチャンクサイズの決定方法</span><a class="headerlink" href="#figure-cyclic-data-buffer" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">チャンクサイズの自動調整機能</p>
+<p>チャンクサイズは、<code class="docutils literal notranslate"><span class="pre">minimum_chunk_size</span></code>と<code class="docutils literal notranslate"><span class="pre">maximum_chunk_size</span></code>プロパティで設定したサイズの間で、バッファ使用率に応じた比例制御で決定されます。</p>
+<p>次図に示すグラフは、黄色が次回データベースへ書き込む予定の目標配列アドレスで、緑色が計測値が記録される実アドレスです。緑色が黄色に交わった時点でデータベースへの書き込みコマンドが発行されます。黄色の目標アドレスは、キューの使用サイズによりダイナミックに変化していることがわかります。</p>
+<p>通常は<code class="docutils literal notranslate"><span class="pre">minimum_chunk_size</span></code>を下限としたサイズのチャンクで小刻みにデータベースに書込みを行い最新データを速やかにデータベースへ反映することができます。データベースに対して一時的に負荷がかかった場合（たとえば別クライアントからデータベースに対して大量のデータ問い合わせが発生したり他のプロセスにより一時的にリソース不足に陥った場合）は、書込み速度が一時的に低下します。この際、自動的にチャンクサイズを大きくすることで、書込みの回数を減らしてインサートに掛かるオーバヘッドを最小化させることができます。これによってこの後、リソースが回復した際に速やかにバッファ容量を回復させることができます。</p>
+<p><a class="reference internal" href="../_images/2023-08-08-10-09-56.png"><img alt="" class="align-center" src="../_images/2023-08-08-10-09-56.png" style="width: 800px;" /></a></p>
+</div>
+<p>このライブラリを実装する手順を行います。</p>
+<ol class="arabic simple">
+<li><p>ライブラリのインストールとライブラリパラメータ（デフォルトバッファサイズ）設定</p></li>
+<li><p>InfludxDBへ記録データ型を定義した構造体の作成</p></li>
+<li><p>データベース書込みドライバ用のタスクとプログラム作成</p></li>
+<li><p>各実行タスク上にデータ収集プログラム作成</p></li>
+<li><p>データベース書込みスループット評価とバッファ最適化</p></li>
+</ol>
+</section>
+<section id="section-library-deploy">
+<span id="id2"></span><h2>ライブラリのインストールとパラメータ設定<a class="headerlink" href="#section-library-deploy" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>リポジトリから取得したソリューションを開きます。</p></li>
+<li><p>PLCプロジェクトを右クリックし、<code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as</span> <span class="pre">library</span> <span class="pre">and</span> <span class="pre">install...</span></code>を選択します。<code class="docutils literal notranslate"><span class="pre">database_connection.library</span></code>ファイルを保存するウィンドウが現われます。適当な場所へ保存してください。</p>
+<p><a class="reference internal" href="../_images/2023-05-23-18-33-17.png"><img alt="" class="align-center" src="../_images/2023-05-23-18-33-17.png" style="width: 500px;" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>同じXAE環境であればインストールを同時に行っていますので、保存じた<code class="docutils literal notranslate"><span class="pre">database_connection.library</span></code>ファイルは今回使用しません。他のXAEでライブラリを使いたい場合は、ライブラリマネージャからこのファイルをインストールしてください。</p>
+</div>
+</li>
+<li><p>ライブラリを適用したいTwinCATプロジェクトを開き、TF6420のライセンスを有効にしてください。</p></li>
+<li><p>続いて、PLCプロジェクトの<code class="docutils literal notranslate"><span class="pre">References</span></code>メニューを右クリックして<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">library...</span></code>を選択します。</p>
+<p><a class="reference internal" href="../_images/2023-05-23-18-45-22.png"><img alt="" class="align-center" src="../_images/2023-05-23-18-45-22.png" style="width: 600px;" /></a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Beckhoff-JP</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">Utility</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">Database</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">InfluxDB</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">influxdb-client</span></code>を選択してOKボタンを押します。</p>
+<p><a class="reference internal" href="../_images/2023-05-23-20-51-12.png"><img alt="" class="align-center" src="../_images/2023-05-23-20-51-12.png" style="width: 700px;" /></a></p>
+</li>
+<li><p>追加後は、<code class="docutils literal notranslate"><span class="pre">influxdb-client</span></code>がライブラリに一覧されます。パラメータとして次の二つのバッファサイズを設定します。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>パラメータ</p></th>
+<th class="head"><p>初期値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>COMMAND_QUEUE_BUFFER_SIZE</p></td>
+<td><p>64</p></td>
+<td><p>データベースサーバへ書込みを行うコマンドのキューバッファです。特に理由が無い限り変更は必要ありません。</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATA_BUFFER_SIZE</p></td>
+<td><p>2500</p></td>
+<td><p>計測側のサンプリングタイムに応じたサイズのバッファを用意する必要があります。目安としてデフォルト値では1～10msのサイクルタイムであれば2,500、50μsであれば50,000程度となりますが、データ構造体のサイズや、他のチャンネル数次第で変動します。<a class="reference internal" href="#section-adjust-influxdb-data-queue-buffer-size"><span class="std std-ref">任意のサイズのデータバッファ付き計測実装例（BufferdRecord）</span></a>の明示的な指定を行わない場合、この指定サイズが適用されます。したがって、<a class="reference internal" href="#section-buffered-record-program-example"><span class="std std-ref">データバッファ付き計測実装例（BufferdRecord）</span></a>の実装例のようにデータバッファの実体を作成する際、その配列サイズに<code class="docutils literal notranslate"><span class="pre">DbLibParam.DATA_BUFFER_SIZE</span></code>を指定する必要があります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="" class="align-center" src="../_images/2023-12-10-10-20-34.png" /></p>
+</li>
+</ol>
+</section>
+<section id="id3">
+<h2>データベース書込み専用のタスクとプログラム作成<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>計測用のプログラムを記述する前に、データベース書込み用のタスクとプログラムを記述します。</p>
+<section id="id4">
+<h3>データベース書込みタスク作成<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>PLC上に作成したバッファからデータベースへ書込み処理が行われるプログラムのための専用タスクを作成します。</p>
+<p>次の要件でタスクを作成し、PLC上にReference taskを新規作成してください。</p>
+<ul class="simple">
+<li><p>Windowsとのシェアで50%程度</p></li>
+<li><p>専用コアを割り当てる</p></li>
+<li><p>サイクルタイムは10ms程度で良い</p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">注意</p>
+<p>TF6420とのADS通信により、データベースのレスポンスに依存してレイテンシが生じる可能性があります。このため、データベース書き込みタスクはコアを含めてモーション等のリアルタイム性能を要するタスクから独立させる必要があります。</p>
+<p>次図は、50μsの制御タスクと、データベース書込みタスクを分離した際のレイテンシを計測したグラフです。高速周期データをADSを用いて書き込むタスクでは、都度Windows側の非リアルタイムプロセスとハンドシェークを行うため、大きなレイテンシが生じることが分かります（左下）。対してPLCのデータバッファを用いて計測データを書き込む処理を行っている50μsのタスクにはレイテンシが生じていないことが分かります。</p>
+<p><img alt="" class="align-center" src="../_images/2023-12-10-13-33-19.png" /></p>
+<p>このように通信に対する安定性をPLCで担保できることが本ライブラリを利用いただくメリットにもなります。</p>
+</div>
+</section>
+<section id="id5">
+<h3>データベース書込み部プログラム作成<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>まず、グローバル変数定義（Global variable list名を<code class="docutils literal notranslate"><span class="pre">GVL</span></code>とします）としてデータベース書き込みファンクションブロック<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>のインスタンスを定義します。グローバル変数とすることで、全てのプログラムから参照できるようにします。</p>
+<p>また、TF6420のコンフィギュレータで定義したDBIDを定数定義し、<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>のコンストラクタ引数<code class="docutils literal notranslate"><span class="pre">DBID</span></code>に指定します。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="cm">{attribute &#39;qualified_only&#39;}</span>
+<span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
+    <span class="n">TARGET_DBID</span> <span class="o">:</span> <span class="kt">UINT</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_GLOBAL</span>
+    <span class="c1">// Cycle record data</span>
+    <span class="n">fbInfluxDBRecorder</span>    <span class="o">:</span><span class="n">RecordInfluxDB</span><span class="p">(</span><span class="n">DBID</span> <span class="o">:=</span> <span class="n">GVL</span><span class="o">.</span><span class="n">TARGET_DBID</span><span class="p">)</span><span class="o">;</span>
+<span class="n">END_VAR</span>
+</pre></div>
+</div>
+<p>続いて、先ほど作成したReference taskに属するプログラムを新規で作成し、以下のとおりプログラムを定義します。宣言部は何も記載する必要はありません。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="c1">// DB Write</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="p">()</span><span class="o">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>計測用データ構造体の定義<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>登録したいデータモデルを構造体で定義します。構造体の各要素の宣言行の上部に、次の書式で</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{attribute</span> <span class="pre">'TagName'</span> <span class="pre">:=</span> <span class="pre">'タグ名称'}</span></code></p>
+<p>タグ（インデックス）となるデータ行の上部に宣言します。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{attribute</span> <span class="pre">'FieldName'</span> <span class="pre">:=</span> <span class="pre">'フィールド名称'}</span></code></p>
+<p>フィールドとなるデータ行の上部に宣言します。</p>
+</li>
+</ul>
+<p>下記の通り、タグとフィールドの構造体を分けて定義し、フィールド定義構造体では、タグ定義構造体を継承して定義すると良いでしょう。これにより、 Measurement 毎に共通のタグセットを定義する事ができます。</p>
+<div class="warning admonition">
+<p class="admonition-title">警告：タグに利用できるデータ型は文字列型のみ</p>
+<p>InfluxDBの仕様により、タグに使用できるデータ型は<code class="docutils literal notranslate"><span class="pre">STRING</span></code>または、<code class="docutils literal notranslate"><span class="pre">WSTRING</span></code>のみです。他の型を含めた構造体データを書込むとエラーになります。</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">警告：タグのバリエーションにご注意ください</p>
+<p><code class="docutils literal notranslate"><span class="pre">DataTag</span></code>構造体で定義する要素は一般的なデータベースシステムにおけるインデックスに該当します。influxDBは時刻に加えてこのこのタグを組合せて高速に検索できる仕様となっています。</p>
+<p>このタグの値のバリエーションが多くなる<a class="footnote-reference brackets" href="#high-cardinality" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>と、influxDBは非常に多くのメモリを消費する事が分かっています。このため、動作が遅くなったり他のプロセスに影響を及ぼし、システムを不安定にさせる要因となります。よって、タグに設定するデータには次の要件を満たすものに対して割り当てていただくよう、十分にご注意ください。</p>
+<ul>
+<li><p>見積可能な有限の種類のデータであること</p>
+<p>短期間に毎回異なる値がセットされるようなデータにはタグを割り当てず、フィールドに割り当ててください。</p>
+<p>リテンションポリシーのデータの保存期間において予測可能なデータの種類の数が、許容できるメモリ消費量に収まっていることが求められます。</p>
+</li>
+<li><p>データの種類が増える頻度とタイミングが一定で予測可能であること</p>
+<p>イベントデータ等で、予測不可能なタイミングでデータ書き込みが行われ、都度その値が変化するようなものをタグとして登録すると、イベントが集中することで意図せずカーディナリティが上昇し、メモリを圧迫する恐れがあります。</p>
+</li>
+</ul>
+</div>
+<p>本節の例では、下記のとおりのデータ構造を定義する例で説明します。</p>
+<ul>
+<li><p>データタグ</p>
+<p>機械名称、および、その内部のモジュール名称を定義します。1台のエッジPLCだとしても複数の機械、モジュールを制御している可能性があり、該当するデータがどの部位のものかをここで定義します。</p>
+</li>
+<li><p>データフィールド</p>
+<p>この例では、弊社のリニア搬送システムXTSの位置、速度、加速度、エラーコードを記録します。</p>
+</li>
+</ul>
+<p>タグ構造体</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">DataTag</span> <span class="o">:</span>
+<span class="n">STRUCT</span>
+    <span class="cm">{attribute &#39;TagName&#39; := &#39;machine_id&#39;}</span>
+    <span class="n">machine_id</span> <span class="o">:</span> <span class="kt">STRING</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;TagName&#39; := &#39;module_name&#39;}</span>
+    <span class="n">module_name</span><span class="o">:</span> <span class="kt">STRING</span><span class="o">;</span>
+<span class="n">END_STRUCT</span>
+<span class="n">END_TYPE</span>
+</pre></div>
+</div>
+<p>フィールド構造体</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">MotionActivityData</span> <span class="n">EXTENDS</span> <span class="n">DataTag</span> <span class="o">:</span>
+<span class="n">STRUCT</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;machine_mode&#39;}</span>
+    <span class="n">machime_mode</span> <span class="o">:</span> <span class="kt">INT</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;activity&#39;}</span>
+    <span class="n">activity_id</span><span class="o">:</span> <span class="kt">INT</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;position&#39;}</span>
+    <span class="n">position</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;velocity&#39;}</span>
+    <span class="n">velocity</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;acceleration&#39;}</span>
+    <span class="n">acceleration</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;set_position&#39;}</span>
+    <span class="n">set_position</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;set_velocity&#39;}</span>
+    <span class="n">set_velocity</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;set_acceleration&#39;}</span>
+    <span class="n">set_acceleration</span> <span class="o">:</span> <span class="kt">LREAL</span><span class="o">;</span>
+    <span class="cm">{attribute &#39;FieldName&#39; := &#39;axis_error_code&#39;}</span>
+    <span class="n">axis_error_code</span> <span class="o">:</span> <span class="kt">UDINT</span><span class="o">;</span>
+<span class="n">END_STRUCT</span>
+<span class="n">END_TYPE</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>計測用プログラム実装<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>データ収集には2つの方式があります。</p>
+<ul>
+<li><p>BufferedRecord</p>
+<p>登録したデータをバッファにコピーし、キュー配列に並べて順次データベースへ書き込む方式です。データベース処理中に重なって次のデータを書き込む必要が有る場合は、この方式を採用する必要があります。バッファのサイズと書込みデータのチャンクサイズによっては、データベースへ記録されるタイミングに遅延が生じます。</p>
+</li>
+<li><p>DirectRecord</p>
+<p>登録したデータを直接データベースへ書き込む方式です。キューが有りませんのでデータベース書き込み処理中に登録データの内容を変更すると、意図しないデータが記録される可能性があります。ただし、即時データベースへは反映されます。</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>データベースに記録される時刻は、いずれもこのファンクションブロックの<code class="docutils literal notranslate"><span class="pre">write</span></code>メソッド実行時です。キューによる書込み遅延には影響しません。</p>
+</div>
+<section id="bufferdrecord">
+<span id="section-buffered-record-program-example"></span><h3>データバッファ付き計測実装例（BufferdRecord）<a class="headerlink" href="#bufferdrecord" title="Link to this heading">#</a></h3>
+<p>宣言した構造体<code class="docutils literal notranslate"><span class="pre">Motion</span> <span class="pre">ActivityData</span></code>の実体を作り、キューへデータを送り込みます。</p>
+<p>次の実装を行ってください。</p>
+<ul>
+<li><p>宣言部にて以下の変数を定義</p>
+<ul>
+<li><p>前節で作成したフィールド構造体型のデータバッファ配列を定義する</p>
+<p>データバッファサイズは、ライブラリ内で<code class="docutils literal notranslate"><span class="pre">DbLibParam.DATA_BUFFER_SIZE</span></code>が初期値として使用されているため、これに準じる場合はこのサイズの配列を作成します。任意のサイズを指定したい場合は<a class="reference internal" href="#section-adjust-influxdb-data-queue-buffer-size"><span class="std std-ref">任意のサイズのデータバッファ付き計測実装例（BufferdRecord）</span></a>をご覧ください。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>インスタンスを作成し、コンストラクタ引数に以下を指定する</p>
+<ul class="simple">
+<li><p>前項で作成したデータバッファのポインタを第一引数に渡す</p></li>
+<li><p>グローバル変数として定義したデータベース書込みファンクションブロック<code class="docutils literal notranslate"><span class="pre">RecordInfluxDB</span></code>のインスタンスを第二引数に渡す</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>プログラム部に以下を実装</p>
+<ul class="simple">
+<li><p>前節で作成したフィールド構造体型のインスタンス変数（下記実装例では<code class="docutils literal notranslate"><span class="pre">motion_activities</span></code>）を作成し、各フィールド要素に値をセット</p></li>
+<li><p>記録するデータのInfluxDBのメジャメント名をセット</p></li>
+<li><p>前節で作成したフィールド構造体型の構造体名をセット</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">motion_activities</span></code>をT_Arg型（F_BIGTYPE）に変換し、<code class="docutils literal notranslate"><span class="pre">write</span></code>メソッドで処理する。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">MAIN</span>
+<span class="n">VAR</span>
+    <span class="c1">// 現在データ登録用変数</span>
+    <span class="n">motion_activities</span>     <span class="o">:</span> <span class="n">MotionActivityData</span> <span class="o">:=</span> <span class="p">(</span><span class="n">module_name</span> <span class="o">:=</span> <span class="s">&#39;XTS1&#39;</span><span class="p">)</span><span class="o">;</span>
+    <span class="c1">// データバッファの配列</span>
+    <span class="n">motion_activity_data_buffer</span>    <span class="o">:</span> <span class="kt">ARRAY</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">DbLibParam</span><span class="o">.</span><span class="n">DATA_BUFFER_SIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="n">OFMotionActivityData</span><span class="o">;</span>
+    <span class="c1">// ビジネスロジック用ファンクションブロック</span>
+    <span class="n">fbActivityDataController</span>    <span class="o">:</span><span class="n">BufferedRecord</span><span class="p">(</span><span class="n">ADR</span><span class="p">(</span><span class="n">motion_activity_data_buffer</span><span class="p">)</span><span class="o">,</span> <span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="p">)</span><span class="o">;</span> 
+<span class="n">END_VAR</span>
+
+<span class="c1">// データセット</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">machine_id</span> <span class="o">:=</span> <span class="s">&#39;Roll Dice demo&#39;</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">machime_mode</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">iState</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">activity_id</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">iState_Run</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">position</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActPos</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">velocity</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActVelo</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">acceleration</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActAcc</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_position</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_velocity</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetVelo</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_acceleration</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetAcc</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">axis_error_code</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ErrorCode</span><span class="o">;</span>
+
+<span class="c1">//キューへのデータ書き込み</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">db_table_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// InfluxDBのメジャメント名</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">data_def_structure_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// データ構造体名称</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+    <span class="n">input_data</span> <span class="o">:=</span> <span class="n">F_BIGTYPE</span><span class="p">(</span>
+        <span class="n">pData</span> <span class="o">:=</span> <span class="n">ADR</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span><span class="o">,</span>
+        <span class="n">cbLen</span> <span class="o">:=</span> <span class="nb">SIZEOF</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">;</span> <span class="c1">// キューへのデータ書き込み処理</span>
+</pre></div>
+</div>
+</section>
+<section id="section-adjust-influxdb-data-queue-buffer-size">
+<span id="id9"></span><h3>任意のサイズのデータバッファ付き計測実装例（BufferdRecord）<a class="headerlink" href="#section-adjust-influxdb-data-queue-buffer-size" title="Link to this heading">#</a></h3>
+<p>前節の実装例では、ライブラリパラメータ<code class="docutils literal notranslate"><span class="pre">DbLibParam.DATA_BUFFER_SIZE</span></code>が暗示的にライブラリ内部でデータバッファの制御に用いられています。前節のとおりデータバッファの実体を定義する場合も下記のとおり設定する必要がありました。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">VAR</span>
+   <span class="n">motion_activity_data_buffer</span>    <span class="o">:</span> <span class="kt">ARRAY</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">DbLibParam</span><span class="o">.</span><span class="n">DATA_BUFFER_SIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="n">OF</span> <span class="n">MotionActivityData</span><span class="o">;</span>
+<span class="n">END_VAR</span>
+</pre></div>
+</div>
+<p>しかし、計測部が複数あり、それぞれのタスクサイクルタイムが一意でない場合は、それぞれに適したバッファサイズを指定する必要があります。この方法について示します。</p>
+<dl class="simple myst">
+<dt>バッファ配列の初期化</dt><dd><dl class="simple myst">
+<dt>0…バッファサイズ - 1</dt><dd><p>バッファの最大インデックスを0始まりの配列でインデックス指定できる配列を作成してください。</p>
+</dd>
+</dl>
+</dd>
+<dt>BufferedRecordファンクションブロックのプロパティ</dt><dd><dl class="simple myst">
+<dt>minimum_chunk_size</dt><dd><p>デフォルトでは、ライブラリパラメータで指定するバッファサイズの20%が設定されています。任意の値を設定してください。</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>maximum_chunk_size</dt><dd><p>バッファサイズ - 1 が最大インデックスとなるように設定してください。</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>buffer_size</dt><dd><p>任意のバッファサイズを設定してください。</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>次にバッファサイズとして定数<code class="docutils literal notranslate"><span class="pre">LOG_BUFFER_SIZE_LOW</span></code>を定義した実装例を示します。</p>
+<div class="warning admonition">
+<p class="admonition-title">minimum_chunk_size設定時の注意</p>
+<p>連続記録データにおいて<code class="docutils literal notranslate"><span class="pre">minimum_chunk_size</span></code>を小さな値に設定すると、それだけ頻繁にコマンドが発行されるため、代わりにコマンドキューが圧迫される事になります。この場合、<a class="reference internal" href="#section-library-deploy"><span class="std std-ref">ライブラリのインストールとパラメータ設定</span></a>節に示す<code class="docutils literal notranslate"><span class="pre">COMMAND_QUEUE_BUFFER_SIZE</span></code>を十分大きな値に設定してください。</p>
+</div>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">MAIN</span>
+<span class="n">VAR</span> <span class="n">CONSTANT</span>
+    <span class="n">LOG_BUFFER_SIZE_LOW</span>    <span class="o">:</span> <span class="kt">UINT</span> <span class="o">:=</span> <span class="mi">2500</span><span class="o">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+    <span class="c1">// 現在データ登録用変数</span>
+    <span class="n">motion_activities</span>     <span class="o">:</span> <span class="n">MotionActivityData</span> <span class="o">:=</span> <span class="p">(</span><span class="n">module_name</span> <span class="o">:=</span> <span class="s">&#39;XTS1&#39;</span><span class="p">)</span><span class="o">;</span>
+    <span class="c1">// データバッファの配列（バッファサイズの違いに注意）</span>
+    <span class="n">motion_activity_data_buffer</span>    <span class="o">:</span> <span class="kt">ARRAY</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">LOG_BUFFER_SIZE_LOW</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="n">OF</span> <span class="n">MotionActivityData</span><span class="o">;</span>
+    <span class="c1">// ビジネスロジック用ファンクションブロック</span>
+    <span class="n">fbActivityDataController</span>    <span class="o">:</span><span class="n">BufferedRecord</span><span class="p">(</span><span class="n">ADR</span><span class="p">(</span><span class="n">motion_activity_data_buffer</span><span class="p">)</span><span class="o">,</span> <span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="p">)</span><span class="o">;</span> 
+<span class="n">END_VAR</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">db_table_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// InfluxDBのメジャメント名</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">data_def_structure_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// データ構造体名称</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">minimum_chunk_size</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">maximum_chunk_size</span> <span class="o">:=</span> <span class="n">LOG_BUFFER_SIZE_LOW</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">buffer_size</span> <span class="o">:=</span> <span class="n">LOG_BUFFER_SIZE_LOW</span><span class="o">;</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+    <span class="n">input_data</span> <span class="o">:=</span> <span class="n">F_BIGTYPE</span><span class="p">(</span>
+        <span class="n">pData</span> <span class="o">:=</span> <span class="n">ADR</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span><span class="o">,</span>
+        <span class="n">cbLen</span> <span class="o">:=</span> <span class="nb">SIZEOF</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">;</span> <span class="c1">// キューへのデータ書き込み処理</span>
+</pre></div>
+</div>
+</section>
+<section id="bufferedrecord1">
+<h3>BufferedRecordで1個づつ記録したい場合<a class="headerlink" href="#bufferedrecord1" title="Link to this heading">#</a></h3>
+<p>前述のとおり、BufferdRecordではチャンクサイズは自動計算されます。これはサイクリックな連続データの場合に用意された機構です。</p>
+<p>イベントデータを記録したい場合は問題となります。いつ起こるか分からないイベントデータの場合、リアルタイムにそのデータを活用するためにも速やかにデータベースは反映させる事が望ましいです。しかしシステム内部で計算されたチャンクサイズにバッファが満たされるまではデータベースに記録されない事となります。</p>
+<p>DirectRecordはこのために用意された機構ですが、困った事に不意に発生するイベントは、短期間に集中して発生する可能性もあります。このため、データバッファ機構は必要です。</p>
+<p>このケースにおいては、次の通り設定してください。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">minimum_chunk_size</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">maximum_chunk_size</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>つまり、チャンクサイズの上限値と下限値をそれぞれ1とします。これにより、バッファ機構を活かしながら、必ず1個づつデータベースへ記録される動作となります。</p>
+<section id="directrecord">
+<h4>直接計測実装例（DirectRecord）<a class="headerlink" href="#directrecord" title="Link to this heading">#</a></h4>
+<p>直接記録の場合は、一度につき1レコードのみ記録可能です。TF6420を通じてデータベースへ書込みが行われている最中に<code class="docutils literal notranslate"><span class="pre">motion_activities</span></code>のデータが直接ADSを通じてデータベースに参照されますので、データベースの記録が完了するまでこのデータを保持しておくことが求められます。</p>
+<p>さらに、データベースへの書込み処理の開始は、他のキューからの書き込みコマンドのキューを待ってから行われますので、遅延する可能性があります。</p>
+<p>十分な書込み間隔が保証されている場合のみこのファンクションブロックをご利用ください。</p>
+<p>実装方法は以下の通りで、<code class="docutils literal notranslate"><span class="pre">BufferedRecord</span></code>の実装例と比較して、バッファ配列を取り除いただけの違いとなります。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">MAIN</span>
+<span class="n">VAR</span>
+    <span class="c1">// 現在データ登録用変数</span>
+    <span class="n">motion_activities</span>     <span class="o">:</span> <span class="n">MotionActivityData</span> <span class="o">:=</span> <span class="p">(</span><span class="n">module_name</span> <span class="o">:=</span> <span class="s">&#39;XTS1&#39;</span><span class="p">)</span><span class="o">;</span>
+    <span class="c1">// ビジネスロジック用ファンクションブロック</span>
+    <span class="n">fbActivityDataController</span>    <span class="o">:</span><span class="n">DirectRecord</span><span class="p">(</span><span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="p">)</span><span class="o">;</span> 
+<span class="n">END_VAR</span>
+
+<span class="c1">// データセット</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">machine_id</span> <span class="o">:=</span> <span class="s">&#39;Roll Dice demo&#39;</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">machime_mode</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">iState</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">activity_id</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">iState_Run</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">position</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActPos</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">velocity</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActVelo</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">acceleration</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ActAcc</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_position</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_velocity</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetVelo</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">set_acceleration</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetAcc</span><span class="o">;</span>
+<span class="n">motion_activities</span><span class="o">.</span><span class="n">axis_error_code</span> <span class="o">:=</span> <span class="n">MAIN</span><span class="o">.</span><span class="n">stMover1</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">ErrorCode</span><span class="o">;</span>
+
+<span class="c1">//キューへのデータ書き込み</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">db_table_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// InfluxDBのメジャメント名</span>
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">data_def_structure_name</span> <span class="o">:=</span> <span class="s">&#39;MotionActivityData&#39;</span><span class="o">;</span> <span class="c1">// データ構造体名称</span>
+
+<span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+    <span class="n">input_data</span> <span class="o">:=</span> <span class="n">F_BIGTYPE</span><span class="p">(</span>
+        <span class="n">pData</span> <span class="o">:=</span> <span class="n">ADR</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span><span class="o">,</span>
+        <span class="n">cbLen</span> <span class="o">:=</span> <span class="nb">SIZEOF</span><span class="p">(</span><span class="n">motion_activities</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">;</span> <span class="c1">// キューへのデータ書き込み処理</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="section-adjust-data-buffer-size">
+<span id="id10"></span><h2>評価とバッファサイズの調整<a class="headerlink" href="#section-adjust-data-buffer-size" title="Link to this heading">#</a></h2>
+<p>別途データベースのバッファ使用状況についても、InfluxDBへ記録するプログラムを以下の通り追加します。</p>
+<p>計測する値は、前項の例で作成した<code class="docutils literal notranslate"><span class="pre">fbActivityDataController</span></code>のファンクションブロックから提供されているバッファの使用状況を示す様々なメトリクスです。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>インスタンス</p></th>
+<th class="head"><p>プロパティ</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>InfluxDBRecorder</p></td>
+<td><p>queue.queue_usage</p></td>
+<td><p>コマンドキューの使用率</p></td>
+</tr>
+<tr class="row-odd"><td><p>BufferedRecord</p></td>
+<td><p>current_index</p></td>
+<td><p>現在のデータ記録インデックス</p></td>
+</tr>
+<tr class="row-even"><td><p>BufferedRecord</p></td>
+<td><p>next_index</p></td>
+<td><p>次回データベースに書込みが行われる予定のインデックス</p></td>
+</tr>
+<tr class="row-odd"><td><p>BufferedRecord</p></td>
+<td><p>buffer_usage</p></td>
+<td><p>現在バッファに溜まっているデータの全体のサイズに対する比率</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>これらのメトリクスは、ライブラリ内にあらかじめ定義された構造体<code class="docutils literal notranslate"><span class="pre">DatabaseThroughput</span></code>にて定義されています。本ライブラリは、<code class="docutils literal notranslate"><span class="pre">tf6420</span></code>というデフォルトのネームスペースが定義されていますので、念のために<code class="docutils literal notranslate"><span class="pre">tf6420.DatabaseThroughput</span></code>という構造体名を指定してください。</p>
+<div class="literal-block-wrapper docutils container" id="database-throughput-monitoring">
+<div class="code-block-caption"><span class="caption-number">リスト 6.3 </span><span class="caption-text">データベーススループット計測プログラム</span><a class="headerlink" href="#database-throughput-monitoring" title="Link to this code">#</a></div>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">MAIN</span>
+<span class="n">VAR</span>
+   <span class="c1">// For cycric insert</span>
+   <span class="n">DatabaseThroughputRecordData</span>   <span class="o">:</span><span class="n">tf6420</span><span class="o">.</span><span class="n">DatabaseThroughput</span><span class="o">;</span> <span class="c1">// for insert dataset</span>
+   <span class="n">DatabaseThroughputRecordBuffer</span>   <span class="o">:</span><span class="kt">ARRAY</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">DBLibParam</span><span class="o">.</span><span class="n">DATA_BUFFER_SIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="n">OF</span> <span class="n">DatabaseThroughput</span><span class="o">;</span>
+   <span class="n">fbThroughputDataController</span>   <span class="o">:</span><span class="n">BufferedRecord</span><span class="p">(</span><span class="n">ADR</span><span class="p">(</span><span class="n">tf6420</span><span class="o">.</span><span class="n">DatabaseThroughputRecordBuffer</span><span class="p">)</span><span class="o">,</span> <span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="p">)</span><span class="o">;</span> <span class="c1">// record controller</span>
+<span class="n">END_VAR</span>
+
+<span class="c1">// Field data</span>
+<span class="n">DatabaseThroughputRecordData</span><span class="o">.</span><span class="n">db_insert_queue_count</span> <span class="o">:=</span> <span class="n">GVL</span><span class="o">.</span><span class="n">fbInfluxDBRecorder</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">queue_usage</span><span class="o">;</span>
+<span class="n">DatabaseThroughputRecordData</span><span class="o">.</span><span class="n">current_index</span> <span class="o">:=</span> <span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">index</span><span class="o">;</span>
+<span class="n">DatabaseThroughputRecordData</span><span class="o">.</span><span class="n">next_index</span> <span class="o">:=</span> <span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">next_index</span><span class="o">;</span>
+<span class="n">DatabaseThroughputRecordData</span><span class="o">.</span><span class="n">buffer_usage</span> <span class="o">:=</span> <span class="n">fbActivityDataController</span><span class="o">.</span><span class="n">buffer_usage</span><span class="o">;</span>
+
+<span class="c1">// Insert command queue</span>
+<span class="n">fbThroughputDataController</span><span class="o">.</span><span class="n">db_table_name</span> <span class="o">:=</span> <span class="s">&#39;DatabaseThroughput&#39;</span><span class="o">;</span> <span class="c1">// Measurement name</span>
+<span class="n">fbThroughputDataController</span><span class="o">.</span><span class="n">data_def_structure_name</span> <span class="o">:=</span> <span class="s">&#39;tf6420.DatabaseThroughput&#39;</span><span class="o">;</span> <span class="c1">// Structure type name</span>
+
+<span class="c1">// cyclic record</span>
+<span class="n">fbThroughputDataController</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+    <span class="n">input_data</span> <span class="o">:=</span> <span class="n">F_BIGTYPE</span><span class="p">(</span>
+        <span class="n">pData</span> <span class="o">:=</span> <span class="n">ADR</span><span class="p">(</span><span class="n">DatabaseThroughputRecordData</span><span class="p">)</span><span class="o">,</span> 
+        <span class="n">cbLen</span> <span class="o">:=</span> <span class="nb">SIZEOF</span><span class="p">(</span><span class="n">DatabaseThroughputRecordData</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<p>このデータ収集を計測するBufferedRecord毎に行い、InfluxDBへ記録させます。Grafanaにて次の2つのダッシュボードを作成します。</p>
+<div class="literal-block-wrapper docutils container" id="flux-query-buffer-usage">
+<div class="code-block-caption"><span class="caption-number">リスト 6.4 </span><span class="caption-text">データバッファ使用率のfluxクエリ</span><a class="headerlink" href="#flux-query-buffer-usage" title="Link to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">from</span><span class="p">(</span><span class="n">bucket</span><span class="p">:</span> <span class="s2">&quot;machine_monitoring&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">timeRangeStart</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">timeRangeStop</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;_measurement&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DatabaseThroughput&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;_field&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DB_buffer_usage&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">aggregateWindow</span><span class="p">(</span><span class="n">every</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">windowPeriod</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span> <span class="n">createEmpty</span><span class="p">:</span> <span class="n">false</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="flux-query-buffer-activity">
+<div class="code-block-caption"><span class="caption-number">リスト 6.5 </span><span class="caption-text">データバッファ使用状況のクエリ</span><a class="headerlink" href="#flux-query-buffer-activity" title="Link to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">from</span><span class="p">(</span><span class="n">bucket</span><span class="p">:</span> <span class="s2">&quot;machine_monitoring&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">timeRangeStart</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">timeRangeStop</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;_measurement&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DatabaseThroughput&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;_field&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DB_buffer_next_index&quot;</span> <span class="ow">or</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;_field&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DB_buffer_current_index&quot;</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">aggregateWindow</span><span class="p">(</span><span class="n">every</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">windowPeriod</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span> <span class="n">createEmpty</span><span class="p">:</span> <span class="n">false</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>これら二つのクエリをGrafanaを用いて可視化ダッシュボードを作成します。Grafanaのセットアップでダッシュボードを作成する手順は、<a class="reference internal" href="grafana.html#section-grafana-dashoboard"><span class="std std-ref">Grafanaでダッシュボード作成</span></a>まで読み進めてください。</p>
+<p>Cycle time = 1ms, DbLibParam.DATA_BUFFER_SIZE := 250のとき。概ね100%を超えており、バッファサイズが少なすぎることが分かります。<img alt="" class="align-center" src="../_images/2023-12-10-12-41-17.png" /></p>
+<p>Cycle time = 1ms, DbLibParam.DATA_BUFFER_SIZE := 2,500のとき。概ね10%以下を安定しており、十分なバッファサイズであることがわかります。<img alt="" class="align-center" src="../_images/2023-12-10-12-43-09.png" /></p>
+<p>Cycle time = 50μs, DbLibParam.DATA_BUFFER_SIZE := 2,500のとき。概ね100%を超えており、バッファサイズが少なすぎることが分かります。<img alt="" class="align-center" src="../_images/2023-12-10-12-49-40.png" /></p>
+<p>Cycle time = 50μs, DbLibParam.DATA_BUFFER_SIZE := 50,000のとき。10%を越えることがありますが、安定してデータが書き込めていることが分かります。必要に応じてバッファサイズを増やせば10%を下回る状態で安定します。<img alt="" class="align-center" src="../_images/2023-12-10-12-51-38.png" /></p>
+<p>バッファサイズは安定した状態だけでなく、データベース側（Windows側やオンプレミスサーバ側）の負荷やネットワークの状況により変動する最悪スループットを考慮して十分なサイズを割り当ててください。</p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="high-cardinality" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">1</a><span class="fn-bracket">]</span></span>
+<p>この状態を「カーディナリティが高い」状態といいます。</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="setup_tf6420_influxdb.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">TF6420 のセットアップ</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="visualization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">InfluxDBによるクエリ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">ライブラリの仕様</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-deploy">ライブラリのインストールとパラメータ設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">データベース書込み専用のタスクとプログラム作成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">データベース書込みタスク作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データベース書込み部プログラム作成</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">計測用データ構造体の定義</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">計測用プログラム実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bufferdrecord">データバッファ付き計測実装例（BufferdRecord）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-adjust-influxdb-data-queue-buffer-size">任意のサイズのデータバッファ付き計測実装例（BufferdRecord）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bufferedrecord1">BufferedRecordで1個づつ記録したい場合</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#directrecord">直接計測実装例（DirectRecord）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-adjust-data-buffer-size">評価とバッファサイズの調整</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
