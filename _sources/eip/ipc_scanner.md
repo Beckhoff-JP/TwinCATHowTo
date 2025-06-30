@@ -1,0 +1,1 @@
+# TF6281 EtherNet/IP スキャナによるIPCのEthernetポートを使った通信
