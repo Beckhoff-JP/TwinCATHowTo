@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>独自ライブラリのつくりかた &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'library/make_library';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="ライブラリドキュメントの作成" href="documentation.html" />
+    <link rel="prev" title="ライブラリを読み込んで使う" href="use_library.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">TwinCAT3 ライブラリの活用</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/library/make_library.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Flibrary/make_library.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/library/make_library.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>独自ライブラリのつくりかた</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">事前準備（ライブラリプロジェクトの作成）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-parameter">ライブラリパラメータの設定方法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#twincat">TwinCATプロジェクトからライブラリを作る手順</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prject-detail-setting">詳細編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placeholders">Placeholdersの活用</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">共有ライブラリのバージョンを一斉に切り替える</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placeholder">別名のPlaceholderを設定する</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#namespace">Namespace機能の活用</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#versionreleased">Versionの<code class="docutils literal notranslate"><span class="pre">Released</span></code>チェックについて</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-category">カテゴリの登録</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="section-make-library">
+<span id="id1"></span><h1>独自ライブラリのつくりかた<a class="headerlink" href="#section-make-library" title="Link to this heading">#</a></h1>
+<p>開発時に作成したソフトウェア部品をライブラリとして登録する方法について示します。ライブラリ化したソフトウェアは、部品として再利用できる状態になります。</p>
+<p>この章では、このライブラリ機能の基本的な使い方について説明します。最初にライブラリの作成と、その使い方について大まかな手順概要を説明し、続いてライブラリ作成の詳細な設定方法について説明します。</p>
+<section id="id2">
+<h2>事前準備（ライブラリプロジェクトの作成）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>ライブラリの基になるTwinCATプロジェクトを作成します。この中で作成したファンクション、および、ファンクションブロックが、ライブラリとして活用できます。したがってファンクションやファンクションブロックを作成する際には、次の注意を必ず守ってください。</p>
+<dl class="simple myst">
+<dt>カプセル化を厳密に守る</dt><dd><p>機能を独立させるには、ファンクションやファンクションブロック外で定義されたグローバルなデータを使用せず、ファンクション、ファクションブロック内の変数で定義したデータを使ってください。型を定義したデータをアクセッサ（Property）を通じて受け渡します。</p>
+</dd>
+<dd><p>大きな構造データについてはインターフェースやリファレンス、ポインタなどを用いて参照渡しすることを意識してください。</p>
+</dd>
+<dt>ドキュメントを明記する</dt><dd><p>少なくともMethod/Propertyや、VAR_INPUT, VAR_OUTPUTなどの変数には必ず行コメントを付けてください。ライブラリの説明欄にそのまま転記されます。</p>
+</dd>
+<dd><p>作成したライブラリをより正しく便利に使ってもらうには、<a class="reference internal" href="documentation.html#chapter-documentation"><span class="std std-ref">ライブラリドキュメントの作成</span></a>に示した方法でドキュメントを記述いただくことを推奨します。</p>
+</dd>
+<dt>定数およびライブラリパラメータを活用してください</dt><dd><p>配列のサイズなどを定義する場合は、定数<code class="docutils literal notranslate"><span class="pre">VAR</span> <span class="pre">CONSTANT</span></code>を活用してください。また、ライブラリを使うアプリケーション要件により配列サイズなどのリソース量を調整を必要とする場合は、次項に示すライブラリパラメータ化することができます。</p>
+</dd>
+</dl>
+</section>
+<section id="section-library-parameter">
+<span id="id3"></span><h2>ライブラリパラメータの設定方法<a class="headerlink" href="#section-library-parameter" title="Link to this heading">#</a></h2>
+<p>ライブラリパラメータは、コンテキストメニューの<code class="docutils literal notranslate"><span class="pre">Add</span></code>から<code class="docutils literal notranslate"><span class="pre">Parameter</span> <span class="pre">List...</span></code>を作成します。GVLs以下に作成してください。</p>
+<p><img alt="" class="align-center" src="../_images/2024-02-21-16-54-02.png" /></p>
+<p>パラメータへアクセスするためのnamespaceを設定します。ライブラリが使用されるプロジェクト含めて、一意の名前となるようにユニークな名前を設定してください。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>単純な名前では、他のライブラリパラメータと重複し、正常にアクセスできなくなる可能性があります。</p>
+</div>
+<p><img alt="" class="align-center" src="../_images/2024-02-21-16-55-31.png" /></p>
+<p>次の例の通り、<code class="docutils literal notranslate"><span class="pre">VAR_GLOBAL</span> <span class="pre">CONSTANT</span></code>にて設定します。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">qualified_only</span><span class="s1">&#39;</span><span class="p">}</span>
+<span class="k">VAR_GLOBAL</span><span class="w"> </span><span class="k">CONSTANT</span>
+<span class="w">	</span><span class="n">COMMAND_QUEUE_BUFFER_SIZE</span><span class="w"> </span><span class="o">:</span><span class="kt">UDINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Queue</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">command</span><span class="p">.</span>
+<span class="w">	</span><span class="n">DATA_BUFFER_SIZE</span><span class="w">	</span><span class="o">:</span><span class="kt">UDINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="n">size</span>
+<span class="k">END_VAR</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>初期値は必ず設定してください。ライブラリパラメータを設定しない場合、リソースサイズが正しく反映されず、プログラムロジックによっては著しい損害を与える不具合につながる恐れがあります。</p>
+</div>
+<p>プログラム内では、グローバル変数と同様、定数として使用することができます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Parameter</span> <span class="n">list名</span><span class="o">&gt;.&lt;</span><span class="n">ライブラリパラメータ変数名</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>例えば、配列のサイズ指定としても使用できますし、変数初期値としても使用できます。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="k">FUNCTION_BLOCK</span><span class="w"> </span><span class="n">dequeue</span>
+<span class="k">VAR</span>
+<span class="w">	</span><span class="n">_queue_usage</span><span class="o">:</span><span class="w">	</span><span class="kt">UDINT</span><span class="p">;</span>
+<span class="w">	</span><span class="n">_queue_size</span><span class="o">:</span><span class="w">	</span><span class="kt">UDINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">DbLibParam</span><span class="p">.</span><span class="n">COMMAND_QUEUE_BUFFER_SIZE</span><span class="p">;</span>
+<span class="w">	</span><span class="n">nWriteIndex</span><span class="o">:</span><span class="w"> 	</span><span class="kt">UDINT</span><span class="p">;</span>
+<span class="w">	</span><span class="n">nReadIndex</span><span class="o">:</span><span class="w"> 	</span><span class="kt">UDINT</span><span class="p">;</span>
+<span class="w">	</span><span class="n">queue_buffer</span><span class="o">:</span><span class="w">	</span><span class="kt">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="mf">0.</span><span class="p">.</span><span class="n">DbLibParam</span><span class="p">.</span><span class="n">COMMAND_QUEUE_BUFFER_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">DbInsertCommand</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+</pre></div>
+</div>
+<p>このように作成されたライブラリは、使用時に次の通りライブラリマネージャから可変に設定することができますので、求められるアプリケーション要件によりスケールするリソース量に柔軟性を持たせることができます。</p>
+<p><img alt="" class="align-center" src="../_images/2024-02-21-18-08-34.png" /></p>
+</section>
+<section id="twincat">
+<span id="library-making-basic"></span><h2>TwinCATプロジェクトからライブラリを作る手順<a class="headerlink" href="#twincat" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>PLC<span class="math notranslate nohighlight">\(&gt;\)</span>Project で右クリックして、<code class="docutils literal notranslate"><span class="pre">Properties</span></code>を選択する。</p>
+<a class="reference internal image-reference" href="../_images/Solution_ProjectProperties.png" id="solution-projectproperties"><img alt="../_images/Solution_ProjectProperties.png" class="align-center" id="solution-projectproperties" src="../_images/Solution_ProjectProperties.png" style="width: 500px;" />
+</a>
+</li>
+<li><p>Project Infomation に Library の情報を入力します。 設定必要な項目について以下に示します。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Company</p></td>
+<td><p>ライブラリを開発する組織名を入力します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>ライブラリ名称を記述します。<code class="docutils literal notranslate"><span class="pre">Placeholder</span></code>を未定義にすると、この名称がPlaceholderとしても設定されます。バージョンの連続性を担保するためにも、途中からこの名称を変更しないようにご注意ください。</p></td>
+</tr>
+<tr class="row-even"><td><p>Version</p></td>
+<td><p>ライブラリバージョンを定義します。必ず4桁のピリオド区切りで定義してください。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Released</p></td>
+<td><p><a class="reference internal" href="#section-about-released-flag"><span class="std std-ref">VersionのReleasedチェックについて</span></a>をご覧ください。</p></td>
+</tr>
+<tr class="row-even"><td><p>Library Categories</p></td>
+<td><p><a class="reference internal" href="#section-library-category"><span class="std std-ref">カテゴリの登録</span></a>をご覧ください。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Default namespace</p></td>
+<td><p>読み出す側とライブラリ内の変数名やファンクションブロック名が被らないように、該当ライブラリ内のリソースの頭に付ける接頭語を定義します。これをnamespaceと言います。ここではLibraryを読み込んだ際に設定される規定のnamespaceを設定します。Library追加後、任意のnamepspaceを設定できます。</p></td>
+</tr>
+<tr class="row-even"><td><p>Placeholder</p></td>
+<td><p>作成したライブラリを読み込むと、デフォルトでは<code class="docutils literal notranslate"><span class="pre">Title</span></code>に示したPlaceholderが自動作成されて、これにライブラリが紐づきます。任意のPlaceholderを指定したい場合はこの欄で指定します。派生版のライブラリを作成される場合のブランチ名として利用されると良いでしょう。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Author</p></td>
+<td><p>開発者名を記入します。</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>説明を記入します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Global version structure</p></td>
+<td><p>ボタンを押すと読み込んだライブラリに関するバージョン情報をプログラムから参照する事ができるようにグローバル変数を自動生成します。<code class="docutils literal notranslate"><span class="pre">Version</span></code>欄に指定したピリオドで区切られた4つのバージョンの値を順に、<code class="docutils literal notranslate"><span class="pre">iMajor</span></code>,<code class="docutils literal notranslate"><span class="pre">iMinor</span></code>,<code class="docutils literal notranslate"><span class="pre">iBuild</span></code>,<code class="docutils literal notranslate"><span class="pre">iRevision</span></code>で取り出す事ができ、<code class="docutils literal notranslate"><span class="pre">Released</span></code>フラグの有無を<code class="docutils literal notranslate"><span class="pre">nFlags</span></code>で取り出す事ができます。</p></td>
+</tr>
+<tr class="row-even"><td><p>POUs for property access</p></td>
+<td><p>ライブラリのメタ情報を取り出すファンクションを自動生成します。読みだしたライブラリ側では、本画面で設定する、<code class="docutils literal notranslate"><span class="pre">Compay</span></code>,<code class="docutils literal notranslate"><span class="pre">Title</span></code>,<code class="docutils literal notranslate"><span class="pre">Version</span></code>がそれぞれ取り出せます。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Document format</p></td>
+<td><p>開発ドキュメントの記述方式を選択します。<a class="reference internal" href="documentation.html#chapter-documentation"><span class="std std-ref">ライブラリドキュメントの作成</span></a>章のドキュメント記述方式を有効にするため、必ず<code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code>を選択してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>設定内容については、<a class="reference internal" href="#prject-detail-setting"><span class="std std-ref">詳細編</span></a>で詳しく説明します。</p>
+<a class="reference internal image-reference" href="../_images/Properties_Common.png" id="properties-common"><img alt="../_images/Properties_Common.png" class="align-center" id="properties-common" src="../_images/Properties_Common.png" style="width: 500px;" />
+</a>
+</li>
+<li><p>PLC<span class="math notranslate nohighlight">\(&gt;\)</span>Project で右クリックして、<code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as</span> <span class="pre">library</span> <span class="pre">and</span> <span class="pre">install</span> <span class="pre">...</span></code>を選択する。</p>
+<a class="reference internal image-reference" href="../_images/Solution_SaveLibrary.png" id="solution-savelibrary"><img alt="../_images/Solution_SaveLibrary.png" class="align-center" id="solution-savelibrary" src="../_images/Solution_SaveLibrary.png" style="width: 500px;" />
+</a>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as</span> <span class="pre">library</span></code>だけを行った場合、お使いの環境のXAEへのライブラリのインストールは行われません。<a class="reference internal" href="use_library.html#install-library"><span class="std std-ref">ライブラリを読み込む方法</span></a>節で説明するインストール手順を別途実施する必要があります。</p>
+</div>
+</li>
+<li><p>ライブラリを保存する。</p>
+<p>保存形式には次の二つがあります。</p>
+<ul>
+<li><p>library 形式</p>
+<p>ソースファイルのプログラムイメージ。ライブラリを使用する開発者がライブラリを読み込んだ後もソースコードを閲覧し、オンラインモニタする事が可能です。ただしプログラムの変更はできません。</p>
+</li>
+<li><p>compiled-library 形式</p>
+<p>コンパイル済みのプログラムイメージ。ライブラリのソースコードを閲覧する事はできません。</p>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/2023-02-28-08-55-34.png" id="dialog-savelibrary"><img alt="../_images/2023-02-28-08-55-34.png" class="align-center" id="dialog-savelibrary" src="../_images/2023-02-28-08-55-34.png" style="width: 600px;" />
+</a>
+</li>
+</ol>
+</section>
+<section id="prject-detail-setting">
+<span id="id4"></span><h2>詳細編<a class="headerlink" href="#prject-detail-setting" title="Link to this heading">#</a></h2>
+<section id="placeholders">
+<h3>Placeholdersの活用<a class="headerlink" href="#placeholders" title="Link to this heading">#</a></h3>
+<p>Placeholderとは、ひとことでいうとライブラリに対するショートカットです。それぞれのプログラムやライブラリが直接ライブラリと関連付けられるのではなく、仮想化されたショートカットと紐づく事で、設定によって参照するライブラリの実体を柔軟に切り替える事が可能になります。</p>
+<p><a class="reference internal" href="use_library.html#import-library"><span class="std std-ref">プロジェクトへのライブラリの追加</span></a>節で説明するライブラリ追加手順では、暗黙的にライブラリ名と同名のPlaceholderが作成され、このPlaceholderを経由してライブラリ読み込みされます。<a class="reference internal" href="#placeholder-overview"><span class="std std-ref">通常の手順でライブラリ追加されたライブラリマネージャ画面</span></a>の図に示される赤下線で引かれた部分にある<code class="docutils literal notranslate"><span class="pre">=</span></code>の左辺にある文字がPlaceholderです。この<code class="docutils literal notranslate"><span class="pre">=</span></code>の右辺にあるものが実際のライブラリを示していて、<code class="docutils literal notranslate"><span class="pre">ライブラリ名,</span> <span class="pre">バージョン番号（組織名）</span></code>という書式になっています。デフォルトでは、バージョン番号部分は<code class="docutils literal notranslate"><span class="pre">*</span></code>となっていて、常に最新のライブラリバージョンと紐づく仕様となっています。</p>
+<figure class="align-center" id="placeholder-overview">
+<a class="reference internal image-reference" href="../_images/2023-03-02-16-05-14.png"><img alt="../_images/2023-03-02-16-05-14.png" src="../_images/2023-03-02-16-05-14.png" style="width: 800px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.8 </span><span class="caption-text">通常の手順でライブラリ追加されたライブラリマネージャ画面</span><a class="headerlink" href="#placeholder-overview" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>Placeholderを経ずに直接ライブラリを読み込む事は可能ですが、ここでは説明しません。</p>
+</div>
+<p>Placeholderにリンクするライブラリバージョンを切り替える方法は、<a class="reference internal" href="use_library.html#update-library"><span class="std std-ref">ライブラリの更新</span></a>節で示す手順同様、Propertiesの<code class="docutils literal notranslate"><span class="pre">Resolution</span></code>項目で選択します。（<a class="reference internal" href="use_library.html#placeholder-change-resolution"><span class="std std-numref">図 3.7</span></a>図参照）</p>
+<p>次からPlaceholderを活用する方法に代表的な2例に基づいて操作手順を示します。</p>
+<section id="id5">
+<h4>共有ライブラリのバージョンを一斉に切り替える<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<p>複数のライブラリやライブラリを読み込むプログラムで使われているライブラリが共有されるケースがあります。例えば、<a class="reference internal" href="#placeholder-tc3-module-recent-version"><span class="std std-numref">図 3.9</span></a>に示す通り、どのライブラリやプログラムもTc3_Moduleという名前のPlaceholderを使用しており、デフォルトで最新版を使う設定となっています。</p>
+<figure class="align-center" id="placeholder-tc3-module-recent-version">
+<a class="reference internal image-reference" href="../_images/2023-03-02-17-03-24.png"><img alt="../_images/2023-03-02-17-03-24.png" src="../_images/2023-03-02-17-03-24.png" style="width: 1000px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.9 </span><span class="caption-text">Tc3_Module 最新版を使う設定</span><a class="headerlink" href="#placeholder-tc3-module-recent-version" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>このPlaceholderを<a class="reference internal" href="#placeholder-tc3-module-fixed-version"><span class="std std-numref">図 3.10</span></a>のように、PropertyのResolutionで特定バージョンを使う様に設定を変えると、関連するライブラリやプログラム全てが指定したバージョンのものに固定されます。</p>
+<figure class="align-center" id="placeholder-tc3-module-fixed-version">
+<a class="reference internal image-reference" href="../_images/2023-03-02-17-16-54.png"><img alt="../_images/2023-03-02-17-16-54.png" src="../_images/2023-03-02-17-16-54.png" style="width: 1000px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.10 </span><span class="caption-text">Tc3_Module 特定バージョンに固定した設定</span><a class="headerlink" href="#placeholder-tc3-module-fixed-version" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="placeholder">
+<h4>別名のPlaceholderを設定する<a class="headerlink" href="#placeholder" title="Link to this heading">#</a></h4>
+<p>Placeholder名は、デフォルトでライブラリ名と同一のものが自動作成されます。これにより、複数のライブラリが同一のライブラリを共用しても、自動的に同一のPlaceholderが参照される仕組みとなっています。</p>
+<p>今度は、敢えて自動生成せずに任意のPlaceholder名を名付けてライブラリを追加してみます。例として、オリジナルのユーザライブラリである、“IPC Performance to influxDB via TF6420” という名前のライブラリを作成しますが、このライブラリが使う<code class="docutils literal notranslate"><span class="pre">Tc-Module</span></code>ライブラリを、別名のPlaceholderに関連付けてみます。</p>
+<p>次に、このユーザライブラリを使う別のPLCプロジェクトにおいて、ライブラリが使う<code class="docutils literal notranslate"><span class="pre">Tc-Module</span></code>ライブラリとその他が使う<code class="docutils literal notranslate"><span class="pre">Tc-Module</span></code>ライブラリが個別のPlaceholderとなることを確認してみます。</p>
+<p>まずは、「IPC Performance to influxDB via TF6420」ライブラリで別名のPlaceholderで<code class="docutils literal notranslate"><span class="pre">Tc-Module</span></code>ライブラリを追加する手順を示します。</p>
+<ol class="arabic">
+<li><p><a class="reference internal" href="use_library.html#import-library"><span class="std std-ref">プロジェクトへのライブラリの追加</span></a>に示す手順の<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">library</span></code>ウィンドウにて左下の<code class="docutils literal notranslate"><span class="pre">Advanced...</span></code>ボタンを押します。</p>
+<a class="reference internal image-reference" href="../_images/2023-03-02-18-04-27.png"><img alt="../_images/2023-03-02-18-04-27.png" class="align-center" src="../_images/2023-03-02-18-04-27.png" style="width: 500px;" />
+</a>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Placeholders</span></code>タブを開き、<code class="docutils literal notranslate"><span class="pre">Placeholder</span> <span class="pre">name</span></code>のフィールドに新たに命名したい名前を入力します。</p>
+<p>この例として<code class="docutils literal notranslate"><span class="pre">Tc3-Module</span></code>に対する別名であることがわかるように<code class="docutils literal notranslate"><span class="pre">Tc3-Module-fixed-version</span></code>と入力しています。</p>
+<a class="reference internal image-reference" href="../_images/2023-03-02-18-11-37.png"><img alt="../_images/2023-03-02-18-11-37.png" class="align-center" src="../_images/2023-03-02-18-11-37.png" style="width: 500px;" />
+</a>
+</li>
+<li><p>何等かの文字を入力した時点でXAEにインストールされたライブラリが一覧されます。ここから<code class="docutils literal notranslate"><span class="pre">Placeholder</span></code>に関連付けるライブラリを選択します。</p>
+<a class="reference internal image-reference" href="../_images/2023-03-02-18-05-38.png"><img alt="../_images/2023-03-02-18-05-38.png" class="align-center" src="../_images/2023-03-02-18-05-38.png" style="width: 500px;" />
+</a>
+</li>
+<li><p>追加されたライブラリが、<code class="docutils literal notranslate"><span class="pre">Tc3-Module</span></code>ではなく、指定した名前<code class="docutils literal notranslate"><span class="pre">Tc3-Module-fixed-version</span></code>で追加された事がわかります。</p>
+<a class="reference internal image-reference" href="../_images/2023-03-02-18-25-31.png"><img alt="../_images/2023-03-02-18-25-31.png" class="align-center" src="../_images/2023-03-02-18-25-31.png" style="width: 800px;" />
+</a>
+</li>
+</ol>
+<p>上記の手順で作成されたユーザライブラリを追加したPLCプロジェクトのライブラリ構成は、<a class="reference internal" href="#another-placeholder-for-user-library"><span class="std std-numref">図 3.11</span></a>の通りとなります。<code class="docutils literal notranslate"><span class="pre">Tc3_Module</span></code>ライブラリが複数使われていますが、“IPC Performance to influxDB via TF6420” のユーザライブラリで使われている<code class="docutils literal notranslate"><span class="pre">Tc3_Mdoules</span></code>ライブラリだけは、バージョンが固定された状態となっています。</p>
+<figure class="align-center" id="another-placeholder-for-user-library">
+<a class="reference internal image-reference" href="../_images/2023-03-02-18-37-55.png"><img alt="../_images/2023-03-02-18-37-55.png" src="../_images/2023-03-02-18-37-55.png" style="width: 700px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.11 </span><span class="caption-text">別名のPlaceholderで同一ライブラリを読み込ませた例</span><a class="headerlink" href="#another-placeholder-for-user-library" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>このように、一部だけ特定のバージョンを使用したい場合などにPlaceholderで区別する方法があります。</p>
+<div class="admonition-plc admonition">
+<p class="admonition-title">読み込み側のPLCプロジェクトでライブラリが使用するライブラリのバージョンを変更できるか？</p>
+<p>できません。同一のPlaceholderとなっていれば読み込み元の親PLCプロジェクトでリンクを一括変更できました。しかし、固有のPlaceholderとされた場合は、そのPlaceholderを保有するPLCプロジェクトでのみライブラリのバージョンを設定できますので、今回の場合、固有のPlaceholderを持つ読み込み元のライブラリ側で任意のバージョンへリンク設定を変更する必要があります。</p>
+</div>
+</section>
+</section>
+<section id="namespace">
+<h3>Namespace機能の活用<a class="headerlink" href="#namespace" title="Link to this heading">#</a></h3>
+<p>Default namespaceには、ライブラリで使用されるさまざまなリソースに対してユニークとするための名前空間です。</p>
+<p>例えば、Default namespaceに<code class="docutils literal notranslate"><span class="pre">bajp</span></code>と設定します。このライブラリのPOUsでは、MAINというプログラムが使われていました。</p>
+<p>このライブラリを読み込んだPLCプロジェクトにも、MAINという名前のプログラムがある場合、名前が被っています。</p>
+<p>そこで、ライブラリ側のMAINプログラムは、<code class="docutils literal notranslate"><span class="pre">bajp.MAIN();</span></code>と記述することで、ライブラリ内のMAINプログラムを呼び出している事を特定でき、無事実行する事ができます。</p>
+</section>
+<section id="versionreleased">
+<span id="section-about-released-flag"></span><h3>Versionの<code class="docutils literal notranslate"><span class="pre">Released</span></code>チェックについて<a class="headerlink" href="#versionreleased" title="Link to this heading">#</a></h3>
+<p>このチェックを入れることにより、そのあとプログラム変更を行おうとした際に<a class="reference internal" href="#released-flag-warning"><span class="std std-numref">図 3.12</span></a>のような警告メッセージが出現します。<code class="docutils literal notranslate"><span class="pre">Released</span></code>チェックが付けられていてもプログラム変更を禁止するのではなく、単なる警告のみです。ここで<code class="docutils literal notranslate"><span class="pre">Yes</span></code>ボタンを押すと<code class="docutils literal notranslate"><span class="pre">Released</span></code>チェックが自動的に外れます。</p>
+<figure class="align-center" id="released-flag-warning">
+<a class="reference internal image-reference" href="../_images/2023-03-02-17-31-59.png"><img alt="../_images/2023-03-02-17-31-59.png" src="../_images/2023-03-02-17-31-59.png" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.12 </span><span class="caption-text">Released チェックのPLCプロジェクトに変更を与えようとした際の警告ダイアログ</span><a class="headerlink" href="#released-flag-warning" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="section-library-category">
+<span id="id6"></span><h3>カテゴリの登録<a class="headerlink" href="#section-library-category" title="Link to this heading">#</a></h3>
+<p>ライブラリ作成元となるPLCプロジェクトのpropertyの設定の中で、<code class="docutils literal notranslate"><span class="pre">Library</span> <span class="pre">Categories</span></code>という設定項目があります。この項目を未設定のままにしておくと、<a class="reference internal" href="use_library.html#libraryrepository-installedlibrary"><span class="std std-numref">図 3.6</span></a>の例に示すように、全て<code class="docutils literal notranslate"><span class="pre">Miscellaneous</span></code>（その他）という項目に所属します。</p>
+<p>ここでは任意のカテゴリーツリーを生成し、ライブラリ化した際にどのカテゴリに所属させるかの設定までの手順について説明します。</p>
+<ol class="arabic">
+<li><p>以下のサイトからカテゴリのオブジェクトIDであるUUIDを生成します。<code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">some</span> <span class="pre">GUIDs!</span></code>ボタンを押したらフォーム上にUUIDが生成されますので、そのあと<code class="docutils literal notranslate"><span class="pre">Copy</span> <span class="pre">to</span> <span class="pre">Clipboard</span></code>ボタンを押してください。サブカテゴリーが必要な場合は2つ生成してください。</p>
+<p><a class="reference external" href="https://guidgenerator.com/online-guid-generator.aspx">https://guidgenerator.com/online-guid-generator.aspx</a></p>
+</li>
+<li><p>以下のXMLのうち、<code class="docutils literal notranslate"><span class="pre">Id</span></code>タグ部分をクリップボードにコピーしたUUIDに置換し、<code class="docutils literal notranslate"><span class="pre">DefaultName</span></code>にカテゴリ名を定義します。</p>
+<p>次の例に示す通り、<code class="docutils literal notranslate"><span class="pre">ParentCategory</span></code>に親カテゴリの<code class="docutils literal notranslate"><span class="pre">Id</span></code>を関連付けて定義することで、ツリー構造を定義することができます。不要であれば二つ目以後の<code class="docutils literal notranslate"><span class="pre">LibraryCategory</span></code>タグ要素は全て削除してください。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;LibraryCategories</span><span class="w"> </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="w"> </span><span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">&quot;LibraryCategories.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;LibraryCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Id&gt;</span>f484dac6-21b6-4d52-a832-fa3cc2ceea83<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Version&gt;</span>1.0.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DefaultName&gt;</span>Beckhoff-JP<span class="nt">&lt;/DefaultName&gt;</span><span class="w">  </span>
+<span class="w">    </span><span class="nt">&lt;/LibraryCategory&gt;</span>
+<span class="w">    </span><span class="nt">&lt;LibraryCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Id&gt;</span>e42e9899-3114-40a3-911f-5f44e2769932<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Version&gt;</span>1.0.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ParentCategory&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Id&gt;</span>f484dac6-21b6-4d52-a832-fa3cc2ceea83<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/ParentCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DefaultName&gt;</span>SystemDiagnostics<span class="nt">&lt;/DefaultName&gt;</span>
+<span class="w">    </span><span class="nt">&lt;LibraryCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Id&gt;</span>1547e2ea-7ffb-4c94-becc-56f97d1a03bd<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Version&gt;</span>1.0.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ParentCategory&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Id&gt;</span>e42e9899-3114-40a3-911f-5f44e2769932<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/ParentCategory&gt;</span>
+<span class="w">    </span><span class="nt">&lt;DefaultName&gt;</span>IPCPerformance<span class="nt">&lt;/DefaultName&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/LibraryCategory&gt;</span>
+<span class="w">            </span><span class="nt">&lt;LibraryCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Id&gt;</span>ebb42e0a-ab3e-4c49-880e-9e854060901d<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Version&gt;</span>1.0.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ParentCategory&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Id&gt;</span>f484dac6-21b6-4d52-a832-fa3cc2ceea83<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/ParentCategory&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DefaultName&gt;</span>Utility<span class="nt">&lt;/DefaultName&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/LibraryCategory&gt;</span>
+<span class="nt">&lt;/LibraryCategories&gt;</span>
+</pre></div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">警告</p>
+<p>登録に使った*.libcat.xmlファイルは大切に保管しておいてください。運用中にカテゴリを追加・削除したい場合に一部の要素のみ更新する機能がありません。カテゴリ定義全体を都度読み込ませる必要があります。</p>
+<p>万が一紛失してしまった場合、TwinCATのPLCプロジェクト内のファイルから、既存のカテゴリのUUIDが何かを調べる方法があります。以下のフォルダ構成の中にある*.plcprojファイルを探します。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;&lt;TwinCATプロジェクト名&gt;&gt;/&lt;&lt;PLCプロジェクト名&gt;&gt;/&lt;&lt;PLCプロジェクト名&gt;&gt;.plcproj
+</pre></div>
+</div>
+<p>このファイルをUTF-8で編集可能なXMLテキストエディタで開いてください。下記の<code class="docutils literal notranslate"><span class="pre">LibraryCategoriy</span></code>の中の<code class="docutils literal notranslate"><span class="pre">Id</span></code>タグを探して、登録済みのカテゴリのメタデータを調べ、本手順書のフォーマットに従って再作成してください。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Project</span><span class="w"> </span><span class="na">DefaultTargets=</span><span class="s">&quot;Build&quot;</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;PropertyGroup&gt;</span>
+:
+:
+<span class="nt">&lt;LibraryCategories&gt;</span>
+<span class="w">    </span><span class="nt">&lt;LibraryCategory</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Id&gt;</span>{f484dac6-21b6-4d52-a832-fa3cc2ceea83}<span class="nt">&lt;/Id&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Version&gt;</span>1.0.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DefaultName&gt;</span>Beckhoff-JP<span class="nt">&lt;/DefaultName&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/LibraryCategory&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/LibraryCategories&gt;</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*.libcat.xml</span></code>というファイル名で、UTF-8エンコードしたテキストファイルで保存します。（<code class="docutils literal notranslate"><span class="pre">*</span></code>部分は任意の名前）</p></li>
+<li><p>保存したファイルを読み込むには<a class="reference internal" href="#add-category-procedure"><span class="std std-numref">図 3.13</span></a>の図の通り次の手順を実施します。</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#library-making-basic"><span class="std std-ref">TwinCATプロジェクトからライブラリを作る手順</span></a>で示したProperty設定にて、<code class="docutils literal notranslate"><span class="pre">Library</span> <span class="pre">Categories</span></code>設定項目右端にあるボタンを押します。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Library</span> <span class="pre">Category</span></code>ウィンドウが現れます。右側の<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">&gt;</span></code>ボタンを押して現れるメニューから<code class="docutils literal notranslate"><span class="pre">From</span> <span class="pre">Decription</span> <span class="pre">File...</span></code>ボタンを押します。エクスプローラが現れますので、先ほど保存した*.libcat.xmlファイルを選択して読み込みます。</p></li>
+<li><p><a class="reference internal" href="#add-category-procedure"><span class="std std-numref">図 3.13</span></a>の図の下部ウィンドウに示す通り、XMLに定義されたカテゴリーツリーが一覧されます。初期状態では全てにチェックが入っていますので、一度<code class="docutils literal notranslate"><span class="pre">None</span></code>を押して全てチェックを外します。</p></li>
+<li><p>現在のPLCプロジェクトの提供する機能が含まれる末端のカテゴリだけにチェックを入れます。</p></li>
+<li><p>OKボタンを押します。</p></li>
+</ol>
+<figure class="align-center" id="add-category-procedure">
+<a class="reference internal image-reference" href="../_images/2023-02-28-11-41-44.png"><img alt="../_images/2023-02-28-11-41-44.png" src="../_images/2023-02-28-11-41-44.png" style="width: 800px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.13 </span><span class="caption-text">カテゴリの登録操作</span><a class="headerlink" href="#add-category-procedure" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>選択されたカテゴリが一覧されたのを確認し、OKボタンを押してください。</p>
+<a class="reference internal image-reference" href="../_images/2023-02-28-11-43-30.png"><img alt="../_images/2023-02-28-11-43-30.png" class="align-center" src="../_images/2023-02-28-11-43-30.png" style="width: 500px;" />
+</a>
+</li>
+<li><p><a class="reference internal" href="use_library.html#install-library"><span class="std std-ref">ライブラリを読み込む方法</span></a>節に示す手順を実施する際にライブラリをインストールすると、<a class="reference internal" href="#install-library-with-category"><span class="std std-numref">図 3.14</span></a>図の通りのカテゴリに一覧された状態で配置されます。複数個所に一覧されますが実態は同じです。</p>
+<figure class="align-center" id="install-library-with-category">
+<a class="reference internal image-reference" href="../_images/2023-02-28-11-47-23.png"><img alt="../_images/2023-02-28-11-47-23.png" src="../_images/2023-02-28-11-47-23.png" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 3.14 </span><span class="caption-text">カテゴリツリーに登録されたライブラリ</span><a class="headerlink" href="#install-library-with-category" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+<div class="note admonition">
+<p class="admonition-title">複数カテゴリへ登録するケース</p>
+<p>開発者がプログラム機能を流用する場合には、分類された機能の種類から関連プログラム部品を探します。対して、すでに稼働しているPLCプロジェクトには、通常さまざまな種類の機能が組み合わされた状態になっています。</p>
+<p>すでに稼働しているPLCプロジェクトを基にライブラリ化する場合、このプロジェクトに含まれる機能全ての分類カテゴリに含まれるように登録します。これにより開発者は目的とする機能が使われているプログラムオブジェクトをすぐに見つけることが容易になります。</p>
+<p>この節で示す例では、タスク実行時間やCPUの占有率など、IPCのパフォーマンスメトリクスを収集するファンクションブロックと、そのデータをTF6420 Database serverを使ってInfluxDBへ記録するPLCプロジェクトをそのままライブラリ化しました。このため、<code class="docutils literal notranslate"><span class="pre">IPCPerformance</span></code>というカテゴリと、<code class="docutils literal notranslate"><span class="pre">InfluxDB</span></code>というカテゴリ両方に所属させる事で、どちらの用途からも機能を再利用する事が可能になっています。</p>
+<p>ただし、手間を惜しまないのであれば、出来る限り単一の機能にライブラリを分割するのが望ましいです。プログラムの同士の機能の独立性が低いことで、一部の機能の修正により関係ない機能まで影響を受ける事となり、品質面への影響やテスト工数などの管理面での副次的なコストが大きくなるためです。</p>
+<p>とはいえ、動作実績のあるプログラムをそのままライブラリ化する事にも価値があります。なにより既存のPLCプロジェクトをそのままライブラリ化すれば良いだけなので手間がほどんど要りません。また、<a class="reference internal" href="documentation.html#chapter-documentation"><span class="std std-ref">ライブラリドキュメントの作成</span></a>に示すreStructuredTextによるライブラリドキュメント機能を活用することでプログラム実装例の参考にも大いに役立ち、早期に開発者間での技術情報共有が可能になります。</p>
+<p>長期的にはライブラリを単一機能まで分割する「リファクタリング」は欠かせません。しかしこの過渡状態でも流用したいモジュールは多分にあります。そういった場面においてカテゴリやPlaceholderで区別するなどの工夫により、より柔軟な運用が可能になるでしょう。</p>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="use_library.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">ライブラリを読み込んで使う</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="documentation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">ライブラリドキュメントの作成</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">事前準備（ライブラリプロジェクトの作成）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-parameter">ライブラリパラメータの設定方法</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#twincat">TwinCATプロジェクトからライブラリを作る手順</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prject-detail-setting">詳細編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placeholders">Placeholdersの活用</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">共有ライブラリのバージョンを一斉に切り替える</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placeholder">別名のPlaceholderを設定する</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#namespace">Namespace機能の活用</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#versionreleased">Versionの<code class="docutils literal notranslate"><span class="pre">Released</span></code>チェックについて</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-library-category">カテゴリの登録</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1059 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TF6100 OPC UA Server &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'opcua/opcua_server';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="TF6100 OPC UA Client" href="opcua_client.html" />
+    <link rel="prev" title="6.2. OPC UA" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">6.2. OPC UA</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/opcua/opcua_server.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Fopcua/opcua_server.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/opcua/opcua_server.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TF6100 OPC UA Server</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">インストール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">初期設定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opc-uaplc">OPC UAサーバ側のPLCプロジェクトの作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipc">IPCのファイヤウォール設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opc-ua-configurator">OPC UA Configuratorとの接続設定とサーバの初期化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configurator">Configuratorプロジェクトの追加</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">サーバ接続設定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">サーバの構成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#da">DA（データアクセス）の設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#os">OS認証によるユーザの追加</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">接続確認</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tf6100-opc-ua-server">
+<h1>TF6100 OPC UA Server<a class="headerlink" href="#tf6100-opc-ua-server" title="Link to this heading">#</a></h1>
+<p>TF6100 OPC UA Serverを用いた接続方法は次の2通りあります。</p>
+<dl class="simple myst">
+<dt>直接接続</dt><dd><p>個々のIPCにサーバ機能があり、クライアントは個々のIPCのサーバへ直接アクセスします。<img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_server/Images/png/9007214817471883__Web.png" /></p>
+</dd>
+<dt>エッジPC経由の接続</dt><dd><p>個々のIPCにADSで接続したエッジPC内にゲートウェイを設置します。クライアントはゲートウェイを経由して個々のIPCのデータにアクセスします。<img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_server/Images/png/9007214877605003__Web.png" /></p>
+</dd>
+</dl>
+<p>エッジPC経由を用いた接続方法は、IPC毎にTF6100のライセンスが必要ないので経済的ではありますが、エッジサーバに対する負荷が大きく、特にIPCの台数が増えるほどIPCとゲートウェイ間の通信量が増し、エッジPCにも多くのメモリを要します。また、エンドポイントIPCのPLCのプログラムコード変更に伴い、都度ゲートウェイとの間でシンボルリストの交換が必要になり、保守上の手間が増えます。</p>
+<p>ここでは、個々のIPCにサーバ機能を搭載し、直接接続する手順について説明します。</p>
+<section id="id1">
+<h2>インストール<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>次のコンポーネントを個々にインストールしてください。</p>
+<dl class="simple myst">
+<dt>開発環境（XAE）側にインストールするもの</dt><dd><ul class="simple">
+<li><p>Engineering - TF6100 | TwinCAT 3 OPC UA Server</p></li>
+<li><p>Engineering - TF6100 | TwinCAT 3 OPC UA Configurator</p></li>
+</ul>
+</dd>
+<dt>IPC（XAR）側にインストールするもの</dt><dd><ul class="simple">
+<li><p>Runtime - TF6100 | TwinCAT 3 OPC UA Server（全てのエッジ・サーバ）</p></li>
+<li><p>Runtime - TF6100 | TwinCAT 3 OPC UA Gateway　（ゲートウェイマシンのみ）</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>初期設定<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="opc-uaplc">
+<span id="section-opcua-server-plc-project"></span><h3>OPC UAサーバ側のPLCプロジェクトの作成<a class="headerlink" href="#opc-uaplc" title="Link to this heading">#</a></h3>
+<p>ライセンスを有効にします。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_server/Images/png/9007214874888331__Web.png" /></p>
+<p>OPC UAによるデータアクセスを許可したいPLC変数宣言部に以下のとおり attributeを設定します。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">OPC.UA.DA</span><span class="s1">&#39;</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span><span class="p">}</span>
+<span class="n">nMyCounter</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">INT</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>より詳しいプログラム方法については以下のInfoSysをご覧ください。</p>
+<p><a class="reference external" href="https://infosys.beckhoff.com/content/1033/ts6100_tc2_opcua_server/15620470667.html?id=7253220225871226637">https://infosys.beckhoff.com/content/1033/ts6100_tc2_opcua_server/15620470667.html?id=7253220225871226637</a></p>
+</div>
+<p>PLCプロジェクトの Settingsにて、Target Files内の<code class="docutils literal notranslate"><span class="pre">TMC</span> <span class="pre">File</span></code>にチェックを入れます。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_server/Images/jpg/9007200001209355__Web.jpg" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>OPC UA Serverは、TwinCATと通信するためにADSを用いてデータ収集します。この際、PLCプロジェクト内にあるシンボル一覧の定義ファイルを参照します。これが<code class="docutils literal notranslate"><span class="pre">Port_851.tmc</span></code>ファイルです。このファイルはTarget FilesのTMC Fileにチェックを入れたプロジェクトをActive Configurationした際、IPC内の以下のパスへ生成します。 OPC UA Serverはこのファイルを参照してシンボル情報モデルをクライアントへ提供します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">TwinCAT</span>\<span class="mf">3.1</span>\<span class="n">Boot</span>\<span class="n">Plc</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-opc-ua admonition">
+<p class="admonition-title">OPC UAサーバのサンプルコードについて</p>
+<p>OPC UAのサーバ設定済みのTwinCATのサンプルコードは以下で取得できます。この中の、<code class="docutils literal notranslate"><span class="pre">TF6100_OpcUa_Server_Sample</span></code>をXAEで開いてください。</p>
+<p><a class="github reference external" href="https://github.com/Beckhoff/TF6100_Samples">Beckhoff/TF6100_Samples</a></p>
+</div>
+</section>
+<section id="ipc">
+<h3>IPCのファイヤウォール設定<a class="headerlink" href="#ipc" title="Link to this heading">#</a></h3>
+<p>IPCのファイヤウォール設定にて、TCPプロトコルポート 4840 の外部アクセスを有効にします。</p>
+<p><img alt="" class="align-center" src="../_images/2025-01-31-18-59-24.png" /></p>
+</section>
+<section id="opc-ua-configurator">
+<h3>OPC UA Configuratorとの接続設定とサーバの初期化<a class="headerlink" href="#opc-ua-configurator" title="Link to this heading">#</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">前提条件</p>
+<p>OPC UA Configuratorは、<a class="reference external" href="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/15555668491.html?id=1251015389796173606">スタンドアロンアプリケーション</a>として起動する方法と、<a class="reference external" href="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/15555215755.html?id=7151566535546389617">XAE Visual Studio上でConfiguratorのプロジェクトとして構成する方法</a>の二通りがあります。本節では後者の手順でサーバ構成手順をご説明します。</p>
+</div>
+<section id="configurator">
+<h4>Configuratorプロジェクトの追加<a class="headerlink" href="#configurator" title="Link to this heading">#</a></h4>
+<p>Solutionプロジェクトの最上位から、<code class="docutils literal notranslate"><span class="pre">Add</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Project...</span></code>を選択します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-01-31-19-04-41.png" /></p>
+<p>Connectivity Projectを新規生成します。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/4417261835__Web.png" /></p>
+<p>OPC UA Server Projectを新規生成します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-13-27-31.png" /></p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/4417263499__Web.png" /></p>
+</section>
+<section id="id3">
+<h4>サーバ接続設定<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p>ターゲットIPCのIPアドレスを調べます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-01-31-15-33-05.png" /></p>
+<p><img alt="" class="align-center" src="../_images/2025-01-31-15-35-08.png" /></p>
+<p>ターゲットIPCのIPアドレスが、<code class="docutils literal notranslate"><span class="pre">169.254.233.34</span></code>であることが分かります。次に、ツールバーにOPC UA Configuratorの表示を有効にします。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597390091__Web.png" /></p>
+<p>追加されたOPC UA Configurator のツールバーから次の操作を行います。</p>
+<ol class="arabic">
+<li><p>Serverlist選択フィールドから、<code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">Serverlist</span></code>を選択してください。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597420171__Web.png" /></p>
+</li>
+<li><p>現われた Server configuration ウィンドウ左下の<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Server</span></code>ボタンを押すとEndpoint configurationウィンドウが現われます。次を入力してください。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597421835__Web.png" /></p>
+<dl class="simple myst">
+<dt>UaServer URL</dt><dd><p>デフォルトが<code class="docutils literal notranslate"><span class="pre">opc.tcp://&lt;XAEのホスト名&gt;:4840</span></code>の<code class="docutils literal notranslate"><span class="pre">&lt;XAEのホスト名&gt;</span></code>部分を接続先IPCのホスト名に変更する。ホスト名がDNSにより解決されていない場合は、IPアドレスにします。<code class="docutils literal notranslate"><span class="pre">169.254.233.34</span></code>の例では、<code class="docutils literal notranslate"><span class="pre">opc.tcp://169.254.233.34:4840</span></code>としてください。</p>
+</dd>
+<dt>Endpoint</dt><dd><p>セレクトフィールドをクリックすると自動的に接続確認を行い、エンドポイント一覧されます。この際、IPCに設定されたコンピュータ名ではなく、IPアドレスでアクセスした場合は次の通り警告が現われます。<code class="docutils literal notranslate"><span class="pre">はい(Y)</span></code>を選択してください。</p>
+</dd>
+<dd><p><img alt="" class="align-center" src="../_images/2025-01-31-19-16-56.png" /></p>
+</dd>
+</dl>
+<p>設定が済むと次の通りとなります。その他は設定せず、<code class="docutils literal notranslate"><span class="pre">OK</span></code>ボタンを押してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-01-31-19-30-09.png" /></p>
+</li>
+<li><p>次の通りServer configurationに設定が一覧されます。<code class="docutils literal notranslate"><span class="pre">OK</span></code>ボタンを押してウィンドウを閉じてください。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597423499__Web.png" /></p>
+</li>
+</ol>
+<p>これまでの手順にてサーバ設定が完了したら、OPC UA Server ツールバーの<code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">Serverlist</span></code>選択フィールドは、設定したサーバが選択可能になります。サーバを追加して、右隣にある<code class="docutils literal notranslate"><span class="pre">Connect</span></code>ボタンを押してください。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597425163__Web.png" /></p>
+<p>初回接続時に未初期化状態のサーバを検出すると、次の通り初期化ウィンドウが現われます。IPCのOSのログインユーザとしてOPC UAサーバ管理者として扱うアカウントのユーザ名、パスワードを入力してOKボタンを押します。OPC UA用の管理者アカウントですので、必ずしもOSの管理者権限（rootやAdministratorsグループユーザ）である必要はありません。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/9007210597486731__Web.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Windows搭載のIPCの場合、初期のアカウントはAdministratorです。Administratorは全ての管理権限を持ちますので、仮にOPC UAの認証にOS認証を用いると、このアカウントを踏み台にしてOPC UA以外のリソースに対して全て権限が許された状態となります。</p>
+<p>よって、より優れたセキュリティポリシーとして、OPC UAなどのサービス毎に個別の適切な権限のアカウントをWindows上にユーザ登録し、このアカウントを用いてサーバアクセスすることをお勧めします。</p>
+</div>
+<p>この後、再度<code class="docutils literal notranslate"><span class="pre">Connect</span></code>ボタンを押して、設定したユーザとパスワードにてログインを行ってください。</p>
+<p>認証が通過すると、最初にサーバ側の設定をConfiguratorプロジェクトにロードするかどうかダイアログが現われます。<code class="docutils literal notranslate"><span class="pre">はい(Y)</span></code>を選択してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-13-38-35.png" /></p>
+<p>サーバ側の設定を、Configuratiorプロジェクトにどのようにロードするか確認ダイアログが現われます。Configuratorプロジェクトの設定は保持しつつ、サーバ側の設定をマージする場合は<code class="docutils literal notranslate"><span class="pre">いいえ(N)</span></code>を、完全にサーバの設定で上書きする場合は<code class="docutils literal notranslate"><span class="pre">はい(Y)</span></code>を押します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-13-38-49.png" /></p>
+<p>これにより以下の通りセキュリティのみ設定されたプロジェクトがXAE上に展開されます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-15-08-39.png" /></p>
+</section>
+</section>
+</section>
+<section id="id4">
+<h2>サーバの構成<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>この節以後で、XAE上のConfiguratorプロジェクトでOPC UA Serverの設定を構成します。設定した内容をOPC UA Serverへ反映するには、次図の通りActivateボタンを押して反映させてください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-59-57.png" /></p>
+<section id="da">
+<h3>DA（データアクセス）の設定<a class="headerlink" href="#da" title="Link to this heading">#</a></h3>
+<p>初期化されたOPC UA ServerはデフォルトでPort 851のPLCモジュールのDAがPLC1として構成されています。よって本節の手順は通常実施不要です。</p>
+<p>同様の構成手順を手動で行う方法について説明します。複数PLCインスタンスがある場合は、この手順にて追加を行ってください。ここでは一つ目のPLCインスタンスであるPort 851として説明を進めます。</p>
+<p>まずあらかじめ、対象のPLCプロジェクトのTMCファイル設定でPort_851.tmcファイルが出力されるように設定します。設定方法は<a class="reference internal" href="#section-opcua-server-plc-project"><span class="std std-ref">OPC UAサーバ側のPLCプロジェクトの作成</span></a>をご覧ください。このファイルを介してPLCのシンボルをサーバとして共有する設定を行います。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Access</span></code>ツリーのコンテキストメニューから、<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">new</span> <span class="pre">Device</span> <span class="pre">Type</span></code>を指定します。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/4417456011__Web.png" /></p>
+<p>次のようなダイアログが出現します。</p>
+<p><img alt="" class="align-center" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_configurator/Images/png/4417457675__Web.png" /></p>
+<p>概ねデフォルトのままで構いません。AMS Net IDはOPC UAサーバをターゲットIPCと別のIPCに設置した場合のみターゲットとなるTwinCATのNetIDを指定してください。IPC上のローカルにOPC UA Serverをインストールされている場合は、<code class="docutils literal notranslate"><span class="pre">127.0.0.1.1.1</span></code>のままで結構です。</p>
+<p>Ads Portは、単一のPLCプロジェクトの場合<code class="docutils literal notranslate"><span class="pre">851</span></code>で構いません。複数起ち上げている場合、個別のADSポート番号を指定してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-15-35-24.png" /></p>
+</section>
+<section id="os">
+<span id="opc-ua-server-authenticate-by-os"></span><h3>OS認証によるユーザの追加<a class="headerlink" href="#os" title="Link to this heading">#</a></h3>
+<p>IPCのOSに登録したユーザアカウントを基に認証を行う方式でOPC UAサーバに接続するユーザを追加する手順について説明します。</p>
+<p>最初にコンピュータの管理を起動します。</p>
+<p><a class="reference internal" href="../_images/2025-02-03-16-10-24.png"><img alt="" class="align-center" src="../_images/2025-02-03-16-10-24.png" style="width: 300px;" /></a></p>
+<p>ユーザの追加を行います。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-11-34.png" /></p>
+<p>OPC UAで接続するユーザ名を登録します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-19-50.png" /></p>
+<p>必要に応じて権限グループを選択してください。何も無ければUsersのままとしてください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-22-47.png" /></p>
+<p>続いて、XAEにてユーザ追加を行います。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-30-31.png" /></p>
+<p>ユーザ情報を入力します。次の通り設定してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-36-36.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 20.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>設定項目</p></th>
+<th class="head"><p>推奨値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Authentication</p></td>
+<td><p>OS</p></td>
+<td><p>認証する先のシステムを指定します。OS : OSアカウント、X.509: 証明書ファイル、Server : OPC UAサーバ内に格納したユーザ、パスワードの何れかを選択できます。</p></td>
+</tr>
+<tr class="row-odd"><td><p>IsRoot</p></td>
+<td><p>False</p></td>
+<td><p>OPC UA Serverのシステム管理者かどうかを指定します。本節のユーザ追加の目的は、通常の運用ユーザとしてのアカウント追加なので、Falseとします。</p></td>
+</tr>
+<tr class="row-even"><td><p>MemberOf</p></td>
+<td><p>Users</p></td>
+<td><p>ユーザグループ設定。OPC UA ServerにはTwinCATのリソースにアクセスする権限設定が細かく設定可能になっています。この権限レベルが初期化時のデフォルトとして、Administrators, Users, Guestの3段階で設定されています。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Password</p></td>
+<td><p><strong>Authentication が Server 以外では必ず未設定とすること</strong></p></td>
+<td><p>OPC UA側にストアされるパスワード文字列です。Authenticationで設定する認証方式がServerの時のみ使用します。IPC内の設定ファイルには平文でパスワード文字列が保存される仕様ですので、Server認証以外の場合は絶対に空白にしてください。</p></td>
+</tr>
+<tr class="row-even"><td><p>Username</p></td>
+<td><p>Windowsに設定したユーザ名</p></td>
+<td><p>OPC UAサーバは、Windowsに対してこのユーザ名でパスワード認証を行います。存在しないユーザ名は指定しないでください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>OS認証とすることで、Windows側にも同じユーザ名のアカウント登録が必要であることを警告するダイアログが発生します。OKボタンを押してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-16-57-26.png" /></p>
+<div class="admonition-opc-ua admonition">
+<p class="admonition-title">OPC UA サーバの認証定義ファイル</p>
+<p>TF6100のOPC UAサーバにより追加されたユーザは、サーバとなるIPCの以下のファイルに記録されます。（Windowsの場合）</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>winCAT<span class="se">\F</span>unctions<span class="se">\T</span>F6100-OPC-UA<span class="se">\&lt;</span>platform名&gt;<span class="se">\S</span>erver<span class="se">\T</span>cUaSecurityConfig.xml
+</pre></div>
+</div>
+<p>XAEのConfiguratorでユーザを以下の通り設定されているとします。</p>
+<p><img alt="" class="align-center" src="../_images/2025-02-03-13-47-43.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">TcUaSecurityConfig.xml</span></code>内のUsersエントリにて次の通り登録されています。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-number">リスト 6.1 </span><span class="caption-text">TcUaSecurityConfig.xml のユーザ定義部</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">&lt;Users&gt;</span>
+<span class="w">    </span><span class="nt">&lt;User</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;Administrator&quot;</span><span class="w"> </span><span class="na">Auth=</span><span class="s">&quot;OS&quot;</span><span class="w"> </span><span class="na">Password=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">IsRoot=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">MemberOf=</span><span class="s">&quot;Administrators&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;User</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;TestUser&quot;</span><span class="w"> </span><span class="na">Auth=</span><span class="s">&quot;Server&quot;</span><span class="w"> </span><span class="na">Password=</span><span class="s">&quot;1234&quot;</span><span class="w"> </span><span class="na">IsRoot=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">MemberOf=</span><span class="s">&quot;Administrators&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Users&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>認証方式（Administration）設定は、Server, OS, X.509の3通りがあります。Serverの場合は、上記TestUserにあるような平文で保存されたパスワードによる認証が行われます。X.509による証明書による認証か、OSによるユーザ、パスワード認証の場合は、このPasswordエントリは参照しません。セキュリティの観点から平文でのパスワード文字列記録は推奨しません。認証方式はServerを使わず、OSまたは証明書による認証としていただくことを推奨します。</p>
+<p>また、このPasswordエントリはAdministrationの設定に関係なく入力した文字列が反映されます。Server認証以外はPassword設定欄は必ず空のままとしてください。</p>
+</div>
+</section>
+<section id="id5">
+<h3>接続確認<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Sample client（テスト用クライアント）の起動</p>
+<p>Sample clientは、OPC UA Configuratorに同梱されるテスト用のクライアントソフトウェアです。</p>
+<p><img alt="" src="https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_server/Images/png/9007214874890763__Web.png" /></p>
+</li>
+<li><p>接続先のURLを入力して、左端の<code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Endpoints</span></code>ボタンを押します。<img alt="" class="align-center" src="../_images/2025-02-03-17-48-51.png" /></p></li>
+<li><p>サーバが提供する暗号レベルから一つを選び、<code class="docutils literal notranslate"><span class="pre">Connect</span></code>ボタンを押します。<img alt="" class="align-center" src="../_images/2025-02-03-17-51-02.png" /></p></li>
+<li><p><a class="reference internal" href="#opc-ua-server-authenticate-by-os"><span class="std std-ref">OS認証によるユーザの追加</span></a>で追加したアカウントのユーザ名とパスワードを設定してOKボタンをおしてください。<img alt="" class="align-center" src="../_images/2025-02-03-17-52-06.png" /></p></li>
+<li><p>認証が許可されて接続が成功すると、BrowserツリーにDAリソースが一覧されます。<img alt="" class="align-center" src="../_images/2025-02-03-17-57-30.png" /></p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>OPC UA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="opcua_client.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">TF6100 OPC UA Client</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">インストール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">初期設定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opc-uaplc">OPC UAサーバ側のPLCプロジェクトの作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipc">IPCのファイヤウォール設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opc-ua-configurator">OPC UA Configuratorとの接続設定とサーバの初期化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configurator">Configuratorプロジェクトの追加</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">サーバ接続設定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">サーバの構成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#da">DA（データアクセス）の設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#os">OS認証によるユーザの追加</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">接続確認</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

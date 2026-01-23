@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>概要 &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=4755f45a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'xplanar/basic/index';</script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="開発手順" href="../startup/index.html" />
+    <link rel="prev" title="5.3. XPlanar" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../develop_motion.html">5. 開発編（モーション）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">5.3. XPlanar</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/xplanar/basic/index.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Fxplanar/basic/index.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/xplanar/basic/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>概要</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">仕様</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">部品構成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">タイル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ケーブル類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">可動子</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">制御仕様</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">動作指令方法の種類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">タスクとリソース</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tccom">モーションTcCOMモジュールについて</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xplanar-utility">XPlanar Utility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">衝突回避機能</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ソフトウェアとライセンス</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>概要<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>XPlanarに関する概要についてご紹介します。事前にお知りいただく事でスムーズな開発が可能となります。詳細は、以下の取り扱い説明書をご覧ください。</p>
+<dl class="simple myst">
+<dt>取扱説明書</dt><dd><p><a class="reference external" href="https://download.beckhoff.com/download/document/motion/xplanar_ba_ja.pdf">https://download.beckhoff.com/download/document/motion/xplanar_ba_ja.pdf</a></p>
+</dd>
+</dl>
+<section id="id2">
+<h2>仕様<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>位置決め精度、速度などの諸元は以下の通りです。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>動作範囲</p></th>
+<th class="head"><p>繰り返し精度</p></th>
+<th class="head"><p>単位分解能</p></th>
+<th class="head"><p>最高速度</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X\)</span></p></td>
+<td><p>タイル数に依存</p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 10 \mu m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 1 \mu m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2m/s\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(Y\)</span></p></td>
+<td><p>タイル数に依存</p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 10 \mu m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 1 \mu m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2m/s\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(Z\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2 \sim 5 mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 10 \mu m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 1 \mu m\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(a (\theta x)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm\)</span>5<span class="math notranslate nohighlight">\(^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.03 ^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.01 ^\circ\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(b (\theta y)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm\)</span>5<span class="math notranslate nohighlight">\(^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.03 ^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.01 ^\circ\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(c (\theta z)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm\)</span>5<span class="math notranslate nohighlight">\(^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.03 ^\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pm 0.01 ^\circ\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>最大接続可能タイル数は、EtherCAT G マスタにつき10枚までです。</p></li>
+<li><p>最大実装可能EtherCAT G マスタ数は10個までです。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>部品構成<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>タイル<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><dl class="simple myst">
+<dt>型番</dt><dd><p>APS4322-0000-0000青色</p>
+</dd>
+<dd><p>M6サイズの６つの取り付け用ホールを使用してタイルとマシンベッドを固定</p>
+</dd>
+<dt>赤色</dt><dd><p>２つの位置決めピンによるタイル配置</p>
+</dd>
+<dt>緑色</dt><dd><p>冷却ファンも取り付け</p>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-11-19-29.png" /></p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple myst">
+<dt>コネクタ</dt><dd><dl class="simple myst">
+<dt>X100</dt><dd><ul class="simple">
+<li><p>駆動用 AC<span class="math notranslate nohighlight">\(100 \sim 230V 16A\)</span></p></li>
+<li><p>制御用 DC<span class="math notranslate nohighlight">\(24V 0.5A\)</span></p></li>
+</ul>
+</dd>
+<dt>X103</dt><dd><p>冷却ファン DC<span class="math notranslate nohighlight">\(24V\)</span>, 外部信号用</p>
+</dd>
+<dt>X101 / X102</dt><dd><p>EtherCAT G in/out</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-11-33-11.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>TwinCAT 上では Parts と表現される。</p></li>
+<li><p>各 Tile 毎に個別のシリアル番号(BTN)が割り振られています。プログラムの設定に使用する。装置を組み上げる際には BTN と接続構成を記録しておくことを推奨する。プログラムに BTN を使用するため、1 つのプログラムを同じ構成の XPlanar の装置にそのまま適用することはできないので注意する。</p></li>
+<li><p>各 Tile にはファン(冷却装置)を設置する必要がります。スターターキットにはファンが設置されていますが、増設や個別で購入した場合はオプションとなっています。これは冷却方式を空冷以外にも対応できるようにするための措置となっています。</p></li>
+<li><p>EtherCAT では 4 Tile/Port, EtherCAT G では 10 Tile/Port 接続できる。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>ケーブル類<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><dl class="simple myst">
+<dt>電源分配ケーブル ZC2000-0000-018</dt><dd><p>X100へ接続できるM12コネクタを4つ備えたケーブル</p>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-11-44-00.png" /></p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple myst">
+<dt>電源分配ケーブル ZC2000-0000-017</dt><dd><p>X100へ接続できるM12コネクタを6つ備えたケーブル</p>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-11-46-00.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><dl class="simple myst">
+<dt>EtherCAT Gケーブル ZK1096-8191-0xxx</dt><dd><p>マスタ - タイル間の接続ケーブル</p>
+</dd>
+<dt>EtherCAT Gケーブル ZK1096-8181-0xxx</dt><dd><p>タイル - タイル間の接続ケーブル</p>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-11-47-25.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id6">
+<h3>可動子<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><dl class="simple myst">
+<dt>APM4220-0000 可動子</dt><dd><ul class="simple">
+<li><p>電子部品等はない</p></li>
+<li><p>構成部品</p>
+<ul>
+<li><p>アルミ製ボディー</p></li>
+<li><p>4つの永久磁石</p></li>
+<li><p>プラスティック製バンパー</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dd><dl class="simple myst">
+<dt>黄色</dt><dd><p>BTN識別子</p>
+</dd>
+<dt>青色</dt><dd><p>M4治具取り付け用ホール　8個</p>
+</dd>
+<dt>赤色</dt><dd><p>位置決めピン用ホール　2個</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</td>
+<td><p><img alt="" src="../../_images/2024-04-18-12-04-33.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>磁性体の吸引磁力は約<span class="math notranslate nohighlight">\(400Kg/m^2\)</span>です。</p>
+<ul class="simple">
+<li><p>動作エリア外に可動子を運ぶ際は必ず搬送用トレーに入れてから持ち運びしてください。</p></li>
+<li><p>バンパーを取り外してのご使用は絶対に行わないでください。</p></li>
+</ul>
+</div>
+<p>可動子のラインナップは次の通りです。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>型番</p></th>
+<th class="head"><p>可動子サイズ</p></th>
+<th class="head"><p>積載負荷</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>APM4220-0000</p></td>
+<td><p><span class="math notranslate nohighlight">\(113mm \times 113mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.6Kg\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>APM4230-0000</p></td>
+<td><p><span class="math notranslate nohighlight">\(115mm \times 155mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.8Kg\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>APM4221-0000</p></td>
+<td><p><span class="math notranslate nohighlight">\(127mm \times 127mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1.0Kg\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>APM4330-0001</p></td>
+<td><p><span class="math notranslate nohighlight">\(155mm \times 155mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1.2Kg\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>APM4350-0000</p></td>
+<td><p><span class="math notranslate nohighlight">\(155mm \times 235mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(3.0Kg\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>APM4550-0000</p></td>
+<td><p><span class="math notranslate nohighlight">\(235mm \times 235mm \times 12mm\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(4.5Kg\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>可動子のBTN番号はタイルとは異なり制御プログラム上では個体特定（Identify）の目的には使用しません。制御を有効（Enable）した時点のタイル上に配置された可動子の位置により動的にマッピングされます。またオプションのIDバンパーによりIDに紐づいた個体マッピングされます。</p></li>
+<li><p>大きさの違う 3 種類の Mover があり、異なる種類の Mover を混在できる。</p></li>
+<li><p>Mover Width と Mover Height で GAP が設定される。ブラケットや可搬物によって実質の干渉サイズが変わる場合は変更する。</p></li>
+<li><p>タイル外には 1mm まで外に出れる。基本的には外に出ないような動作で制御する。</p></li>
+<li><p>特定の地点で制限なしで C 方向に回転できる。回転できる位置はタイルを 4 分割した交点です。0°,90°,180°,270° であれば回転した状態で移動可能です。</p></li>
+<li><p>Mover が移動する際にまたがる Tile の数が多いほど可搬重量及び回転する力が強い。移動する際にも同様です。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>制御仕様<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id8">
+<h3>動作指令方法の種類<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>次の3つの方式でプログラム上から動作を指示することができます。</p>
+<dl class="simple myst">
+<dt>MoveToPoint</dt><dd><p>移動目標座標を直接指定して位置決めする方式です。</p>
+<ul class="simple">
+<li><p>事前の準備は不要でプログラムロジックのみ行います。</p></li>
+<li><p>静的な衝突回避機能があります。動的な衝突回避機能はありません。</p></li>
+<li><p>Trackとの併用はできません。</p></li>
+</ul>
+</dd>
+<dt>Track</dt><dd><p>プログラムで平面座標を用いた経路データを登録し、経路に従った動作指令を行います。経路データは目的地まで連続した単一のものではなく、複数の経路をつなぎ合わせた経路計画が可能です。</p>
+<ul class="simple">
+<li><p>MoveToPoint との併用はできません。</p></li>
+<li><p>動的な衝突回避機能を使用することができます。</p></li>
+<li><p>特定のルートを周回させますので、意図しない衝突などが起こりにくいという特徴があります。</p></li>
+</ul>
+</dd>
+<dt>ExternalSetPoint</dt><dd><p>Mover の制御軸以外に同期させるための主軸を用意し、主軸に対して動作指令を行います。主軸に対して複数の可動子を従属させ、連動動作させることができます。</p>
+<ul class="simple">
+<li><p>衝突回避機能はご利用いただけません。</p></li>
+<li><p>Trackとの併用が可能で、Track 軌道外で動作させることができます。</p></li>
+<li><p>電子カムを使用することで攪拌のような複雑な動作を実現できます。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>タスクとリソース<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>可動子制御タスクのCPUリソース割り当てには以下の制約があります。</p>
+<div class="tip admonition">
+<p class="admonition-title">可動子制御タスクの制約事項</p>
+<ul class="simple">
+<li><p>1つの可動子制御タスクで、2つまでの可動子が制御可能です。</p></li>
+<li><p>可動子を制御するCPUコアは、Isolated設定とし、<span class="math notranslate nohighlight">\(100\%\)</span>TwinCATのタスクに割り当てなければなりません。</p></li>
+<li><p>タスクの制御サイクルを<span class="math notranslate nohighlight">\(250 \mu s\)</span>にしなければなりません。</p></li>
+</ul>
+</div>
+<p>つまり、CPUコアのうち一つにつき制御可能な可動子の2個までとなります。また、このタスクはあくまでも可動子のダイナミクスに関する制御用のタスクであり、別途PLCや仮想軸などのタスクが必要となります。こちらはサイクルタイムやコアに割り当てるリソースの制約はありませんが、タスク周期を遅くしすぎると命令や情報の更新が遅くなるので注意する必要があります。</p>
+</section>
+<section id="tccom">
+<h3>モーションTcCOMモジュールについて<a class="headerlink" href="#tccom" title="Link to this heading">#</a></h3>
+<p>XPlanarのコンフィギュレータツールを使うと、次図に示す制御モジュールとタスクが自動的に生成されます。</p>
+<p><img alt="" class="align-center" src="../../_images/2024-04-18-15-39-42.png" /></p>
+<p>前述の可動子制御タスクは、次図の緑枠線内に示すもので、TcCOMとして実装されます。またモーション軸制御には、XPlanar MC Project上に実装されます。このMC Project内に、PLCとのリンク用のオブジェクトが生成されます。</p>
+<dl class="simple myst">
+<dt>Axes</dt><dd><p>可動子毎の制御オブジェクトです。MC_PlanarMoverをリンクします。</p>
+</dd>
+<dt>Group</dt><dd><dl class="simple myst">
+<dt>Planar Environment</dt><dd><p>環境設定。 PLCとの間で MC_PlanarEnvironment をリンクします。</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>Planar Group</dt><dd><p>XPlanar のグループ。 MC_PlanarGroup をリンクする。</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>Planar Track</dt><dd><p>各 Track 毎に必要です。 MC_PlanarTrack をリンクする。</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>動作指令方法として、単一のMoverのMoveToPoint方式の動作だけであればGroupは使いません。</p>
+</section>
+<section id="xplanar-utility">
+<h3>XPlanar Utility<a class="headerlink" href="#xplanar-utility" title="Link to this heading">#</a></h3>
+<p>TcCOMやタイルEtherCATサブデバイスからSDOデータを通じて抽象度の低いデータアクセスにより機器から直接診断情報などを得るための機能群です。機器そのものの情報ですので、シミュレーション環境ではデータ収集が行えません。</p>
+<p>インターフェースを通してI_TcIoXPlanar.TileCoE(Area, Tile).DiagData.情報Utility で設定した複数のパラメータを変更できる。Scope 用のデータは通常の方法では取得できないが、Utility を経由すると取得できる。</p>
+</section>
+<section id="id10">
+<h3>衝突回避機能<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>衝突回避の距離は Gap と Collision Range で設定します。Gap が優先的に反映されます。Collision Range はデフォルトで自動的に設定されます。ギリギリまで近づける必要が有る場合のみ手動で設定します。</p>
+<p>衝突回避の機構には次の2種類があります。</p>
+<dl class="simple myst">
+<dt>Track 衝突回避</dt><dd><ul class="simple">
+<li><p>動作中も相互に衝突を回避することが可能です。</p></li>
+<li><p>目標位置に到着できない場合、Busy 状態で順番待ちをする。</p></li>
+<li><p>移動できる状態になり次第、目標位置に向かって移動する。</p></li>
+</ul>
+</dd>
+<dt>Group 衝突回避</dt><dd><p>目標位置までの経路に Group に所属した Mover が存在した際に指令が正常に動作しない形で衝突回避を行います。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id11">
+<h2>ソフトウェアとライセンス<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>以下のソフトウェアライセンスとパッケージインストールが必要となります。以下のリンクからソフトウェアをダウンロードいただき、XAE, XARともにインストールを行ってください。</p>
+<dl class="simple myst">
+<dt><a class="reference external" href="https://www.beckhoff.com/ja-jp/products/automation/twincat/tfxxxx-twincat-3-functions/tf5xxx-motion/tf5890.html">TF5890 TwinCAT 3 XPlanar</a></dt><dd><ul class="simple">
+<li><p>XPlanar driver</p></li>
+<li><p>XPlanar configurator</p></li>
+<li><p>Tc3 Physics library</p></li>
+<li><p>TF5020 NC PTP Axes Pack unlimited</p></li>
+<li><p>TF5410 Motion Collision Avoidance</p></li>
+<li><p>TF5430 Planar Motion Base</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>XPlanar</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../startup/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">開発手順</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">仕様</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">部品構成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">タイル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ケーブル類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">可動子</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">制御仕様</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">動作指令方法の種類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">タスクとリソース</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tccom">モーションTcCOMモジュールについて</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xplanar-utility">XPlanar Utility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">衝突回避機能</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ソフトウェアとライセンス</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

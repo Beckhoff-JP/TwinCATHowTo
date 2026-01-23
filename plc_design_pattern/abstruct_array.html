@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>配列オブジェクトの参照渡しと処理 &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plc_design_pattern/abstruct_array';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="ポインタ" href="pointer.html" />
+    <link rel="prev" title="2.2. PLCプログラム例" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">2.2. PLCプログラム例</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/plc_design_pattern/abstruct_array.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Fplc_design_pattern/abstruct_array.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/plc_design_pattern/abstruct_array.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>配列オブジェクトの参照渡しと処理</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">可変長配列を使って受け渡す</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ファンクションやファンクションブロックの作り方と取り扱い方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ポインタを用いて受け渡す</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>配列オブジェクトの参照渡しと処理<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>ファンクションブロックに対して配列データを参照渡しするテクニック2例をご紹介します。</p>
+<section id="id2">
+<h2>可変長配列を使って受け渡す<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>参考InfoSysサイト :<a class="reference external" href="https://infosys.beckhoff.com/content/1033/tc3_plc_intro/8825257611.html?id=420093545259366736">Array with variable length</a></p>
+</div>
+<p>上記参考サイトに記載されているとおり、ファンクションブロックのVAR_IN_OUT定義ブロック内でのみ、可変長配列を定義することができます。ファンクションブロック外部からセットする際の配列長は固定でなければなりません。</p>
+<p>ファンクションブロック内部では配列サイズに依存しないプログラムロジックを組む事で、ライブラリに内包したファンクションブロックを利用するユーザは様々なサイズの配列を取り扱う事ができます。</p>
+<section id="id3">
+<h3>ファンクションやファンクションブロックの作り方と取り扱い方<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>可変長配列の宣言は簡単です。VAR_IN_OUTに定義する配列変数のサイズ指定を<code class="docutils literal notranslate"><span class="pre">*</span></code>アスタリスクとします。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">F_Sum</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">DINT</span><span class="p">;</span>
+<span class="k">VAR_IN_OUT</span>
+<span class="w">    </span><span class="n">aData</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="kt">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="kt">INT</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+<span class="k">VAR</span>
+<span class="w">    </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">nSum</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="kt">DINT</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+</pre></div>
+</div>
+<p>ただし、中で使われるプログラムコードは、FOR文などを用いますが、配列サイズが分かりません。これを知る手段として、次のものがあります。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">配列の最小の要素インデックス番号</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">LOWER_BOUND(</span><span class="w"> </span><span class="o">&lt;</span><span class="n">配列変数名</span><span class="o">&gt;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">配列次元数</span><span class="o">&gt;</span><span class="w"> </span><span class="p">)</span>
+<span class="n">配列の最大の要素インデックス番号</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">UPPER_BOUND(</span><span class="w"> </span><span class="o">&lt;</span><span class="n">配列変数名</span><span class="o">&gt;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">配列次元数</span><span class="o">&gt;</span><span class="w"> </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>これを用いる事で、FOR文は以下の通り定義できます。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">nSum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span>
+<span class="k">FOR</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">LOWER_BOUND(</span><span class="n">aData</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">TO</span><span class="w"> </span><span class="nf">UPPER_BOUND(</span><span class="n">aData</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span>
+<span class="w">    </span><span class="n">nSum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">nSum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">aData</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="k">END_FOR</span><span class="p">;</span>
+
+<span class="n">F_Sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">nSum</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>この通り、配列変数とその次元番号を指定することで、最小、最大のインデックス番号を知る事ができます。</p>
+<p>これを定義したファンクションやファンクションブロックは、次の通り異なる配列サイズを処理する事ができます。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="k">VAR</span>
+<span class="w">    </span><span class="n">aNaturalNumber1_10</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kt">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="mf">1..10</span><span class="p">]</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="kt">DINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">1</span><span class="err">～</span><span class="mi">10</span><span class="n">までの自然数が定義された配列</span>
+
+<span class="w">    </span><span class="n">aNaturalNumber11_15</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kt">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="mf">1..5</span><span class="p">]</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="kt">DINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">1</span><span class="err">～</span><span class="mi">10</span><span class="n">までの自然数が定義された配列</span>
+<span class="w">    </span><span class="n">iSumValue</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">INT</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">iSumValue</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">55</span>
+<span class="n">iSumValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">F_Sum(</span><span class="n">aNaturalNumber1_10</span><span class="p">)</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">iSumValue</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">65</span>
+<span class="n">iSumValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">F_Sum(</span><span class="n">aNaturalNumber11_15</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>ポインタを用いて受け渡す<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>配列の実体は、決まったデータ型の連続したメモリイメージです。従って、個々のデータ型のサイズと、構造体やファンクションブロックであれば、メモリアドレスとその操作により配列操作を行う事ができます。</p>
+<p>一例として、ある構造体配列とそのポインタアドレスを外部から定義し、両端キュー（deque）に該当する処理を行うファンクションブロック<a class="reference internal" href="#code-deque-sample"><span class="std std-numref">リスト 2.1</span></a>にご紹介します。</p>
+<p>ポイントは次の3点です。</p>
+<ul>
+<li><p>入力変数ではデータの実体ではなく、配列サイズ、配列先頭ポインタアドレス、入出力するデータの変数のポインタアドレス、入出力するデータのサイズ、をそれぞれ受け渡す。</p></li>
+<li><p>ファンクションブロック内では、これらのメタデータを手掛かりに、配列の決まった場所へ入出力用の変数へ出し入れする。</p></li>
+<li><p>キーとなるファンクションは、次の3つ。</p>
+<dl class="simple myst">
+<dt><a class="reference external" href="https://infosys.beckhoff.com/content/1033/tc3_plc_intro/2529015179.html?id=1469827000687367080">ADR</a></dt><dd><p>変数のポインタアドレスを求めるファンクション</p>
+</dd>
+<dt><a class="reference external" href="https://infosys.beckhoff.com/content/1033/tc3_plc_intro/2528896907.html?id=1985493739426684680">SIZEOF</a></dt><dd><p>変数型のデータサイズ（バイト数）を求めるファンクション</p>
+</dd>
+<dt><a class="reference external" href="https://infosys.beckhoff.com/content/1033/tcplclib_tc2_system/31041163.html?id=1342802077509225213">MEMCPY</a></dt><dd><p>ポインタアドレスとデータサイズを指定し、メモリイメージをコピーするファンクション</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>加えて重要な点として、ポインタ型の変数を宣言する際は、<code class="docutils literal notranslate"><span class="pre">POINTER</span> <span class="pre">TO</span> <span class="pre">&lt;対象変数&gt;</span></code>とすることで、型安全なアクセスが可能ですが、型に縛られないポインタアドレスの受け渡しを行う場合には、<code class="docutils literal notranslate"><span class="pre">PVOID</span></code>を宣言しておくと良いでしょう。ただし、受け渡した後、実際にデリファレンスする変数の型が一意ではなくてもコンパイルが通ってしまうため、型安全ではない点にご注意ください。</p>
+</div>
+<p>以上を駆使して、まるでストッカ棚へデータを出し入れするような装置のイメージのファンクションブロックが、このサンプルコードの仕組みとなります。</p>
+<div class="literal-block-wrapper docutils container" id="code-deque-sample">
+<div class="code-block-caption"><span class="caption-number">リスト 2.1 </span><span class="caption-text">両端キューファンクションブロック</span><a class="headerlink" href="#code-deque-sample" title="Link to this code">#</a></div>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">FUNCTION_BLOCK</span><span class="w"> </span><span class="n">FB_deque</span>
+<span class="linenos"> 2</span><span class="k">VAR_INPUT</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="n">pArrayData</span><span class="o">:</span><span class="w"> </span><span class="n">PVOID</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">配列変数のポインタ</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">PVOID</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">セットしたいデータ型の無いメモリアドレスを指定する場合はPVOID型を使う</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="n">cbData</span><span class="o">:</span><span class="w"> </span><span class="kt">UDINT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">配列の要素変数のサイズを指定</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">bPut</span><span class="o">:</span><span class="w"> </span><span class="kt">BOOL</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">書込み</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">bGetFirst</span><span class="o">:</span><span class="w"> </span><span class="kt">BOOL</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">FIFO読み出し</span>
+<span class="linenos"> 8</span><span class="w">	</span><span class="n">bGetLast</span><span class="o">:</span><span class="w"> </span><span class="kt">BOOL</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">LIFO読み出し</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">nArraySize</span><span class="o">:</span><span class="w"> </span><span class="kt">UDINT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">配列サイズ</span>
+<span class="linenos">10</span><span class="k">END_VAR</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="k">VAR_OUTPUT</span>
+<span class="linenos">13</span><span class="w">    </span><span class="n">buffer_usage</span><span class="o">:</span><span class="w"> </span><span class="kt">UDINT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">バッファ使用数</span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">bError</span><span class="o">:</span><span class="w"> </span><span class="kt">BOOL</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="n">バッファ満杯</span>
+<span class="linenos">15</span><span class="k">END_VAR</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="k">VAR</span>
+<span class="linenos">18</span><span class="w">    </span><span class="n">write_index</span><span class="o">:</span><span class="w"> </span><span class="kt">UDINT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">現在の書込みバッファインデックス</span>
+<span class="linenos">19</span><span class="w">    </span><span class="n">read_index</span><span class="o">:</span><span class="w"> </span><span class="kt">UDINT</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">現在の読み込みバッファインデックス</span>
+<span class="linenos">20</span><span class="w">    </span><span class="n">address_temp</span><span class="o">:</span><span class="w"> </span><span class="n">PVOID</span><span class="p">;</span>
+<span class="linenos">21</span><span class="w">	</span><span class="n">write_flag</span><span class="w"> </span><span class="o">:</span><span class="kt">BOOL</span><span class="p">;</span>
+<span class="linenos">22</span><span class="k">END_VAR</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="n">bError</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">;</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="o">//</span><span class="w"> </span><span class="n">バッファ書き込み要求の処理</span>
+<span class="linenos">28</span><span class="k">IF</span><span class="w"> </span><span class="n">bPut</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">29</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">書込み先の配列アドレスを計算</span>
+<span class="linenos">30</span><span class="w">    </span><span class="n">address_temp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cbData</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">write_index</span><span class="p">;</span>
+<span class="linenos">31</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">計算したアドレスへ</span><span class="err">、</span><span class="n">データをデータサイズ分メモリコピーする</span>
+<span class="linenos">32</span><span class="w">    </span><span class="nf">MEMCPY(</span><span class="n">address_temp</span><span class="p">,</span><span class="w"> </span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">cbData</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">次のバッファインデックスへ繰り上げ</span>
+<span class="linenos">34</span><span class="w">    </span><span class="n">write_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">35</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">配列サイズに達したらインデックスを0リセット</span>
+<span class="linenos">36</span><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">37</span><span class="w">        </span><span class="n">write_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">38</span><span class="w">    </span><span class="k">END_IF</span>
+<span class="linenos">39</span><span class="w">	</span><span class="n">write_flag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">TRUE</span><span class="p">;</span>
+<span class="linenos">40</span><span class="k">ELSIF</span><span class="w"> </span><span class="n">bPut</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">41</span><span class="w">    </span><span class="n">bError</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">TRUE</span><span class="p">;</span>
+<span class="linenos">42</span><span class="k">END_IF</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span><span class="o">//</span><span class="w"> </span><span class="n">FIFO読み出し要求の処理</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span><span class="k">IF</span><span class="w"> </span><span class="n">bGetFirst</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">47</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">書込み先の配列アドレスを計算</span>
+<span class="linenos">48</span><span class="w">    </span><span class="n">address_temp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cbData</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">read_index</span><span class="p">;</span>
+<span class="linenos">49</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">計算したアドレスへ</span><span class="err">、</span><span class="n">データをデータサイズ分メモリコピーする</span>
+<span class="linenos">50</span><span class="w">    </span><span class="nf">MEMCPY(</span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">address_temp</span><span class="p">,</span><span class="w"> </span><span class="n">cbData</span><span class="p">);</span>
+<span class="linenos">51</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">次のバッファインデックスへ繰り上げ</span>
+<span class="linenos">52</span><span class="w">    </span><span class="n">read_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">read_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">53</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">配列サイズに達したらインデックスを0リセット</span>
+<span class="linenos">54</span><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="n">read_index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">55</span><span class="w">        </span><span class="n">read_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">56</span><span class="w">    </span><span class="k">END_IF</span>
+<span class="linenos">57</span><span class="w">	</span><span class="n">write_flag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">;</span>
+<span class="linenos">58</span><span class="k">ELSIF</span><span class="w"> </span><span class="n">bGetFirst</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">59</span><span class="w">    </span><span class="n">bError</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">TRUE</span><span class="p">;</span>
+<span class="linenos">60</span><span class="k">END_IF</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="o">//</span><span class="w"> </span><span class="n">LIFO読み出し要求の処理</span>
+<span class="linenos">63</span>
+<span class="linenos">64</span><span class="k">IF</span><span class="w"> </span><span class="n">bGetLast</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">65</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">書込み先の配列アドレスを計算</span>
+<span class="linenos">66</span><span class="w">    </span><span class="n">address_temp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cbData</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">write_index</span><span class="p">;</span>
+<span class="linenos">67</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">計算したアドレスへ</span><span class="err">、</span><span class="n">データをデータサイズ分メモリコピーする</span>
+<span class="linenos">68</span><span class="w">    </span><span class="nf">MEMCPY(</span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">address_temp</span><span class="p">,</span><span class="w"> </span><span class="n">cbData</span><span class="p">);</span>
+<span class="linenos">69</span><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">70</span><span class="w">		</span><span class="o">//</span><span class="w"> </span><span class="n">配列サイズに達したらインデックスを0リセット</span>
+<span class="linenos">71</span><span class="w">        </span><span class="n">write_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">nArraySize</span><span class="p">;</span>
+<span class="linenos">72</span><span class="w">    </span><span class="k">END_IF</span>
+<span class="linenos">73</span><span class="w">	</span><span class="o">//</span><span class="w"> </span><span class="n">次のバッファインデックスへ繰り上げ</span>
+<span class="linenos">74</span><span class="w">	</span><span class="n">write_index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">	</span>
+<span class="linenos">75</span><span class="w">	</span><span class="n">write_flag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">;</span>
+<span class="linenos">76</span><span class="k">ELSIF</span><span class="w"> </span><span class="n">bGetLast</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">77</span><span class="w">    </span><span class="n">bError</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">TRUE</span><span class="p">;</span>
+<span class="linenos">78</span><span class="k">END_IF</span>
+<span class="linenos">79</span>
+<span class="linenos">80</span><span class="o">//</span><span class="w"> </span><span class="n">バッファ使用量計算</span>
+<span class="linenos">81</span><span class="k">IF</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_index</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">82</span><span class="w">	</span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">read_index</span><span class="p">;</span>
+<span class="linenos">83</span><span class="k">ELSIF</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="n">read_index</span><span class="w"> </span><span class="ow">AND</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="n">write_flag</span><span class="w"> </span><span class="k">THEN</span>
+<span class="linenos">84</span><span class="w">	</span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">read_index</span><span class="p">;</span>
+<span class="linenos">85</span><span class="k">ELSE</span>
+<span class="linenos">86</span><span class="w">	</span><span class="n">buffer_usage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">read_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">write_index</span><span class="p">;</span>
+<span class="linenos">87</span><span class="k">END_IF</span>
+</pre></div>
+</div>
+</div>
+<p>このファンクションブロックは次の通り使う事ができます。まずは、処理するデータモデルを構造体で定義します。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">:</span>
+<span class="n">STRUCT</span>
+<span class="w">    </span><span class="n">first_name</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">STRING</span><span class="p">;</span>
+<span class="w">    </span><span class="n">last_name</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">STRING</span><span class="p">;</span>
+<span class="w">    </span><span class="n">age</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="kt">UINT</span><span class="p">;</span>
+<span class="n">END_STRUCT</span>
+<span class="n">END_TYPE</span>
+</pre></div>
+</div>
+<p>次のプログラムにより、のび太、ドラえもん、しずちゃんの3名を300msに一度キューに登録し、100msに一回ひとりづつキューから取り出してoutputに書き込みます。</p>
+<div class="highlight-iecst notranslate"><div class="highlight"><pre><span></span><span class="k">PROGRAM</span><span class="w"> </span><span class="n">MAIN</span>
+<span class="k">VAR</span><span class="w"> </span><span class="k">CONSTANT</span>
+<span class="w">    </span><span class="n">BUFFER_SIZE</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">UINT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+<span class="k">VAR</span>
+<span class="w">    </span><span class="n">Users</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">ARRAY</span><span class="w"> </span><span class="p">[</span><span class="mf">1.</span><span class="p">.</span><span class="n">BUFFER_SIZE</span><span class="p">]</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">User</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Nobita_kun</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">first_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Nobita</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Nobi</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Doraemon</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">first_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Doraemon</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Nobi</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2433</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Shizu_chan</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">first_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Shizuka</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s1">&#39;</span><span class="s">Minamoto</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fb_deque</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">FB_deque</span><span class="p">;</span>
+<span class="w">    </span><span class="n">write_trigger</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TON</span><span class="p">;</span>
+<span class="w">    </span><span class="n">read_trigger</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TON</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="p">;</span>
+<span class="k">END_VAR</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">キューインみトリガ</span>
+<span class="nf">write_trigger(</span><span class="n">IN</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="n">write_trigger</span><span class="p">.</span><span class="n">Q</span><span class="p">,</span><span class="w"> </span><span class="n">PT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kt">T</span><span class="l l-Duration">#300MS</span><span class="p">);</span>
+<span class="o">//</span><span class="w"> </span><span class="n">キューアウトトリガ</span>
+<span class="nf">read_trigger(</span><span class="n">IN</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="n">read_trigger</span><span class="p">.</span><span class="n">Q</span><span class="p">,</span><span class="w"> </span><span class="n">PT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kt">T</span><span class="l l-Duration">#100MS</span><span class="p">);</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">キューイン</span>
+<span class="nf">fb_deque(</span>
+<span class="w">    </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Users</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Nobita_kun</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cbData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">SIZEOF</span><span class="p">(</span><span class="n">Nobita_kun</span><span class="p">),</span>
+<span class="w">    </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetFirst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetLast</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bPut</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_trigger</span><span class="p">.</span><span class="n">Q</span>
+<span class="p">);</span>
+
+<span class="nf">fb_deque(</span>
+<span class="w">    </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Users</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Doraemon</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cbData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">SIZEOF</span><span class="p">(</span><span class="n">Doraemon</span><span class="p">),</span>
+<span class="w">    </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetFirst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetLast</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bPut</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_trigger</span><span class="p">.</span><span class="n">Q</span>
+<span class="p">);</span>
+
+<span class="nf">fb_deque(</span>
+<span class="w">    </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Users</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Shizu_chan</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cbData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">SIZEOF</span><span class="p">(</span><span class="n">Shizu_chan</span><span class="p">),</span>
+<span class="w">    </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetFirst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetLast</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bPut</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">write_trigger</span><span class="p">.</span><span class="n">Q</span>
+<span class="p">);</span>
+
+<span class="o">//</span><span class="w"> </span><span class="nf">キューアウト(</span><span class="n">FIFO</span><span class="p">)</span>
+<span class="nf">fb_deque(</span>
+<span class="w">    </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Users</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cbData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">SIZEOF</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
+<span class="w">    </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetFirst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">read_trigger</span><span class="p">.</span><span class="n">Q</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetLast</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bPut</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span>
+<span class="p">);</span>
+
+<span class="o">//</span><span class="w"> </span><span class="nf">キューアウト(</span><span class="n">LIFO</span><span class="p">)</span>
+<span class="nf">fb_deque(</span>
+<span class="w">    </span><span class="n">pArrayData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">Users</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">ADR</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cbData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">SIZEOF</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
+<span class="w">    </span><span class="n">nArraySize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetFirst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bGetLast</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">read_trigger</span><span class="p">.</span><span class="n">Q</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bPut</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FALSE</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>今回は、サンプルコード紹介する際の見せ方の都合で、キューイン、キューアウトともにファンクションブロック本体に記述してbPut, bGetFirst, bGetLast の入力変数で制御していますが、より望ましいのはメソッドで処理していただいた方が安全です。</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>PLCプログラム例</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pointer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">ポインタ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">可変長配列を使って受け渡す</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ファンクションやファンクションブロックの作り方と取り扱い方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ポインタを用いて受け渡す</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

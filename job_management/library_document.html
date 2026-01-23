@@ -1,0 +1,1280 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>技術資料 &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'job_management/library_document';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="3. 開発編（開発環境）" href="../develop_environment.html" />
+    <link rel="prev" title="ジョブフレームワークライブラリ使用方法" href="usage.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">並行ジョブ実行フレームワーク</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/job_management/library_document.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Fjob_management/library_document.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/job_management/library_document.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>技術資料</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">システム</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">オブジェクト構成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fb-executor">FB_Executor状態マシン</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ファンクションブロック</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacefuture">InterfaceFuture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacecontainer">InterfaceContainer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">FB_Executor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacejobeventreporter">InterfaceJobEventReporter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">データ型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-futureexecutionstate">E_FutureExecutionState</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>技術資料<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>システム<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>オブジェクト構成<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>クラス図を<a class="reference internal" href="#fig-job-control-class-diagram"><span class="std std-numref">図 2.9</span></a>に示します。タスクの定義は、<code class="docutils literal notranslate"><span class="pre">InterfaceFuture</span></code>のインターフェースを実装して行いますが、ユーザが実装する基底ファンクションブロック<code class="docutils literal notranslate"><span class="pre">FB_AbstructFuture</span></code>と、各種ジョブコンテナファンクションブロックで実装されています。<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>は、ジョブであるFutureオブジェクトの実行主体ですので、1:1の関係で包含します。</p>
+<p>また、各種ジョブコンテナは、<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>型の配列を内包します。配列サイズはライブラリパラメータ<code class="docutils literal notranslate"><span class="pre">MAX_FUTURE_NUM</span></code>で設定します。これを順に実行する場合はBatchJobContainer、または、QueueJobContainer、並行して同時実行する場合はParallelJobContainer、または、ParallelQueueJobContainerを用います。</p>
+<p>このように、ジョブコンテナも、<code class="docutils literal notranslate"><span class="pre">FB_AbstructFuture</span></code>を継承したユーザタスクも、どちらも<code class="docutils literal notranslate"><span class="pre">InterfaceFuture</span></code>が基底インターフェースとなり、同様に<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>は実行することができます。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>このデータモデルは、コンテナとユーザ定義タスクインスタンスが親子関係を構成し、さらにコンテナの中にコンテナを構成するなど、深いツリーモデルが構築可能です。このデザインパターンを、<a class="reference external" href="https://ja.wikipedia.org/wiki/Composite_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">GoFのCompositeパターン</a>と呼びます。</p>
+</div>
+<figure class="align-center" id="fig-job-control-class-diagram">
+<img alt="../_images/activity_control_class_diag.png" src="../_images/activity_control_class_diag.png" />
+<figcaption>
+<p><span class="caption-number">図 2.9 </span><span class="caption-text">JOB制御クラス図</span><a class="headerlink" href="#fig-job-control-class-diagram" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fb-executor">
+<h3>FB_Executor状態マシン<a class="headerlink" href="#fb-executor" title="Link to this heading">#</a></h3>
+<p>Futureオブジェクトは処理内容の静的な定義のみ行い、InterfaceFutureのインターフェースをを用いて実行する主体はFB_Executorファンクションブロックです。</p>
+<p>FB_ExecutorファンクションブロックではE_FutureExecutionState enum型の変数を持ちた状態を持ち、current_stateプロパティを用いて参照することができます。状態遷移図を<a class="reference internal" href="#fig-fb-executor-state-machine"><span class="std std-numref">図 2.10</span></a>,<a class="reference internal" href="#table-state-machine"><span class="std std-numref">表 2.1</span></a>に示します。</p>
+<figure class="align-center" id="fig-fb-executor-state-machine">
+<img alt="../_images/fb_executor_state_machine.png" src="../_images/fb_executor_state_machine.png" />
+<figcaption>
+<p><span class="caption-number">図 2.10 </span><span class="caption-text">FB_Executorステートマシン図</span><a class="headerlink" href="#fig-fb-executor-state-machine" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table" id="table-state-machine">
+<caption><span class="caption-number">表 2.1 </span><span class="caption-text">E_FutureExecutionState メンバとFB_Executorの状態遷移制御一覧</span><a class="headerlink" href="#table-state-machine" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>ステート</p></th>
+<th class="head"><p>説明</p></th>
+<th class="head"><p>終了条件</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>idle</p></td>
+<td><p>初期状態（非活性状態）</p></td>
+<td><p>FB_Executorが制御するジョブオブジェクトが、idleまたはfinish状態など実行中でない状態であること。</p></td>
+</tr>
+<tr class="row-odd"><td><p>init</p></td>
+<td><p>futureオブジェクトの初期化処理<code class="docutils literal notranslate"><span class="pre">init()</span></code>を実行している状態。</p></td>
+<td><p>futureオブジェクトの<code class="docutils literal notranslate"><span class="pre">init()</span></code>が完了する</p></td>
+</tr>
+<tr class="row-even"><td><p>wait_for_process</p></td>
+<td><p>外部からの実行指示待ち状態。</p></td>
+<td><p>FB_Executorの<code class="docutils literal notranslate"><span class="pre">start()</span></code>メソッドを実行する</p></td>
+</tr>
+<tr class="row-odd"><td><p>process</p></td>
+<td><p>実行中状態</p></td>
+<td><p>futureオブジェクトの<code class="docutils literal notranslate"><span class="pre">execute()</span></code>が完了する</p></td>
+</tr>
+<tr class="row-even"><td><p>quit</p></td>
+<td><p>終了処理状態</p></td>
+<td><p>futureオブジェクトの<code class="docutils literal notranslate"><span class="pre">quit()</span></code>が完了する</p></td>
+</tr>
+<tr class="row-odd"><td><p>abort</p></td>
+<td><p>中断処理中、または中断処理完了状態</p></td>
+<td><p>中断処理完了状態で、FB_Executorの<code class="docutils literal notranslate"><span class="pre">start()</span></code>メソッドを実行する</p></td>
+</tr>
+<tr class="row-even"><td><p>finish</p></td>
+<td><p>終了状態（非活性状態）</p></td>
+<td><p>idleとおなじ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>ファンクションブロック<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="interfacefuture">
+<h3>InterfaceFuture<a class="headerlink" href="#interfacefuture" title="Link to this heading">#</a></h3>
+<p>タスク、および、ジョブコンテナ向けのインターフェースです。</p>
+<div class="pst-scrollable-table-container"><table class="table" id="table-future-methods">
+<caption><span class="caption-number">表 2.2 </span><span class="caption-text">InterfaceFutureのメソッド一覧</span><a class="headerlink" href="#table-future-methods" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>メソッド名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>戻り値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>実行前に必要な変数やオブジェクトの初期化を行います。処理完了時にTRUEを返す必要があります。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">execute</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>タスク本体の処理を実装します。処理完了時にTRUEを返す必要があります。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">quit</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>実行後の変数やオブジェクトの後始末を行います。処理完了時にTRUEを返す必要があります。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abort</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>中断処理が行われた際に実施する処理を実装します。処理完了時にTRUEを返す必要があります。</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="table-future-properties">
+<caption><span class="caption-number">表 2.3 </span><span class="caption-text">InterfaceFutureのプロパティ一覧</span><a class="headerlink" href="#table-future-properties" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 62.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>プロパティ名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>方向</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nErrorID</p></td>
+<td><p>UDINT</p></td>
+<td><p>GET</p></td>
+<td><p>エラー発生時は0以外の値を返します。<a class="reference external" href="https://infosys.beckhoff.com/content/1033/tc3_plc_intro/12049349259.html?id=2525089929595466454">参照</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>future_name</p></td>
+<td><p>STRING</p></td>
+<td><p>GET SET</p></td>
+<td><p>ジョブ名称を定義します。<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の<code class="docutils literal notranslate"><span class="pre">job_event_reporter</span></code>イベントハンドラにて記録する際に、どのFutureオブジェクトが状態遷移を行ったのか判別できるよう、インスタンスに名前を付けることができます。このプロパティで設定してください。</p></td>
+</tr>
+<tr class="row-even"><td><p>state</p></td>
+<td><p>E_FutureExecutionState</p></td>
+<td><p>GET SET</p></td>
+<td><p>Futureインスタンスが<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>に紐づけられ、init以上の実行状態になると<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の状態をこのプロパティを通じてミラーします。他の<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>に同じFutureオブジェクトが共用されてしまった場合、互いの実行状態が競合しないよう、排他を取ることを目的としています。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">排他の仕組み</p>
+<p><code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>内ではidle状態からinit状態に遷移する条件として、リンクされたFutureオブジェクトのstateプロパティを経由して得た状態が、idleまたはfinishである必要があります。すでに他のExecutorにより実行中である場合、Futureオブジェクトのミラーstateの状態がこのいずれの状態でもないため、initへ遷移することができません。先行して取得しているExecutorがfinish状態にすることで後発のExecutorが同じFutureオブジェクトを用いてinitから処理を開始することができるようになります。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">InterfaceFuture</span></code>インターフェースの名前は<a class="reference external" href="https://ja.wikipedia.org/wiki/Future_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">Futureパターン</a>から由来しています。複数の演算コアで並列処理を行うのではなく、単一の演算コア上にタスクを順次パイプライン実行していく仕組みにより、処理完了を待たされる（ブロックされる）ことなく処理を進めることができます。実際の演算は将来行われることからFutureパターンと呼ばれています。</p>
+<p>このインターフェースにより実装したファンクションブロックをタスクとして、次節に示す<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>で統一的に実行することが可能になります。</p>
+</section>
+<section id="interfacecontainer">
+<h3>InterfaceContainer<a class="headerlink" href="#interfacecontainer" title="Link to this heading">#</a></h3>
+<p>ジョブコンテナ用のインターフェースです。</p>
+<div class="pst-scrollable-table-container"><table class="table" id="table-interface-container-method">
+<caption><span class="caption-number">表 2.4 </span><span class="caption-text">InerfaceContainerのメソッド一覧</span><a class="headerlink" href="#table-interface-container-method" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>メソッド名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>戻り値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">add_future</span></code></p></td>
+<td><p>UINT</p></td>
+<td><p>登録されたFuture番号を返す</p></td>
+<td><p>ジョブコンテナにFutureを登録する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reset</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>コンテナの初期化完了でTRUEを返す</p></td>
+<td><p>add_futureで登録したFutureを全てクリアする。</p></td>
+</tr>
+<tr class="row-even"><td><p>get_future_statue</p></td>
+<td><p>E_FutureExecutionState</p></td>
+<td><p>引数で指定したFuture番号の現在の実行状態を返す</p></td>
+<td><p>指定したFuture番号の現在状態を調べる。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="table-interface-container-property">
+<caption><span class="caption-number">表 2.5 </span><span class="caption-text">InerfaceContainerのプロパティ一覧</span><a class="headerlink" href="#table-interface-container-property" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 62.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>プロパティ名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>方向</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>active_futures</p></td>
+<td><p>UINT</p></td>
+<td><p>Get</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FB_SerialJobContainer</span></code>では現在実行中のFutureの連番を返します。<code class="docutils literal notranslate"><span class="pre">FB_ParallelJobContainer</span></code>では実行中のFuture数を返します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>continuous_mode</p></td>
+<td><p>BOOL</p></td>
+<td><p>Set</p></td>
+<td><p>全てのfutureが実行完了しても終了せず、新たなfutureが追加されるのを待つモードを有効にします。<code class="docutils literal notranslate"><span class="pre">QueueJobContainer</span></code>,<code class="docutils literal notranslate"><span class="pre">ParallelQueueJobContainer</span></code>のみ有効。</p></td>
+</tr>
+<tr class="row-even"><td><p>job_event_reporter</p></td>
+<td><p>InterfaceJobEventReporter</p></td>
+<td><p>Set</p></td>
+<td><p>包含している<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の各配列にセットする<code class="docutils literal notranslate"><span class="pre">InterfaceJobEventReporter</span></code>実装オブジェクトを受け取ります。</p></td>
+</tr>
+<tr class="row-odd"><td><p>num_of_future</p></td>
+<td><p>UINT</p></td>
+<td><p>Get</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_future</span></code>で追加されたFuture数を返します。</p></td>
+</tr>
+<tr class="row-even"><td><p>parent_executor</p></td>
+<td><p>REFERENCE TO FB_Executor</p></td>
+<td><p>Set Get</p></td>
+<td><p>親のコンテナジョブオブジェクトが有る場合、そのExecutorオブジェクトにアクセスします。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id5">
+<h3>FB_Executor<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>は、<code class="docutils literal notranslate"><span class="pre">InterfaceFuture</span></code>を実装したファンクションブロックを実行するファンクションブロックです。</p>
+<div class="pst-scrollable-table-container"><table class="table" id="table-executor-methods">
+<caption><span class="caption-number">表 2.6 </span><span class="caption-text">FB_Executorのメソッド一覧</span><a class="headerlink" href="#table-executor-methods" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>メソッド名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>戻り値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>初期化処理完了時にTRUEが返る</p></td>
+<td><p>タスクの処理を開始できる状態に初期化する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">execute</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>タスク処理完了時にTRUEが返る</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">future.init()</span></code>,<code class="docutils literal notranslate"><span class="pre">future.execute()</span></code>,<code class="docutils literal notranslate"><span class="pre">future.quit()</span></code>を順次実行します。すべて完了したら戻り値がTRUEになります。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abort</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>中断処理完了時にTRUEが返る</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">future.init()</span></code>、<code class="docutils literal notranslate"><span class="pre">future.execute()</span></code>、<code class="docutils literal notranslate"><span class="pre">future.quit()</span></code>何れか実行中にこのメソッドを実行すると、<code class="docutils literal notranslate"><span class="pre">E_FutureExecutionState.abort</span></code>の状態に遷移し、<code class="docutils literal notranslate"><span class="pre">future.abort()</span></code>を実行する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start</span></code></p></td>
+<td><p>BOOL</p></td>
+<td><p>なし</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">E_FutureExecutionState.wait_for_process</span></code>状態時にこのメソッド実行すると、<code class="docutils literal notranslate"><span class="pre">InterfaceFuture.execute()</span></code>処理を、<code class="docutils literal notranslate"><span class="pre">E_FutureExecutionState.abort</span></code>の状態の際にこのメソッドを実行すると、中断する前に実行していた<code class="docutils literal notranslate"><span class="pre">future.init()</span></code>、<code class="docutils literal notranslate"><span class="pre">future.execute()</span></code>、<code class="docutils literal notranslate"><span class="pre">future.quit()</span></code>の処理を再開する。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="table-executor-properties">
+<caption><span class="caption-number">表 2.7 </span><span class="caption-text">FB_Executorのプロパティ一覧</span><a class="headerlink" href="#table-executor-properties" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 62.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>プロパティ名</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>方向</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nErrorID</p></td>
+<td><p>UDINT</p></td>
+<td><p>GET</p></td>
+<td><p>エラー発生時は0以外の値を返します。<a class="reference external" href="https://infosys.beckhoff.com/content/1033/tc3_plc_intro/12049349259.html?id=2525089929595466454">参照</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>active_task_id</p></td>
+<td><p>UINT</p></td>
+<td><p>GET</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FB_SerialJobContainer</span></code>や<code class="docutils literal notranslate"><span class="pre">FB_ParallelJobContainer</span></code>の実行状態がモニタできます。<code class="docutils literal notranslate"><span class="pre">FB_SerialJobContainer</span></code>の場合は現在処理中のFuture番号を返します。<code class="docutils literal notranslate"><span class="pre">FB_ParallelJobContainer</span></code>では、実行するFutureの合計数を返します。いずれも<code class="docutils literal notranslate"><span class="pre">executing()</span></code>メソッド実行中以外は0を返します。</p></td>
+</tr>
+<tr class="row-even"><td><p>current_state</p></td>
+<td><p>E_FutureExecutionState</p></td>
+<td><p>GET</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">execute()</span></code>中の実行状態を返します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>future</p></td>
+<td><p>InterfaceFuture</p></td>
+<td><p>SET</p></td>
+<td><p>実装したタスクをセットします。</p></td>
+</tr>
+<tr class="row-even"><td><p>done</p></td>
+<td><p>BOOL</p></td>
+<td><p>GET</p></td>
+<td><p>InterfaceFutureで実装した<code class="docutils literal notranslate"><span class="pre">execute()</span></code>の処理が完了後TRUEを返します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ready</p></td>
+<td><p>BOOL</p></td>
+<td><p>GET</p></td>
+<td><p>InterfaceFutureで実装した<code class="docutils literal notranslate"><span class="pre">init()</span></code>の処理が完了後TRUEを返します。</p></td>
+</tr>
+<tr class="row-even"><td><p>job_event_reporter</p></td>
+<td><p>InterfaceJobEventReporter</p></td>
+<td><p>SET</p></td>
+<td><p>InterfaceJobEventReporter実装ファンクションブロックのインスタンスをセットします。<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の状態遷移時には、イベントハンドラとしてこのインスタンスの<code class="docutils literal notranslate"><span class="pre">report()</span></code>メソッドが呼び出されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">start()</span></code>メソッドや、<code class="docutils literal notranslate"><span class="pre">ready</span></code>、<code class="docutils literal notranslate"><span class="pre">done</span></code>プロパティはタスク同士を連続して実行する際、InterfaceFutureの<code class="docutils literal notranslate"><span class="pre">init()</span></code>や<code class="docutils literal notranslate"><span class="pre">quit()</span></code>の処理によりサイクルの隙間が発生しないようにするトリガやイベントです。</p>
+</section>
+<section id="interfacejobeventreporter">
+<span id="section-interfacejobeventreporter"></span><h3>InterfaceJobEventReporter<a class="headerlink" href="#interfacejobeventreporter" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の状態変化時にコールされるイベントハンドラ用のインターフェースです。このインターフェースを実装したファンクションブロックインスタンスを、<code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の<code class="docutils literal notranslate"><span class="pre">job_event_reporter</span></code>にプロパティにセットして使います。</p>
+<dl class="simple myst">
+<dt>reportメソッド</dt><dd><p><code class="docutils literal notranslate"><span class="pre">FB_Executor</span></code>の処理で状態遷移が発生した際にコールされるイベントハンドラ。</p>
+</dd>
+<dd><dl class="simple myst">
+<dt>引数</dt><dd><dl class="simple myst">
+<dt>old_state</dt><dd><dl class="simple myst">
+<dt>型</dt><dd><p>E_FutureExecutionState;</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>説明</dt><dd><p>状態遷移が発生する旧状態</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>new_state</dt><dd><dl class="simple myst">
+<dt>型</dt><dd><p>E_FutureExecutionState;</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>説明</dt><dd><p>状態遷移が発生する新状態</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>record_time</dt><dd><dl class="simple myst">
+<dt>型</dt><dd><p>Tc2_Utilities.T_FILETIME64;</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>説明</dt><dd><p>状態遷移が発生したWindowsファイルタイム（100ns精度）</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>executor</dt><dd><dl class="simple myst">
+<dt>型</dt><dd><p>REFERENCE TO FB_Executor;</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>説明</dt><dd><p>状態遷移の発生元<code class="docutils literal notranslate"><span class="pre">FB_executor</span></code>インスタンスへのリファレンス</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>戻り値</dt><dd><dl class="simple myst">
+<dt>型</dt><dd><p>BOOL</p>
+</dd>
+</dl>
+</dd>
+<dd><dl class="simple myst">
+<dt>説明</dt><dd><p>イベントハンドラ処理が終了したらTRUEを返す</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id6">
+<h2>データ型<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="e-futureexecutionstate">
+<h3>E_FutureExecutionState<a class="headerlink" href="#e-futureexecutionstate" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>値</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>idle</p></td>
+<td><p>0</p></td>
+<td><p>未実行状態</p></td>
+</tr>
+<tr class="row-odd"><td><p>init</p></td>
+<td><p>1</p></td>
+<td><p>初期化中状態</p></td>
+</tr>
+<tr class="row-even"><td><p>wait_for_process</p></td>
+<td><p>2</p></td>
+<td><p>初期化完了で実行指示待ち。start()メソッドによりprocessへ移行。</p></td>
+</tr>
+<tr class="row-odd"><td><p>process</p></td>
+<td><p>3</p></td>
+<td><p>実行中状態</p></td>
+</tr>
+<tr class="row-even"><td><p>abort</p></td>
+<td><p>4</p></td>
+<td><p>中断処理中、または、中断処理完了状態。中断処理完了状態であれば、start()メソッド実行することで、再度中断前の状態に遷移する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>pause</p></td>
+<td><p>5</p></td>
+<td><p>未使用</p></td>
+</tr>
+<tr class="row-even"><td><p>quit</p></td>
+<td><p>6</p></td>
+<td><p>終了処理中状態</p></td>
+</tr>
+<tr class="row-odd"><td><p>finish</p></td>
+<td><p>7</p></td>
+<td><p>全処理完了状態</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="usage.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">ジョブフレームワークライブラリ使用方法</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../develop_environment.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>開発編（開発環境）</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">システム</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">オブジェクト構成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fb-executor">FB_Executor状態マシン</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ファンクションブロック</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacefuture">InterfaceFuture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacecontainer">InterfaceContainer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">FB_Executor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacejobeventreporter">InterfaceJobEventReporter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">データ型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-futureexecutionstate">E_FutureExecutionState</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

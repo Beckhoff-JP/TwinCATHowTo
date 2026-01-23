@@ -1,0 +1,1268 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CX82xxシリーズの利用方法 &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'linux/cx82xx';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="TF1200 UI Client" href="tf1200/index.html" />
+    <link rel="prev" title="1.3. TwinCAT Linux" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">1.3. TwinCAT Linux</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/linux/cx82xx.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Flinux/cx82xx.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/linux/cx82xx.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>CX82xxシリーズの利用方法</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">設置と電源投入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">接続</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">パッケージマネージャの設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip">固定IPアドレスを設定する</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">現在のIPアドレスを調べる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">固定IPアドレスの設定</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf1810-plc-hmi-web">TF1810 PLC HMI Webの導入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">バックアップ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb">USBディスクのマウント</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">保存元デバイスを調べる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">バックアップの保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">リストア</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cx82xx">
+<h1>CX82xxシリーズの利用方法<a class="headerlink" href="#cx82xx" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://infosys.beckhoff.com/content/1033/beckhoff_rt_linux/index.html?id=1171886970310160181">Beckhoff RT Linuxの導入</a>のドキュメントに従い、説明します。このドキュメントではOS無しのIPCに対してインストールする個所からの手順となっていますが、CX82xxにはあらかじめBeckhoff RT Linuxがインストール済みの状態で納入されます。ここからTwinCAT XAEで作成したプロジェクトを動作させるまでの手順を説明します。</p>
+<section id="id1">
+<h2>設置と電源投入<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://infosys.beckhoff.com/content/1033/cx8290/17622065931.html?id=1102675642323851693">設置方法はこちら</a>をごらんください。</p>
+<div class="warning admonition">
+<p class="admonition-title">SDカードの取扱いについて</p>
+<ul class="simple">
+<li><p>SDカードは故障時以外は抜かないでください。</p></li>
+<li><p>CX8190のWindowsCEのように、ファイルをコピーするだけでは起動可能なディスクとなりません。</p></li>
+<li><p>故障が疑われる場合は、<a class="reference external" href="https://infosys.beckhoff.com/content/1033/beckhoff_rt_linux/18419873419.html?id=3406457076941507639">こちらの手順</a>にてSDカードを初期化することができます。</p></li>
+</ul>
+</div>
+<p>電源の配線方法は<a class="reference external" href="https://infosys.beckhoff.com/content/1033/cx8290/17622165387.html?id=3780875763547875918">こちらのマニュアル</a>をご覧ください。</p>
+<p><img alt="" src="https://infosys.beckhoff.com/content/1033/cx8290/Images/svg/9007216707358731__Web.svg" /></p>
+</section>
+<section id="id2">
+<h2>接続<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>次図のとおりX001がリアルタイムではないEthernetポートです。こちらへXAEがインストールされたWindows PCを接続してください。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>X101やX102は、PROFINET (TF627x), EtherNet/IP (TF628x), BACnet/IP (TF8020) 、などのリアルタイムEthernetが使えるほか、通常のソケット通信（TF6310）やADS等にも使うことができます。</p>
+</div>
+<p><img alt="" class="align-center" src="../_images/2025-07-29-10-32-50.png" /></p>
+</li>
+<li><p>IPC側に電源を供給するとSDカードからTwinCAT RT Linuxが起動します。この状態でXAEと接続したIPCのX001に割り当てられたIPアドレスを検索します。Windows側から次の通りPower shellからコマンドを入力して調べます。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="p">&gt;</span> <span class="nb">Get-NetNeighbor</span> <span class="n">-LinkLayerAddress</span> <span class="n">00</span><span class="p">-</span><span class="n">01</span><span class="p">-</span><span class="n">05</span><span class="p">*</span> <span class="n">-AddressFamily</span> <span class="n">IPv6</span>
+<span class="n">ifIndex</span> <span class="n">IPAddress</span>                                          <span class="n">LinkLayerAddress</span>      <span class="n">State</span>       <span class="n">PolicyStore</span>
+<span class="p">-------</span> <span class="p">---------</span>                                          <span class="p">----------------</span>      <span class="p">-----</span>       <span class="p">-----------</span>
+<span class="n">23</span>      <span class="n">fe80</span><span class="p">::</span><span class="n">201</span><span class="p">:</span><span class="n">5ff</span><span class="p">:</span><span class="n">fea3</span><span class="p">:</span><span class="n">e942</span>                            <span class="n">00</span><span class="p">-</span><span class="n">01</span><span class="p">-</span><span class="n">05</span><span class="p">-**-**-**</span>     <span class="n">Stale</span>       <span class="n">ActiveStore</span>
+</pre></div>
+</div>
+</li>
+<li><p>応答のあったIPAddress部分を参照して、次の通りSSHで接続を行います。</p>
+<p>初回接続時は自己署名証明書で接続するか確認されます。<code class="docutils literal notranslate"><span class="pre">yes</span></code>を入力して接続してください。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="p">&gt;</span> <span class="n">ssh</span> <span class="n">Administrator</span><span class="nv">@fe80</span><span class="p">::</span><span class="n">201</span><span class="p">:</span><span class="n">5ff</span><span class="p">:</span><span class="n">fea3</span><span class="p">:</span><span class="n">e942</span>     <span class="p">&lt;-----</span> <span class="n">Administratorユーザで</span> <span class="n">IPv6</span> <span class="n">のIPアドレスを指定してSSH接続</span>
+<span class="n">The</span> <span class="n">authenticity</span> <span class="n">of</span> <span class="n">host</span> <span class="s1">&#39;fe80::201:5ff:fea3:e942 (fe80::201:5ff:fea3:e942)&#39;</span> <span class="n">can</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">be</span> <span class="n">established</span><span class="p">.</span>
+<span class="n">ED25519</span> <span class="n">key</span> <span class="n">fingerprint</span> <span class="n">is</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">YMDaKiSiJ</span><span class="p">+</span><span class="n">Hs89lJ2X</span><span class="p">/</span><span class="n">Ewq5QCPqT9gWwAac</span><span class="p">+</span><span class="n">IqOfxgw</span><span class="p">.</span>
+<span class="n">This</span> <span class="n">host</span> <span class="n">key</span> <span class="n">is</span> <span class="n">known</span> <span class="n">by</span> <span class="n">the</span> <span class="n">following</span> <span class="n">other</span> <span class="n">names</span><span class="p">/</span><span class="n">addresses</span><span class="p">:</span>
+    <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Takashii</span><span class="p">/.</span><span class="n">ssh</span><span class="p">/</span><span class="n">known_hosts</span><span class="p">:</span><span class="n">9</span><span class="p">:</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">45</span>
+<span class="n">Are</span> <span class="n">you</span> <span class="n">sure</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="k">continue</span> <span class="n">connecting</span> <span class="p">(</span><span class="n">yes</span><span class="p">/</span><span class="n">no</span><span class="p">/</span><span class="no">[fingerprint]</span><span class="p">)?</span>  <span class="p">&lt;---</span> <span class="s2">&quot;yes&quot;</span> 
+</pre></div>
+</div>
+<p>つづいてAdministratorのパスワード入力を求められます。工場出荷時は<code class="docutils literal notranslate"><span class="pre">1</span></code>です。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Warning:<span class="w"> </span>Permanently<span class="w"> </span>added<span class="w"> </span><span class="s1">&#39;fe80::201:5ff:fea3:e942&#39;</span><span class="w"> </span><span class="o">(</span>ED25519<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>known<span class="w"> </span>hosts.
+Administrator@fe80::201:5ff:fea3:e942<span class="err">&#39;</span>s<span class="w"> </span>password:<span class="w"> </span>&lt;-----<span class="w"> </span>工場出荷パスワード<span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span>を入力
+Linux<span class="w"> </span>BTN-000tr9xa<span class="w"> </span><span class="m">6</span>.14.9-rt3-bhf2<span class="w"> </span><span class="c1">#1 SMP PREEMPT_RT Fri May 30 13:39:56 UTC 2025 aarch64</span>
+
+The<span class="w"> </span>programs<span class="w"> </span>included<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>Debian<span class="w"> </span>GNU/Linux<span class="w"> </span>system<span class="w"> </span>are<span class="w"> </span>free<span class="w"> </span>software<span class="p">;</span>
+the<span class="w"> </span>exact<span class="w"> </span>distribution<span class="w"> </span>terms<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>program<span class="w"> </span>are<span class="w"> </span>described<span class="w"> </span><span class="k">in</span><span class="w"> </span>the
+individual<span class="w"> </span>files<span class="w"> </span><span class="k">in</span><span class="w"> </span>/usr/share/doc/*/copyright.
+
+Debian<span class="w"> </span>GNU/Linux<span class="w"> </span>comes<span class="w"> </span>with<span class="w"> </span>ABSOLUTELY<span class="w"> </span>NO<span class="w"> </span>WARRANTY,<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>extent
+permitted<span class="w"> </span>by<span class="w"> </span>applicable<span class="w"> </span>law.
+Last<span class="w"> </span>login:<span class="w"> </span>Tue<span class="w"> </span>Jul<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">01</span>:48:24<span class="w"> </span><span class="m">2025</span><span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.3.23
+Administrator@BTN-000*****:~$
+</pre></div>
+</div>
+<p>IPアドレスが変わらない限り、次回からは自己署名証明書が保持されますので、パスワードを入力してログイン可能です。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="p">&gt;</span> <span class="n">ssh</span> <span class="n">Administrator</span><span class="nv">@fe80</span><span class="p">::</span><span class="n">201</span><span class="p">:</span><span class="n">5ff</span><span class="p">:</span><span class="n">fea3</span><span class="p">:</span><span class="n">e942</span>
+<span class="n">Administrator</span><span class="nv">@fe80</span><span class="p">::</span><span class="n">201</span><span class="p">:</span><span class="n">5ff</span><span class="p">:</span><span class="n">fea3</span><span class="p">:</span><span class="n">e942</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">password</span><span class="p">:</span> <span class="p">&lt;-----</span> <span class="n">工場出荷パスワード</span> <span class="s2">&quot;1&quot;</span> <span class="n">を入力</span>
+<span class="n">Linux</span> <span class="n">BTN</span><span class="p">-</span><span class="n">000tr9xa</span> <span class="n">6</span><span class="p">.</span><span class="n">14</span><span class="p">.</span><span class="n">9-rt3-bhf2</span> <span class="c">#1 SMP PREEMPT_RT Fri May 30 13:39:56 UTC 2025 aarch64</span>
+
+<span class="n">The</span> <span class="n">programs</span> <span class="n">included</span> <span class="n">with</span> <span class="n">the</span> <span class="n">Debian</span> <span class="n">GNU</span><span class="p">/</span><span class="n">Linux</span> <span class="n">system</span> <span class="n">are</span> <span class="n">free</span> <span class="n">software</span><span class="p">;</span>
+<span class="n">the</span> <span class="n">exact</span> <span class="n">distribution</span> <span class="n">terms</span> <span class="k">for</span> <span class="n">each</span> <span class="n">program</span> <span class="n">are</span> <span class="n">described</span> <span class="k">in</span> <span class="n">the</span>
+<span class="n">individual</span> <span class="n">files</span> <span class="k">in</span> <span class="p">/</span><span class="n">usr</span><span class="p">/</span><span class="n">share</span><span class="p">/</span><span class="n">doc</span><span class="p">/*/</span><span class="n">copyright</span><span class="p">.</span>
+
+<span class="n">Debian</span> <span class="n">GNU</span><span class="p">/</span><span class="n">Linux</span> <span class="n">comes</span> <span class="n">with</span> <span class="n">ABSOLUTELY</span> <span class="n">NO</span> <span class="n">WARRANTY</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">extent</span>
+<span class="n">permitted</span> <span class="n">by</span> <span class="n">applicable</span> <span class="n">law</span><span class="p">.</span>
+<span class="n">Last</span> <span class="n">login</span><span class="p">:</span> <span class="n">Tue</span> <span class="n">Jul</span> <span class="n">29</span> <span class="n">01</span><span class="p">:</span><span class="n">48</span><span class="p">:</span><span class="n">24</span> <span class="n">2025</span> <span class="n">from</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">23</span>
+<span class="n">Administrator</span><span class="nv">@BTN</span><span class="p">-</span><span class="n">000</span><span class="p">*****:~$</span>
+</pre></div>
+</div>
+<p>上記で接続ができましたので、bash上で様々な操作が可能です。</p>
+</li>
+<li><p>接続を終えるときは、次のとおり<code class="docutils literal notranslate"><span class="pre">exit</span></code>コマンドを発行してください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Administrator@BTN-000*****:~$<span class="w"> </span><span class="nb">exit</span>
+<span class="nb">logout</span>
+Connection<span class="w"> </span>to<span class="w"> </span>fe80::201:5ff:fea3:e942<span class="w"> </span>closed.
+PS<span class="w"> </span>&gt;
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>接続後は様々なテキスト形式の設定ファイルを編集してサーバの設定を行います。ターミナル上で利用可能なテキストエディタは、<code class="docutils literal notranslate"><span class="pre">vi</span></code>および、<code class="docutils literal notranslate"><span class="pre">nano</span></code>です。使い方がより直感的なのは<code class="docutils literal notranslate"><span class="pre">nano</span></code>, キー操作を多用し、操作効率が高いエディタは<code class="docutils literal notranslate"><span class="pre">vi</span></code>です。本ドキュメントでは、主に<code class="docutils literal notranslate"><span class="pre">nano</span></code>を使った例でコマンド紹介します。</p>
+</div>
+</section>
+<section id="id3">
+<h2>パッケージマネージャの設定<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Beckhoffの各種製品ソフトウェアは、事前にご登録いただきましたログイン名、およびパスワードを通して debian の apt パッケージマネージャを通じて取得できます。従いまして、事前に<a class="reference external" href="https://www.beckhoff.com/en-en/mybeckhoff-registration/index.aspx">my beckhoff</a>からユーザアカウントを作成してください。その上でパッケージリスト、およびインストール済みパッケージを最新のものに更新します。</p>
+<p>パッケージリストとは、取得可能なパッケージと、そのバージョンが定義されたデータベースです。以下に示す<code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d</span></code>に定義したサーバおよびそのリポジトリからインストール可能なパッケージの目録をダウンロードします。この上で、希望する個々のパッケージをインストールすることが可能になります。</p>
+<p>まずは、パッケージのサーバ、およびリポジトリの設定を行います。</p>
+<ol class="arabic">
+<li><p>Beckhoffパッケージサーバへの認証ファイルの定義</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/apt/auth.conf.d/bhf.conf
+</pre></div>
+</div>
+<p>次の2つのサーバそれぞれに、my beckhoff で作成したユーザ名とパスワードを定義します。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">machine deb.beckhoff.com</span>
+<span class="l l-Scalar l-Scalar-Plain">login &lt;my beckhoffのBeckhoff カウント&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">password &lt;my beckhkoffのログインパスワード&gt;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">machine deb-mirror.beckhoff.com</span>
+<span class="l l-Scalar l-Scalar-Plain">login &lt;my beckhoffのBeckhoff カウント&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">password &lt;my beckhkoffのログインパスワード&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>TwinCAT RT Linux ベータ版のリポジトリ設定</p>
+<p>現在、TwinCAT RT Linuxはベータ段階です。このため、パッケージマネージャのリポジトリサーバは、<code class="docutils literal notranslate"><span class="pre">trixie</span></code>ではなく、<code class="docutils literal notranslate"><span class="pre">trixie-unstable</span></code>に書き換える必要があります。<code class="docutils literal notranslate"><span class="pre">sources.list.d</span></code>以下のファイルを編集します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/apt/sources.list.d/bhf.list
+</pre></div>
+</div>
+<p>APTリポジトリを<code class="docutils literal notranslate"><span class="pre">trixie</span></code>から<code class="docutils literal notranslate"><span class="pre">trixie-unstable</span></code>へ書き換えます。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># deb [signed-by=/usr/share/keyrings/bhf.asc] https://deb.beckhoff.com/debian trixie main</span>
+<span class="l l-Scalar l-Scalar-Plain">deb [signed-by=/usr/share/keyrings/bhf.asc] https://deb.beckhoff.com/debian trixie-unstable main</span><span class="w"> </span><span class="c1"># add `-unstable`</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="important admonition">
+<p class="admonition-title">これ以後の手順実施にはインターネットへの接続が必要です</p>
+<ul class="simple">
+<li><p>登録したサーバ、リポジトリへ接続する必要があるため、X001に接続したネットワークを通じてインターネットへの接続が必要です。</p></li>
+<li><p>インターネットへ接続するために固定IPが必要な場合、先に<a class="reference internal" href="#section-linux-set-fixed-ipaddr"><span class="std std-ref">固定IPアドレスを設定する</span></a>を参照してネットワーク設定を実施してください。</p></li>
+</ul>
+</div>
+<p>上記を正しく設定した上で、パッケージリストを最新に更新します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</pre></div>
+</div>
+<p>続いて次のコマンドによってインストール済みのパッケージを更新したパッケージリストに基づいて最新のものにインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</pre></div>
+</div>
+<p>最後に、TwinCATランタイムをIPCにインストールします。ARMプロセッサ搭載のIPCとそれ以外でインストールする必須パッケージが異なります。ARM以外のアーキテクチャでは、<code class="docutils literal notranslate"><span class="pre">libtcrte</span></code>もインストールしてください。</p>
+<dl class="simple myst">
+<dt>ARMプロセッサ向け（CX8290等）</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tc31-xar-um
+</pre></div>
+</div>
+</dd>
+<dt>それ以外</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tc31-xar-um<span class="w"> </span>libtcrte
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="ip">
+<span id="section-linux-set-fixed-ipaddr"></span><h2>固定IPアドレスを設定する<a class="headerlink" href="#ip" title="Link to this heading">#</a></h2>
+<p>CX82xx の初期納入時はDHCPによる自動IP割り当て設定となっています。前節までの手順でIPv6のIPアドレスを調べましたのでこのアドレスでログインはできていますが、IPv4アドレスを調べたり、固定IPを設定するには Linux のネットワーク設定が必要です。この手順についてご説明します。</p>
+<section id="id4">
+<h3>現在のIPアドレスを調べる<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>IP層を構成したり設定を調査するネットワークコマンドは、Windowsでは<code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>コマンド、TwinCAT BSDでは、net-tools系の<code class="docutils literal notranslate"><span class="pre">ifconfig</span></code>コマンドですが、Linuxでは<code class="docutils literal notranslate"><span class="pre">iproute2</span></code>系の<code class="docutils literal notranslate"><span class="pre">ip</span></code>コマンドが主流です。コマンドが無ければ次のとおり<code class="docutils literal notranslate"><span class="pre">iproute2</span></code>をインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>iproute2
+</pre></div>
+</div>
+<p>インストールが終わるとipコマンドが使用できる状態となります。<code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>コマンドでネットワークのコンフィギュレーションを調べます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ip<span class="w"> </span>a
+<span class="m">1</span>:<span class="w"> </span>lo:<span class="w"> </span>&lt;LOOPBACK,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">65536</span><span class="w"> </span>qdisc<span class="w"> </span>noqueue<span class="w"> </span>state<span class="w"> </span>UNKNOWN<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<span class="w">    </span>link/loopback<span class="w"> </span><span class="m">00</span>:00:00:00:00:00<span class="w"> </span>brd<span class="w"> </span><span class="m">00</span>:00:00:00:00:00
+<span class="w">    </span>inet<span class="w"> </span><span class="m">127</span>.0.0.1/8<span class="w"> </span>scope<span class="w"> </span>host<span class="w"> </span>lo
+<span class="w">       </span>valid_lft<span class="w"> </span>forever<span class="w"> </span>preferred_lft<span class="w"> </span>forever
+<span class="w">    </span>inet6<span class="w"> </span>::1/128<span class="w"> </span>scope<span class="w"> </span>host<span class="w"> </span>noprefixroute
+<span class="w">       </span>valid_lft<span class="w"> </span>forever<span class="w"> </span>preferred_lft<span class="w"> </span>forever
+<span class="m">2</span>:<span class="w"> </span>end0:<span class="w"> </span>&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>mq<span class="w"> </span>state<span class="w"> </span>UP<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<span class="w">    </span>link/ether<span class="w"> </span><span class="m">00</span>:01:05:**:**:**<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+<span class="w">    </span>inet<span class="w"> </span><span class="m">192</span>.168.1.10/24<span class="w"> </span>metric<span class="w"> </span><span class="m">1024</span><span class="w"> </span>brd<span class="w"> </span><span class="m">192</span>.168.1.255<span class="w"> </span>scope<span class="w"> </span>global<span class="w"> </span>dynamic<span class="w"> </span>end0
+<span class="w">       </span>valid_lft<span class="w"> </span>67246sec<span class="w"> </span>preferred_lft<span class="w"> </span>67246sec
+<span class="w">    </span>inet6<span class="w"> </span><span class="m">2400</span>:2653:ca21:7800:201:5ff:fea3:e942/64<span class="w"> </span>scope<span class="w"> </span>global<span class="w"> </span>dynamic<span class="w"> </span>mngtmpaddr<span class="w"> </span>noprefixroute
+<span class="w">       </span>valid_lft<span class="w"> </span>14060sec<span class="w"> </span>preferred_lft<span class="w"> </span>12260sec
+<span class="w">    </span>inet6<span class="w"> </span>fe80::201:5ff:fea3:e942/64<span class="w"> </span>scope<span class="w"> </span>link
+<span class="w">       </span>valid_lft<span class="w"> </span>forever<span class="w"> </span>preferred_lft<span class="w"> </span>forever
+<span class="m">3</span>:<span class="w"> </span>tctap0:<span class="w"> </span>&lt;BROADCAST,MULTICAST&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>fq_codel<span class="w"> </span>state<span class="w"> </span>DOWN<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<span class="w">    </span>link/ether<span class="w"> </span><span class="m">00</span>:01:05:a4:d3:d6<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+</pre></div>
+</div>
+<p>上記のとおり、<code class="docutils literal notranslate"><span class="pre">end0</span></code>というネットワークインターフェースカードに<code class="docutils literal notranslate"><span class="pre">192.168.1.10</span></code>が割り当てられていることがわかります。</p>
+</section>
+<section id="id5">
+<h3>固定IPアドレスの設定<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>IPアドレスに関する設定は<code class="docutils literal notranslate"><span class="pre">/etc/systemd/network</span></code>以下にあります。初期状態ではこの下に<code class="docutils literal notranslate"><span class="pre">020-wired.network</span></code>があり、IPアドレスやルーティング設定はDHCPによる自動割り当てが有効となっています。</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">020-wired</span><span class="p">.</span><span class="n">network</span>
+<span class="k">[Match]</span>
+<span class="n">Name</span><span class="o">=</span><span class="err">en* eth*</span>
+
+<span class="k">[Network]</span>
+<span class="n">DHCP</span><span class="o">=</span><span class="err">yes</span>
+<span class="n">LinkLocalAddressing</span><span class="o">=</span><span class="err">yes</span>
+
+<span class="k">[DHCPv4]</span>
+<span class="n">ClientIdentifier</span><span class="o">=</span><span class="err">mac</span>
+</pre></div>
+</div>
+<p>固定IPを設定する場合、このファイルを書き換えるのではなく、起動時にこの後に上書き設定されるように、次のファイルを新規作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/systemd/network/10-end0-static.network
+$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/network/10-end0-static.network<span class="w"> </span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">touch</span></code>コマンドで空のファイルを作成し、そのあと<code class="docutils literal notranslate"><span class="pre">nano</span></code>で定義ファイルを編集します。前節で調べたとおり、あらかじめ<code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>コマンドで一覧させたネットワークカードのうち、設定したい対象のカード（今回の例では<code class="docutils literal notranslate"><span class="pre">end0</span></code>）を<code class="docutils literal notranslate"><span class="pre">Match.Name</span></code>に指定し、<code class="docutils literal notranslate"><span class="pre">Network</span></code>セクションにIPアドレスとネットワークアドレスセグメント、および、ゲートウェイアドレスを設定します。</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[Match]</span>
+<span class="n">Name</span><span class="o">=</span><span class="err">end</span><span class="mi">0</span>
+
+<span class="k">[Network]</span>
+<span class="n">Address</span><span class="o">=</span><span class="mf">192.168</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">45</span><span class="err">/</span><span class="n">24</span>
+<span class="n">Gateway</span><span class="o">=</span><span class="mf">192.168</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">1</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">ネットワークアドレスセグメント指定について</p>
+<p><code class="docutils literal notranslate"><span class="pre">/24</span></code>は、ネットワークアドレスを示すbit数を指定しています。<code class="docutils literal notranslate"><span class="pre">192.168.3.45</span></code>は、8bit x 4桁 でIPアドレスを表しますが、上位 24 bit がネットワークアドレス、つまり、<code class="docutils literal notranslate"><span class="pre">192.168.3</span></code>までがネットワークアドレスであることを示します。</p>
+<p>このため、上位 24bit が同一のIPアドレス同士であれば、Gatewayで指定したルータを経由せずとも直接通信することができます。</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">設定ファイル名にお気を付けください</p>
+<p>既存の設定ファイル名が<code class="docutils literal notranslate"><span class="pre">020-</span></code>から始まるのに対して今回作成するものが<code class="docutils literal notranslate"><span class="pre">10</span></code>から始まる設定ファイルとしています。networkctlサービス起動時にはこの設定ファイルの文字列の昇順で処理されます。よって、<code class="docutils literal notranslate"><span class="pre">en*</span></code><code class="docutils literal notranslate"><span class="pre">eth*</span></code>にマッチするすべてのインターフェースはDHCPが適用され、<code class="docutils literal notranslate"><span class="pre">end0</span></code>のカードのみ固定IPが設定されます。このように優先順を考慮したファイル名とする必要があります。</p>
+</div>
+<p>設定が完了したら、次のとおりネットワークサービスを再起動するコマンドを発行して設定を反映させます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>networkctl<span class="w"> </span>reload
+</pre></div>
+</div>
+<p>SSH経由では一度ネットワークが切断されますので、設定した新しいIPアドレスにて再度接続を試みてください。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="p">&gt;</span> <span class="n">ssh</span> <span class="n">Administrator</span><span class="nv">@192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">45</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tf1810-plc-hmi-web">
+<h2>TF1810 PLC HMI Webの導入<a class="headerlink" href="#tf1810-plc-hmi-web" title="Link to this heading">#</a></h2>
+<p>IPC納品時に含まれていないパッケージを追加するまでの手順をご説明します。ここでは<code class="docutils literal notranslate"><span class="pre">TF1810</span> <span class="pre">PLC</span> <span class="pre">HMI</span> <span class="pre">Web</span></code>を追加インストールするまでの手順を例にご説明します。</p>
+<p>まず、<code class="docutils literal notranslate"><span class="pre">tf1810</span></code>というキーワードから、パッケージ名を検索します。<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">search</span></code>コマンドを用います。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>search<span class="w"> </span>tf1810
+Sorting...<span class="w"> </span>Done
+Full<span class="w"> </span>Text<span class="w"> </span>Search...<span class="w"> </span>Done
+tf1810-plc-hmi-web/trixie-unstable,now<span class="w"> </span><span class="m">4</span>.0.1.0-1<span class="w"> </span>arm64<span class="w"> </span><span class="o">[</span>installed<span class="o">]</span>
+<span class="w">  </span>TF1810<span class="w"> </span><span class="p">|</span><span class="w"> </span>TC3<span class="w"> </span>PLC<span class="w"> </span>HMI<span class="w"> </span>Web
+</pre></div>
+</div>
+<p>上記から、パッケージ名は<code class="docutils literal notranslate"><span class="pre">tf1810-plc-hmi-web</span></code>であることが分かります。次の通りPLC HMI Webをインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tf1810-plc-hmi-web
+</pre></div>
+</div>
+<p>IPCを再起動して、tf1810が稼働しているかどうかを確認してみましょう。TF1810はWEBサーバを用いたPLC HMIソフトウェアです。したがって何等かのTCPポートでサービスを提供しているのか調べる必要があります。</p>
+<p>インストールしたパッケージはどのディレクトリにどのようなファイルが追加されたかを一覧するには、次の通り<code class="docutils literal notranslate"><span class="pre">dpkg</span> <span class="pre">-L</span></code>コマンドを入力します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>dpkg<span class="w"> </span>-L<span class="w"> </span>tf1810-plc-hmi-web
+/.
+/etc
+/etc/TwinCAT
+/etc/TwinCAT/3.1
+/etc/TwinCAT/3.1/Components
+/etc/TwinCAT/3.1/Components/Plc
+/etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService
+/etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService
+/etc/TwinCAT/3.1/Target
+/etc/TwinCAT/3.1/Target/StartManConfig
+/etc/TwinCAT/3.1/Target/StartManConfig/tf1810-plc-hmi-web.xml
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/tf1810-plc-hmi-web
+/usr/share/doc/tf1810-plc-hmi-web/changelog.Debian.gz
+/usr/share/doc/tf1810-plc-hmi-web/copyright
+</pre></div>
+</div>
+<p>この中で実行ファイルと思われるファイルは、<code class="docutils literal notranslate"><span class="pre">/etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService</span></code>と思われます。（その他はテキストやディレクトリ）</p>
+<p>次にこのプロセスが動作しているかどうか、と、そのプロセスIDを調べます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
+USER<span class="w">         </span>PID<span class="w"> </span>%CPU<span class="w"> </span>%MEM<span class="w">    </span>VSZ<span class="w">   </span>RSS<span class="w"> </span>TTY<span class="w">      </span>STAT<span class="w"> </span>START<span class="w">   </span>TIME<span class="w"> </span>COMMAND
+$<span class="w"> </span>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Tc3PlcHmiWebService
+root<span class="w">         </span><span class="m">479</span><span class="w">  </span><span class="m">0</span>.0<span class="w">  </span><span class="m">0</span>.1<span class="w">   </span><span class="m">2324</span><span class="w">  </span><span class="m">1304</span><span class="w"> </span>?<span class="w">        </span>S<span class="w">    </span>Jul28<span class="w">   </span><span class="m">0</span>:00<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span>/etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService<span class="w"> </span>-umRuntime<span class="o">=</span>ux:/run/ams/tcsyssrv.ams.sock:32784
+root<span class="w">         </span><span class="m">480</span><span class="w">  </span><span class="m">0</span>.0<span class="w">  </span><span class="m">0</span>.5<span class="w"> </span><span class="m">672364</span><span class="w">  </span><span class="m">5136</span><span class="w"> </span>?<span class="w">        </span>Sl<span class="w">   </span>Jul28<span class="w">   </span><span class="m">0</span>:55<span class="w"> </span>/etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService<span class="w"> </span>-umRuntime<span class="o">=</span>ux:/run/ams/tcsyssrv.ams.sock:32784
+Adminis+<span class="w">   </span><span class="m">27762</span><span class="w">  </span><span class="m">0</span>.0<span class="w">  </span><span class="m">0</span>.1<span class="w">   </span><span class="m">3084</span><span class="w">  </span><span class="m">1356</span><span class="w"> </span>pts/0<span class="w">    </span>S+<span class="w">   </span><span class="m">02</span>:46<span class="w">   </span><span class="m">0</span>:00<span class="w"> </span>grep<span class="w"> </span>Tc3PlcHmiWebService
+</pre></div>
+</div>
+<p>上記によりプロセスIDは480であることがわかります。このプロセスが開いているファイルを一覧してみましょう。これを調べるコマンド<code class="docutils literal notranslate"><span class="pre">lsof</span></code>(LiSt Open Fileの略) がありますが、初期状態ではインストールされていませんのでインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lsof
+</pre></div>
+</div>
+<p>さっそく、このコマンドを使ってPID 480のプログラムが開いている全てのファイルを一覧してみましょう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo lsof -p 480
+COMMAND   PID USER   FD      TYPE             DEVICE SIZE/OFF  NODE NAME
+Tc3PlcHmi 480 root  cwd       DIR               0,28      122   256 /
+Tc3PlcHmi 480 root  rtd       DIR               0,28      122   256 /
+Tc3PlcHmi 480 root  txt       REG               0,28  1053688 27395 /etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService
+Tc3PlcHmi 480 root  mem       REG               0,27          27395 /etc/TwinCAT/3.1/Components/Plc/Tc3PlcHmiWebService/Tc3PlcHmiWebService (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           3271 /usr/lib/aarch64-linux-gnu/libmd.so.0.0.5 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           3219 /usr/lib/aarch64-linux-gnu/libbsd.so.0.11.7 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          19099 /usr/lib/aarch64-linux-gnu/libc.so.6 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          19037 /usr/lib/aarch64-linux-gnu/libgcc_s.so.1 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          19102 /usr/lib/aarch64-linux-gnu/libm.so.6 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           4394 /usr/lib/llvm-14/lib/libc++abi.so.1.0 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           4395 /usr/lib/llvm-14/lib/libunwind.so.1.0 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           4393 /usr/lib/llvm-14/lib/libc++.so.1.0 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          27231 /usr/lib/libTcSystemUm.so (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          27135 /usr/lib/libTcAdsDll.so (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27           3328 /usr/lib/aarch64-linux-gnu/libuuid.so.1.3.0 (path dev=0,28)
+Tc3PlcHmi 480 root  mem       REG               0,27          19096 /usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1 (path dev=0,28)
+Tc3PlcHmi 480 root    0r      CHR                1,3      0t0     4 /dev/null
+Tc3PlcHmi 480 root    1u     unix 0x000000000058bd30      0t0  5565 type=STREAM (CONNECTED)
+Tc3PlcHmi 480 root    2u     unix 0x000000000058bd30      0t0  5565 type=STREAM (CONNECTED)
+Tc3PlcHmi 480 root    3u     unix 0x000000004619dfeb      0t0  5722 type=STREAM (CONNECTED)
+Tc3PlcHmi 480 root    4u     unix 0x00000000f3c5e3ee      0t0  5725 type=STREAM (CONNECTED)
+Tc3PlcHmi 480 root    5u  a_inode               0,15        0    32 [eventfd:0]
+Tc3PlcHmi 480 root    6u  a_inode               0,15        0    32 [eventpoll:5,7,8]
+Tc3PlcHmi 480 root    7u  a_inode               0,15        0    32 [timerfd]
+Tc3PlcHmi 480 root    8u     IPv4               5728      0t0   TCP *:42341 (LISTEN)
+</pre></div>
+</div>
+<p>さて、もう少し絞りこんで、開いているファイルのうち、ソケット待ち受け（LISTEN）しているものだけを抽出します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo lsof -p 480 | grep LISTEN
+Tc3PlcHmi 480 root    8u     IPv4               5728      0t0   TCP *:42341 (LISTEN)
+</pre></div>
+</div>
+<p>この通り、<strong>42341</strong>ポートで待ち受けていることがわかります。</p>
+<p>次に、このポートが外部からアクセスできるようにするにはファイヤウォールで受信を許可する必要があります。Linuxにおけるファイヤウォールは、<code class="docutils literal notranslate"><span class="pre">nftables</span></code>と呼ばれています。設定は、<code class="docutils literal notranslate"><span class="pre">/etc/nftables.conf.d</span></code>以下に個々に<code class="docutils literal notranslate"><span class="pre">.conf</span></code>ファイルを作成し、ポートの許可、禁止設定を行います。</p>
+<p>既に、次の通りポートが許可された設定になっています。</p>
+<dl class="simple myst">
+<dt>00-basic.conf</dt><dd><p>IPv6における ping の許可や、localhost に対する全てのアクセス、SSHポート22の外部からのアクセスが許可されています。</p>
+</dd>
+<dt>50-ipc-diagnostics.conf</dt><dd><p>ベータ版では未だ未実装ですが、デバイスマネージャのWEBサービスがSSL-http （ポート443）で提供される予定なので、443ポートが許可されています。</p>
+</dd>
+<dt>50-tcsystemservice.conf</dt><dd><p>XAEとの接続に使うADSポート（TCP 8016, UDP 48899）を許可しています。</p>
+</dd>
+</dl>
+<p>以上に加えて、次のファイルを作成します。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-number">リスト 1.3 </span><span class="caption-text">99-plchmiweb.conf</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">table</span><span class="w"> </span><span class="s">inet</span><span class="w"> </span><span class="s">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kn">chain</span><span class="w"> </span><span class="s">input</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># accept IPC Diagnostics</span>
+<span class="w">    </span><span class="kn">tcp</span><span class="w"> </span><span class="s">dport</span><span class="w"> </span><span class="mi">42341</span><span class="w"> </span><span class="s">accept</span>
+<span class="w">  </span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<p>設定ファイルを保存したら一度IPCを再起動してください。</p>
+<p>以上により、URL<code class="docutils literal notranslate"><span class="pre">http://192.168.3.45:42341/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm</span></code>にて外部からPLC HMI Webにアクセスすることができるようになりました。</p>
+<div class="warning admonition">
+<p class="admonition-title">セキュリティ上の問題</p>
+<p>ここまで示した手順では、PLC HMI Web内臓のWEBサーバを直接外部公開するものです。この方法ではアクセスポートが公開されているため、外部からの攻撃を受けやすくなったり、SSLによる暗号化通信ができません。</p>
+<p>そこで、中間にリバースプロキシサーバを設置することでこの問題を解消できます。設置方法は<a class="reference internal" href="reverse_proxy/index.html#chapter-reverse-proxy-nginx"><span class="std std-ref">nginx を用いたリバースプロキシの設定</span></a>を参照ください。</p>
+<p>この設定を行った場合、42341 ポートによるTF1810への直接アクセスは不要となります。<code class="docutils literal notranslate"><span class="pre">/etc/nftables.conf.d/99-plchmiweb.conf</span></code>を削除してこのポート開放を停止してください。</p>
+</div>
+</section>
+<section id="id6">
+<h2>バックアップ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>Acronis製のバックアップソリューションを備えたBSTでは、TwinCAT BSDのZFSや、Linuxのext4などのファイルシステムのバックアップができません。このような場合、各OSのコマンドを使ってイメージバックアップを取ります。</p>
+<section id="usb">
+<h3>USBディスクのマウント<a class="headerlink" href="#usb" title="Link to this heading">#</a></h3>
+<p>CX82xxのX002は、USB3.0デバイスです。ここにUSBメモリを挿してください。挿した直後、次のコマンドを発行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>dmesg
+</pre></div>
+</div>
+<p>下記のとおり、最終行辺りにカーネルがUSBを認識したことを示すログが一覧されます。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-number">リスト 1.4 </span><span class="caption-text">USBメモリをX002に挿した直後のdmesgの内容</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[ 1261.696617] usb 1-1: new high-speed USB device number 2 using xhci-hcd
+[ 1261.833454] usb 1-1: New USB device found, idVendor=abcd, idProduct=1234, bcdDevice= 1.00
+[ 1261.833479] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[ 1261.833486] usb 1-1: Product: UDisk
+[ 1261.833491] usb 1-1: Manufacturer: General
+[ 1261.833497] usb 1-1: SerialNumber: \xd0\x89
+[ 1261.914295] SCSI subsystem initialized
+[ 1261.938827] usb-storage 1-1:1.0: USB Mass Storage device detected
+[ 1261.944135] scsi host0: usb-storage 1-1:1.0
+[ 1261.946819] usbcore: registered new interface driver usb-storage
+[ 1261.962097] usbcore: registered new interface driver uas
+[ 1262.949386] scsi 0:0:0:0: Direct-Access     General  UDisk            5.00 PQ: 0 ANSI: 2
+[ 1262.979544] sd 0:0:0:0: [sda] 31457280 512-byte logical blocks: (16.1 GB/15.0 GiB)
+[ 1262.979809] sd 0:0:0:0: [sda] Write Protect is off
+[ 1262.979822] sd 0:0:0:0: [sda] Mode Sense: 0b 00 00 08
+[ 1262.980205] sd 0:0:0:0: [sda] No Caching mode page found
+[ 1262.980214] sd 0:0:0:0: [sda] Assuming drive cache: write through
+[ 1263.006047]  sda:
+[ 1263.006232] sd 0:0:0:0: [sda] Attached SCSI removable disk
+</pre></div>
+</div>
+</div>
+<p>ここから、デバイスファイルは<code class="docutils literal notranslate"><span class="pre">sda</span></code>として認識したことがわかります。<code class="docutils literal notranslate"><span class="pre">/dev</span></code>以下を一覧し、認識されたブロックデバイスを確認します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>/dev/sda*
+/dev/sda
+</pre></div>
+</div>
+<p>どうやらパーティション等は無さそうなので、これをFATファイルシステムとしてマウントしてみます。まずは、マウントポジションを作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>mkdir<span class="w"> </span>/mnt/usb
+</pre></div>
+</div>
+<p>続いてマウントコマンドを発行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>vfat<span class="w"> </span>/dev/sda<span class="w"> </span>/mnt/usb
+</pre></div>
+</div>
+<p>ファイル規定の容量のファイルシステムがマウントされているか確認します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>df<span class="w"> </span>-h
+Filesystem<span class="w">      </span>Size<span class="w">  </span>Used<span class="w"> </span>Avail<span class="w"> </span>Use%<span class="w"> </span>Mounted<span class="w"> </span>on
+udev<span class="w">            </span>417M<span class="w">     </span><span class="m">0</span><span class="w">  </span>417M<span class="w">   </span><span class="m">0</span>%<span class="w"> </span>/dev
+tmpfs<span class="w">            </span>98M<span class="w">  </span>448K<span class="w">   </span>98M<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/run
+/dev/mmcblk0p2<span class="w">   </span>14G<span class="w">  </span>444M<span class="w">   </span>14G<span class="w">   </span><span class="m">4</span>%<span class="w"> </span>/
+tmpfs<span class="w">           </span>488M<span class="w">     </span><span class="m">0</span><span class="w">  </span>488M<span class="w">   </span><span class="m">0</span>%<span class="w"> </span>/dev/shm
+tmpfs<span class="w">           </span><span class="m">5</span>.0M<span class="w">     </span><span class="m">0</span><span class="w">  </span><span class="m">5</span>.0M<span class="w">   </span><span class="m">0</span>%<span class="w"> </span>/run/lock
+efivarfs<span class="w">        </span>128K<span class="w">  </span><span class="m">2</span>.2K<span class="w">  </span>126K<span class="w">   </span><span class="m">2</span>%<span class="w"> </span>/sys/firmware/efi/efivars
+/dev/mmcblk0p1<span class="w"> </span>1022M<span class="w">   </span>43M<span class="w">  </span>980M<span class="w">   </span><span class="m">5</span>%<span class="w"> </span>/boot/efi
+/dev/sda<span class="w">         </span>15G<span class="w">  </span><span class="m">1</span>.1G<span class="w">   </span>14G<span class="w">   </span><span class="m">8</span>%<span class="w"> </span>/mnt/usb
+</pre></div>
+</div>
+<p>無事マウントできていることを確認しました。</p>
+</section>
+<section id="id7">
+<h3>保存元デバイスを調べる<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>つづいてバックアップ元となるIPCのルートファイルシステムのデバイス名を探します。以下のとおりmountコマンドで一覧されたルートファイルシステムの使用しているデバイスを確認します。この結果<code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0p2</span></code>であることがわかります。</p>
+<p>このデバイスは、パーティションも含めたものとなっていますので、ディスク全体のデバイスファイル名は<code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0</span></code>であることがわかります。これにより下記のとおり<code class="docutils literal notranslate"><span class="pre">boot</span></code>ファイルシステムもまとめてバックアップされます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>df<span class="w"> </span>-h
+/dev/mmcblk0p2<span class="w">   </span>14G<span class="w">  </span>444M<span class="w">   </span>14G<span class="w">   </span><span class="m">4</span>%<span class="w"> </span>/
+<span class="w">        </span>:
+/dev/mmcblk0p1<span class="w"> </span>1022M<span class="w">   </span>43M<span class="w">  </span>980M<span class="w">   </span><span class="m">5</span>%<span class="w"> </span>/boot/efi
+</pre></div>
+</div>
+<p>デバイスファイルを下記の通り確認します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>/dev/mmcblk0*
+/dev/mmcblk0<span class="w">  </span>/dev/mmcblk0p1<span class="w">  </span>/dev/mmcblk0p2
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>バックアップの保存<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>マウントしたUSBメモリに対して次のコマンドでバックアップを保存します。パイプやリダイレクションを用いて複合的にコマンドを実行するため、環境全体をrootへ移行する必要があります。最初に<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-s</span></code>でrootに移行してください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>-s
+<span class="c1"># dd if=/dev/mmcblk0 bs=64k | gzip -c &gt; /mnt/usb/cx8290_20250801.ddimg.gz</span>
+</pre></div>
+</div>
+<p>しばらく応答の無い状態が続きますが、この間、USBメモリにIPCのディスクイメージを圧縮しながら<code class="docutils literal notranslate"><span class="pre">cx8290_20250801.ddimg.gz</span></code>というファイル名で保存しています。</p>
+</section>
+<section id="id9">
+<h3>リストア<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>TwinCAT RT Linuxの起動ディスクを用意します。IPCをこのディスクから起動し、バックアップファイルを保存したドライブ<code class="docutils literal notranslate"><span class="pre">/mnt/usb</span></code>をマウントします。ターゲットのデバイスが<code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0</span></code>であることを確認した上で、次の通りコマンドを発行すると、ディスクイメージが復元できます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>-s
+<span class="c1"># gunzip -c /mnt/usb/cx8290_20250801.ddimg.gz | dd of=/dev/mmcblk0 bs=64k </span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">1.3. </span>TwinCAT Linux</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tf1200/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">TF1200 UI Client</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">設置と電源投入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">接続</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">パッケージマネージャの設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip">固定IPアドレスを設定する</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">現在のIPアドレスを調べる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">固定IPアドレスの設定</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf1810-plc-hmi-web">TF1810 PLC HMI Webの導入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">バックアップ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb">USBディスクのマウント</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">保存元デバイスを調べる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">バックアップの保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">リストア</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1185 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1.9. TwinCAT BSD &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tcbsd/index';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="2. 開発編（プログラミング）" href="../develop_programing.html" />
+    <link rel="prev" title="ファンクションブロックを用いたデータアクセス" href="../coe_sdo_access/plc_sdo_access.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../influxdb/index.html">InfluxDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../influxdb/telegraf.html">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/tcbsd/index.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Ftcbsd/index.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tcbsd/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TwinCAT BSD</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">基本設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#twincatadstcp">パケットフィルタの設定でTwinCATのADSルータのTCPポートを開放する</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPUの有効化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#window-system-xfce">Window system xfce のインストール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">日本語環境の構築</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xfce">xfce ログイン後の初期設定</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fcitx">fcitx の自動起動</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">fcitx キーボード設定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windowsからのリモートデスクトップ接続を可能にする</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kiosktf1810-plc-hmi-web">kioskモードでブラウザを起動してTF1810 PLC HMI Web を表示させる</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="twincat-bsd">
+<h1><span class="section-number">1.9. </span>TwinCAT BSD<a class="headerlink" href="#twincat-bsd" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>基本設定<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>日本語キーボードに変更</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">keymap</span><span class="o">=</span><span class="s2">&quot;jp.106&quot;</span>
+</pre></div>
+</div>
+<p>パッケージカタログを最新にする</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>update
+</pre></div>
+</div>
+<p>最新パッケージを一斉インストールする</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>upgrade
+</pre></div>
+</div>
+</section>
+<section id="twincatadstcp">
+<h2>パケットフィルタの設定でTwinCATのADSルータのTCPポートを開放する<a class="headerlink" href="#twincatadstcp" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/pf.conf</span></code>を編集して、次の一行を追加します。ADSポート48898を通過させることができます。</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-number">リスト 1.25 </span><span class="caption-text">/etc/pf.conf</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>:
+<span class="c1"># ADS port open</span>
+pass<span class="w"> </span><span class="k">in</span><span class="w"> </span>quick<span class="w"> </span>proto<span class="w"> </span>tcp<span class="w"> </span>to<span class="w"> </span>port<span class="w"> </span><span class="m">48898</span><span class="w"> </span>synproxy<span class="w"> </span>state<span class="w">  </span><span class="c1"># &lt;= 追加</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="gpu">
+<h2>GPUの有効化<a class="headerlink" href="#gpu" title="Link to this heading">#</a></h2>
+<p>Intel製CPU内臓GPUを使われている場合は、次のコマンドにてGPUを用いた表示を有効にすることができます。</p>
+<p>まず、ベッコフ製IPCに適応した、Xorgで使われるDRMに対応したカーネルモジュールをインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>drm-kmod-bhf
+</pre></div>
+</div>
+<p>GPUの使用権限を与えるため、<code class="docutils literal notranslate"><span class="pre">root</span></code>および<code class="docutils literal notranslate"><span class="pre">Administrator</span></code>ユーザを<code class="docutils literal notranslate"><span class="pre">video</span></code>グループに所属させます。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pw<span class="w"> </span>groupmod<span class="w"> </span>video<span class="w"> </span>-m<span class="w"> </span>root
+$<span class="w"> </span>doas<span class="w"> </span>pw<span class="w"> </span>groupmod<span class="w"> </span>video<span class="w"> </span>-m<span class="w"> </span>Administrator
+</pre></div>
+</div>
+<p>起動時にIntel製のGPUのカーネルモジュールを自動的にロードするため、以下の通りsysrcコマンドで<code class="docutils literal notranslate"><span class="pre">i915kms.ko</span></code>を自動ロード設定します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">kld_list</span><span class="o">+=</span>i915kms
+</pre></div>
+</div>
+<p>再起動すると、GPUを用いた表示が可能になります。</p>
+</section>
+<section id="window-system-xfce">
+<h2>Window system xfce のインストール<a class="headerlink" href="#window-system-xfce" title="Link to this heading">#</a></h2>
+<p>xorg（ウィンドウシステム）, xfce（ウィンドウマネージャ）, lightdm（ディスプレーマネージャ）をインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>xorg<span class="w"> </span>xfce<span class="w"> </span>lightdm<span class="w"> </span>lightdm-gtk-greeter<span class="w"> </span>lightdm-gtk-greeter-settings
+</pre></div>
+</div>
+<p>サウンドコンポーネントをインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>pulseaudio<span class="w"> </span>jackit<span class="w"> </span>sndio<span class="w"> </span>alsa-lib
+</pre></div>
+</div>
+<p>dbusで用いられるプロセスファイルシステムを有効にする。</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-number">リスト 1.26 </span><span class="caption-text">/etc/fstab</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proc</span>            <span class="o">/</span><span class="n">proc</span>   <span class="n">procfs</span>  <span class="n">rw</span>      <span class="mi">0</span>       <span class="mi">0</span> <span class="c1"># 最終行に追加</span>
+</pre></div>
+</div>
+</div>
+<p>起動時にdbus, lightdmそれぞれのデーモンが有効になるように設定します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">dbus_enable</span><span class="o">=</span><span class="s2">&quot;YES&quot;</span><span class="w">  </span><span class="c1"># xfceのコンポーネント間通信機構に使われる通信フレームワーク</span>
+$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">lightdm_enable</span><span class="o">=</span><span class="s2">&quot;YES&quot;</span><span class="w">  </span><span class="c1"># 起動後GUIによるログイン画面が有効になる</span>
+</pre></div>
+</div>
+<p>xfceのパネル等で音量ボリュームやミキサーなどの設定を行うソフトウェアは標準では付加していませんので、追加インストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>xfce4-pulseaudio-plugin
+</pre></div>
+</div>
+<p>Lightdm（ログイン画面）上で扱うキーボードの種類を設定します。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-number">リスト 1.27 </span><span class="caption-text">/usr/local/etc/lightdm/lightdm.conf</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Seat:*<span class="o">]</span>
+<span class="w"> </span>:
+display-setup-script<span class="o">=</span>setxkbmap<span class="w"> </span>jp<span class="w"> </span><span class="c1"># 追加</span>
+</pre></div>
+</div>
+</div>
+<p>ここまでの作業を行った後、次節を引き続き実施してください。再起動すると次回はログイン画面がLightDMによるGUI画面に切り替わります。</p>
+</section>
+<section id="id2">
+<h2>日本語環境の構築<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>ここからは、TC BSDではなく、FreeBSDのパッケージインストールが必要です。まずはFreeBSDパッケージリポジトリを有効にします。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-number">リスト 1.28 </span><span class="caption-text">/usr/local/etc/pkg/repos/FreeBSD.conf</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>FreeBSD:<span class="w"> </span><span class="o">{</span><span class="w"> </span>enabled:<span class="w"> </span>yes<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="c1"># &lt;= enabled: no からの変更</span>
+</pre></div>
+</div>
+</div>
+<p>このあと、次のコマンドで新しいリポジトリからパッケージカタログを更新します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>update
+</pre></div>
+</div>
+<p>日本語フォント、mozc（日本語IME）, fcitx（入力メソッドフレームワーク）をインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>ja-font-std<span class="w"> </span>ja-font-vlgothic<span class="w"> </span>ja-font-takao<span class="w"> </span>noto-jp
+$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>ja-fcitx-mozc<span class="w"> </span>ja-mozc-server<span class="w"> </span>ja-mozc-tool<span class="w"> </span>zh-fcitx<span class="w"> </span>zh-fcitx-configtool
+</pre></div>
+</div>
+<p>ログイン後のXの環境設定で日本語を有効にします。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-number">リスト 1.29 </span><span class="caption-text">$HOME/.xprofile</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>!/bin/sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>ja_JP.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">LC_ALL</span><span class="o">=</span>ja_JP.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">LC_CTYPE</span><span class="o">=</span>ja_JP.UTF-8
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">DefaultIMModule</span><span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">QT_IM_MODULE</span><span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">XMODIFIERS</span><span class="o">=</span>@im<span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">XMODIFIER</span><span class="o">=</span>@im<span class="o">=</span>fcitx
+</pre></div>
+</div>
+</div>
+<p>以上を設定したら、一度再起動してください。コンソールからのログインではなく、Lightdmのログイン画面が現われます。<code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">&amp;</span></code>というユーザ名のログイン名でのログインを求められます。これは前回ログインしたユーザを示すものですが、初回は未設定なので、<code class="docutils literal notranslate"><span class="pre">Other...</span></code>を選択してください。</p>
+<p>上段にユーザ名<code class="docutils literal notranslate"><span class="pre">Administrator</span></code>を、下段にはそのパスワードを入力してログインすることができます。</p>
+<p>次回以後のログインでは、<code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">&amp;</span></code>のままパスワードだけ入力してください。</p>
+<section id="xfce">
+<h3>xfce ログイン後の初期設定<a class="headerlink" href="#xfce" title="Link to this heading">#</a></h3>
+<section id="fcitx">
+<h4>fcitx の自動起動<a class="headerlink" href="#fcitx" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>xfceの<code class="docutils literal notranslate"><span class="pre">Setting</span> <span class="pre">manager</span></code>を開きます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-08-21-26-15.png" /></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Session</span> <span class="pre">and</span> <span class="pre">Startup</span></code>の設定項目を開きます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-08-21-26-30.png" /></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Autostart</span></code>タブを開き、Add &gt; 必要事項の入力 &gt; 自動起動チェックを入れます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-09-15-55-05.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>説明</p></th>
+<th class="head"><p>推奨設定</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>起動するプログラム名称</p></td>
+<td><p>fcitx</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>プログラムの説明</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Command</p></td>
+<td><p>起動するコマンドライン(実行ファイルはフルパスで)</p></td>
+<td><p>下記参照</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trigger</p></td>
+<td><p>いつ実行するか</p></td>
+<td><p>ログイン時</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-number">リスト 1.30 </span><span class="caption-text">Commandフィールドに記載するコマンド文字列</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/usr/local/bin/fcitx<span class="w"> </span>-r<span class="w"> </span>-d
+</pre></div>
+</div>
+</div>
+</li>
+</ol>
+<p>上記設定が完了したらログインし直してください。</p>
+</section>
+<section id="id3">
+<h4>fcitx キーボード設定<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>パネル上部のキーボードアイコンをクリックして現われたポップアップメニューから設定を選択します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-09-16-03-08.png" /></p>
+</li>
+<li><p>入力メソッド下部の「現在の言語のみ表示」のチェックを外し、「不明」のツリーを展開します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-08-47-58.png" /></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">キーボード</span> <span class="pre">-</span> <span class="pre">日本語</span> <span class="pre">-</span> <span class="pre">日本語（Dovorak）</span></code>を選択して、→ボタンを押します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-08-50-15.png" /></p>
+</li>
+<li><p>現在の入力メソッドに移動した<code class="docutils literal notranslate"><span class="pre">キーボード</span> <span class="pre">-</span> <span class="pre">日本語</span> <span class="pre">-</span> <span class="pre">日本語（Dovorak）</span></code>を選択して、最上位に上げます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-08-54-10.png" /></p>
+</li>
+<li><p>次に全体の設定メニューからホットキータブを開きます。「入力メソッドのオンオフ」の2つめのボタンをクリックします。「設定したいキーの組合せをおしてください」というウィンドウが現われますので、ここで<code class="docutils literal notranslate"><span class="pre">全角/半角</span> <span class="pre">漢字</span></code>キーを押します。キー名が<code class="docutils literal notranslate"><span class="pre">ZENKAKUHAN</span></code>と表示されたら「適用(A)」ボタンを押します。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-08-58-19.png" /></p>
+</li>
+<li><p>試しに、どこでも構いませんのでテキスト入力部において<code class="docutils literal notranslate"><span class="pre">全角/半角</span> <span class="pre">漢字</span></code>キーを押すと、MozcによるIMEが起動して日本語が入力できることを確認してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-09-04-23.png" /></p>
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="windows">
+<h2>Windowsからのリモートデスクトップ接続を可能にする<a class="headerlink" href="#windows" title="Link to this heading">#</a></h2>
+<p>次の手順でリモートデスクトップを有効にすることで、Windows PC上からリモートデスクトップでxfceのデスクトップを操作できます。</p>
+<ol class="arabic">
+<li><p>xrdpをパッケージでインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>xrdp
+</pre></div>
+</div>
+</li>
+<li><p>リモートデスクトップのサービスを有効にして自動起動します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">xrdp_enable</span><span class="o">=</span><span class="s2">&quot;YES&quot;</span>
+$<span class="w"> </span>doas<span class="w"> </span>sysrc<span class="w"> </span><span class="nv">xrdp_sesman_enable</span><span class="o">=</span><span class="s2">&quot;YES&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/local/etc/xrdp</span></code>以下の設定ファイルを編集します。</p>
+<p>スタートスクリプト。日本語の設定などを行います。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-number">リスト 1.31 </span><span class="caption-text">/usr/local/etc/xrdp/startwm.sh</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#</span>
+<span class="c1"># This script is just an example. Edit this to suit your needs.</span>
+<span class="c1"># If ${HOME}/startwm.sh exists, xrdp-sesman will execute it instead of this.</span>
+
+<span class="c1">#### load profile if necessary</span>
+<span class="nb">source</span><span class="w"> </span>/etc/profile
+
+<span class="c1">#### you can set environment variables here whatever you want</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>ja_JP.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">LC_ALL</span><span class="o">=</span>ja_JP.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">LC_CTYPE</span><span class="o">=</span>ja_JP.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">XMODIFIERS</span><span class="o">=</span>@im<span class="o">=</span>fcitx
+<span class="nb">export</span><span class="w"> </span><span class="nv">DefaultIMModule</span><span class="o">=</span>fcitx
+
+<span class="c1">#### start desktop environment</span>
+<span class="c1"># exec gnome-session</span>
+<span class="c1"># exec mate-session</span>
+<span class="c1"># exec start-lumina-desktop</span>
+<span class="c1"># exec ck-launch-session startplasma-x11</span>
+<span class="nb">exec</span><span class="w"> </span>startxfce4
+<span class="c1"># exec xterm</span>
+</pre></div>
+</div>
+</div>
+<p>キーボード設定を日本語キーボードに設定します。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-number">リスト 1.32 </span><span class="caption-text">/usr/local/etc/xrdp/xrdp_keyboard.ini</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">keyboard_type</span><span class="o">=</span><span class="m">7</span>
+<span class="nv">keyboard_subtype</span><span class="o">=</span><span class="m">2</span>
+</pre></div>
+</div>
+</div>
+<p>Windows間のクリップボードデータ交換を許可します。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-number">リスト 1.33 </span><span class="caption-text">/usr/local/etc/xrdp/sesman.ini</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1">; When RestrictOutboundClipboard=all clipboard from the</span>
+<span class="c1">; server is not pushed to the client.</span>
+<span class="c1">; In addition, you can control text/file/image transfer restrictions</span>
+<span class="c1">; respectively. It also accepts comma separated list such as text,file,image.</span>
+<span class="c1">; To keep compatibility, some aliases are also available:</span>
+<span class="c1">;   true: an alias of all</span>
+<span class="c1">;   false: an alias of none</span>
+<span class="c1">;   yes: an alias of all</span>
+<span class="na">RestrictOutboundClipboard</span><span class="o">=</span><span class="s">none</span>
+<span class="c1">; When RestrictInboundClipboard=all clipboard from the</span>
+<span class="c1">; client is not pushed to the server.</span>
+<span class="c1">; In addition, you can control text/file/image transfer restrictions</span>
+<span class="c1">; respectively. It also accepts comma separated list such as text,file,image.</span>
+<span class="c1">; To keep compatibility, some aliases are also available:</span>
+<span class="c1">;   true: an alias of all</span>
+<span class="c1">;   false: an alias of none</span>
+<span class="c1">;   yes: an alias of all</span>
+<span class="na">RestrictInboundClipboard</span><span class="o">=</span><span class="s">none</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>パケットフィルター設定にて、</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-number">リスト 1.34 </span><span class="caption-text">/etc/pf.conf</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># xrdp port open</span>
+pass<span class="w"> </span><span class="k">in</span><span class="w"> </span>quick<span class="w"> </span>proto<span class="w"> </span>tcp<span class="w"> </span>to<span class="w"> </span>port<span class="w"> </span><span class="m">3389</span><span class="w"> </span>synproxy<span class="w"> </span>state<span class="w">  </span><span class="c1"># &lt;= 追加</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>IPCを再起動したあとWindowsのリモートデスクトップからアクセス。</p>
+<p>コンピュータ欄にIPCのIPアドレスを入力し、接続します。次図の通りログイン画面が現われますので、ユーザー名にはログイン時のアカウントであるユーザ<code class="docutils literal notranslate"><span class="pre">Administrator</span></code>とそのパスワードを入力してください。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-07-08-37-23.png" /></p>
+</li>
+</ol>
+<p>以上で、Windowsリモートデスクトップからxfceデスクトップをリモート操作することができます。</p>
+</section>
+<section id="kiosktf1810-plc-hmi-web">
+<h2>kioskモードでブラウザを起動してTF1810 PLC HMI Web を表示させる<a class="headerlink" href="#kiosktf1810-plc-hmi-web" title="Link to this heading">#</a></h2>
+<p>最初に、TF1810サーバをインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>TF1810-PLC-HMI-Web
+</pre></div>
+</div>
+<p>ブラウザをインストールします。軽量でGoogleから切り離されたChromiumブラウザをインストールします。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>doas<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>ungoogled-chromium
+</pre></div>
+</div>
+<p>インストールが完了したらログイン時に自動的にブラウザが起動し、 TF1810 のトップページが全画面モードで表示される設定を行います。</p>
+<ol class="arabic">
+<li><p>xfceの<code class="docutils literal notranslate"><span class="pre">Setting</span> <span class="pre">manager</span></code>を開きます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-08-21-26-15.png" /></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Session</span> <span class="pre">and</span> <span class="pre">Startup</span></code>の設定項目を開きます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-08-21-26-30.png" /></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Autostart</span></code>タブを開き、Add &gt; 必要事項の入力 &gt; 自動起動チェックを入れます。</p>
+<p><img alt="" class="align-center" src="../_images/2025-04-08-21-26-38.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>説明</p></th>
+<th class="head"><p>推奨設定</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>起動するプログラム名称</p></td>
+<td><p>TF1810</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>プログラムの説明</p></td>
+<td><p>PLC HMI Web</p></td>
+</tr>
+<tr class="row-even"><td><p>Command</p></td>
+<td><p>起動するコマンドライン(実行ファイルはフルパスで)</p></td>
+<td><p>下記参照</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trigger</p></td>
+<td><p>いつ実行するか</p></td>
+<td><p>ログイン時</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-number">リスト 1.35 </span><span class="caption-text">Commandフィールドに記載するコマンド文字列</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/usr/local/bin/ungoogled-chromium<span class="w"> </span>--kiosk<span class="w"> </span>http://localhost/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>TF1810だけではなくTF2000（TwinCAT HMI）を使う場合も同様の設定方法でログイン後ブラウザによる操作パネルの表示が可能です。<code class="docutils literal notranslate"><span class="pre">--kiosk</span></code>に続くURLを適切に設定してください。</p>
+</div>
+</li>
+<li><p>TwinCAT XAEからVisualization managerからWebVisualizationを有効にしたプロジェクトをTwinCAT BSDのXARへダウンロードし、再起動します。RUNモードへ移行していたら、Administratorへログイン後ブラウザが全画面モードで開き、Web Visualizationのページが表示されます。</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>全画面モードで開いているchromiumを閉じるには<code class="docutils literal notranslate"><span class="pre">ALT</span> <span class="pre">+</span> <span class="pre">F4</span></code>を押してください。</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../coe_sdo_access/plc_sdo_access.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">ファンクションブロックを用いたデータアクセス</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../develop_programing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>開発編（プログラミング）</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">基本設定</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#twincatadstcp">パケットフィルタの設定でTwinCATのADSルータのTCPポートを開放する</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPUの有効化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#window-system-xfce">Window system xfce のインストール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">日本語環境の構築</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xfce">xfce ログイン後の初期設定</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fcitx">fcitx の自動起動</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">fcitx キーボード設定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windowsからのリモートデスクトップ接続を可能にする</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kiosktf1810-plc-hmi-web">kioskモードでブラウザを起動してTF1810 PLC HMI Web を表示させる</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

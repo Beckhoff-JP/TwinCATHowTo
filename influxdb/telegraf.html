@@ -1,0 +1,1469 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>付録：Telegraf を用いたIPCのWindowsメトリクス計測 &#8212; TwinCATテクニカルノート 第1版 ドキュメント</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3d1b1d09" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e4307469"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=4755f45a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'influxdb/telegraf';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="TimescaleDB" href="../timescaledb/index.html" />
+    <link rel="prev" title="応用編：さまざまなクエリパターン" href="query_pattern.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TwinCATテクニカルノート 第1版 ドキュメント</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basic.html">1. 基礎編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../setup_twincat/index.html">1.1. TwinCAT Build 4026 のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager.html">パッケージマネージャのインストールと基本設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_gui_ope.html">パッケージマネージャGUI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/package_manager_cli_ope.html">パッケージマネージャCLI 操作編</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/offline_install.html">パッケージマネージャでオフラインインストールする方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../setup_twincat/remote_manager.html">リモートマネージャのセットアップ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic_twincat/index.html">1.2. TwinCATの始め方</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/connect_remote.html">TwinCATプロジェクトの作成とIPCへの接続</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/scan_ethercat.html">EtherCATネットワークの構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/link_plc_variable.html">PLCプロジェクトの作成と変数とIOのリンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/task_management.html">TwinCATのタスク管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic_twincat/exceed_counter.html">超過カウンター</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../linux/index.html">1.3. TwinCAT Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/cx82xx.html">CX82xxシリーズの利用方法</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/tf1200/index.html">TF1200 UI Client</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/install_tf1200.html">TF1200のインストールとHMI画面設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../linux/tf1200/wayvnc.html">VNCで接続できるようにする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/reverse_proxy/index.html">nginx を用いたリバースプロキシの設定</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../linux/docker/index.html">Docker</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../linux/docker/install_docker.html">Dockerのインストール</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../twincat_container/index.html">TwinCAT Container のセットアップ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/build_image.html">TwinCAT Docker イメージの構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/compose.html">Docker compose による TwinCAT のデプロイ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../twincat_container/reverse_proxy.html">リバースプロキシの設定</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../twincat_project_export_import/index.html">1.4. 開発プロジェクトの読み出し、保存、エクスポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ebus_current_consumption/index.html">1.5. ELターミナルの構成とカプラの選定方法と電源について</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../TwinCATConfiguration/index.html">1.6. TwinCAT プロジェクトのConfiguration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/scan.html">EtherCAT Slave の Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwinCATConfiguration/slave_version.html">Slave versionの管理</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datetime/index.html">1.7. TwinCATにおける日時・時刻の取扱い</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/systemtime.html">TwinCAT内部のシステム時計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datetime/datetime_datatype.html">TwinCAT PLCで取り扱う日時と時刻の型</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../coe_sdo_access/index.html">1.8. PLCからのSDOデータアクセス</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/analyze_data_model.html">SDOデータの構造解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../coe_sdo_access/plc_sdo_access.html">ファンクションブロックを用いたデータアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../tcbsd/index.html">1.9. TwinCAT BSD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_programing.html">2. 開発編（プログラミング）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_object_oriented_programming/index.html">2.1. PLCオブジェクト指向プログラミング</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/legacy_program.html">変数プログラムの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/function_block.html">ファンクションブロック化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/reference_variable.html">参照型変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/encapsulation.html">カプセル化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/irc-61131-3_3rd.html">IEC 61131-3 第3版の機能について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/object_interface.html">インターフェースの活用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/solid.html">単一責務の法則</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_object_oriented_programming/case_study.html">ケーススタディ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../plc_design_pattern/index.html">2.2. PLCプログラム例</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/abstruct_array.html">配列オブジェクトの参照渡しと処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plc_design_pattern/pointer.html">ポインタ</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../job_management/index.html">並行ジョブ実行フレームワーク</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/usage.html">ジョブフレームワークライブラリ使用方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../job_management/library_document.html">技術資料</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_environment.html">3. 開発編（開発環境）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../XAE_Product/index.html">3.1. 開発環境の準備</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../XAE_Product/TC1000.html">ADS setup from TwinCAT Build 4026</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../debug_support/index.html">3.2. 便利なデバッグ補助機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/watch_window.html">ウォッチウィンドウ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../debug_support/cross_reference.html">クロスリファレンス機能</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../devops/index.html">3.3. DevOps開発環境構築</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../version_control/index.html">ソースコントロール機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/source_control.html">導入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/create_repository.html">リポジトリの作成（新規作成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/clone_repository.html">リポジトリの作成（外部のリポジトリのクローン）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/commit.html">変更とコミット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../version_control/sync.html">外部リポジトリとの同期</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multiuser/index.html">マルチユーザ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multiuser/working_multiuser.html">マルチユーザ運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../library/index.html">TwinCAT3 ライブラリの活用</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../library/use_library.html">ライブラリを読み込んで使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/make_library.html">独自ライブラリのつくりかた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../library/documentation.html">ライブラリドキュメントの作成</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../simulation/index.html">TE1111によるシミュレーションとテスト</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/ethercat_master.html">EtherCAT構成の定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/simulation_plc.html">シミュレーション用PLCプロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/demo.html">デモソフトウェア解説</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../usermode_runtime/index.html">ユーザモードランタイム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_security.html">4. 開発編（セキュリティ）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../software_protection/index.html">4.1. ソフトウェア保護</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/setup.html">導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/acl.html">グループと権限の設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/users.html">ユーザ管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software_protection/distribution.html">TwinCATプロジェクトの配布</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data_persistence/index.html">4.2. データ永続化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/ups.html">無停電電源装置（UPS）によるPERSISTENTデータの永続化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_persistence/sups_cx51x0.html">1 second UPS 制御FB実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../recipe/index.html">4.3. レシピ機能</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/setup_recipe.html">レシピの初期設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/use_recipe.html">レシピの使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/recipe_library.html">PLCプログラムによるレシピ制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../event_logger/index.html">4.4. イベントロガーとアラーム管理</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/make_user_event.html">ユーザイベントの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/plc_api.html">PLC API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/sample.html">アラーム管理サンプルコードの解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../event_logger/windows_event_logger.html">Windowsイベントロガーとの連携</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../develop_motion.html">5. 開発編（モーション）</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Make_Cam/index.html">5.1. 電子カム</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AdHo/index.html">5.2. 原点復帰</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../McStepBlock/index.html">MC_StepBlock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../xplanar/index.html">5.3. XPlanar</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/basic/index.html">概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/startup/index.html">開発手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/configurator/index.html">Configurator 手順</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/make_instance/index.html">PLCインスタンス作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../xplanar/link_configuration/index.html">リンク設定</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../m_ext_setpoint/index.html">5.4. 外部セットポイント</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../m_ext_setpoint/manual.html">manual</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../develop_information.html">6. 開発編（ビジョン・機械学習・IoT）</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../iot/index.html">6.1. IoT製品紹介</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../opcua/index.html">6.2. OPC UA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_server.html">TF6100 OPC UA Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcua/opcua_client.html">TF6100 OPC UA Client</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modbus/index.html">6.3. TF6250 MODBUS TCP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modbus/server.html">TF6250 Modbus TCP サーバ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scope_view/index.html">6.4. Scope view</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/introduction.html">必要なソフトウェアのインストール</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/scope_view.html">Scope viewプロジェクト新規設定</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/trigger_export.html">トリガとアクションの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/watching.html">監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scope_view/control_by_functionblock.html">ファンクションブロックによるスコープ記録開始、停止制御</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../database/index.html">6.5. TF6420 データベース</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sql/index.html">SQLデータベース</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sql/sql_expert.html">SQL expertモードによるPLC実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">InfluxDB</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="setup_influxdb_windows.html">InfluxDBとGrafanaの手動インストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup_docker.html">Docker composeによるインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup_tf6420_influxdb.html">TF6420 のセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tf6420_write_influxdb.html">PLCプログラム</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="visualization.html">InfluxDBによるクエリ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="grafana.html">Grafanaでダッシュボード作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="embed_grafana_HMI.html">TwinCAT HMIへの埋め込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="query_pattern.html">応用編：さまざまなクエリパターン</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../timescaledb/index.html">TimescaleDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/setup.html">セットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/createdb.html">データベースの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../timescaledb/plc_program.html">PLCサンプルプログラム</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../socket_communication/index.html">6.6. ソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tf6311/index.html">TF6311によるソケット通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/driver_setup.html">TwinCATのドライバセットアップ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_server.html">ダミーサーバの実装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tf6311/udp_client.html">UDPクライアントの実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../tf6310/index.html">TF6310によるソケット通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../el_ethernet/index.html">6.7. Ethernetスイッチポートターミナルを通じた通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../el_ethernet/configuration.html">セットアップと運用</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eip/index.html">6.8. EtherNet/IP による通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eip/ipc_adapter.html">TF6280 EtherNet/IP アダプタによるIPCのEthernetポートを使った通信</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../shared_memory/index.html">6.9. バイトストリームや共有メモリによる通信</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/byte_swapping.html">バイトスワップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/memory_alignment.html">メモリアライメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../shared_memory/address_mapping.html">実装例：構造体と共用体を使ったマッピング</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/setup.html">セットアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/twincat_example.html">TwinCATのプロジェクト例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../powershell_data_edit/powershell.html">ADSを介して変数読み書きするPowerShellスクリプト実装</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_python/index.html">6.11. PythonとADSを用いたIoT実装例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ads_plc/index.html">6.12. PLC間のADS通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial_communication/index.html">6.13. シリアル通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_api/index.html">6.14. TwinCAT PLC からファイルアクセス</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../operation.html">7. 運用編</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../deployment/index.html">7.1. リリースとデプロイ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../bundle/index.html">バージョンのフリーズ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle.html">TwinCATビルドバージョンをフリーズする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../bundle/bundle_library.html">内包されるライブラリバージョンをフリーズする</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy/index.html">プロジェクト更新をTwinCAT XAEを使わず行う</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/develop_project.html">Bootイメージの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy/deploy_project.html">展開先への配置と起動</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../auto_deploy_xae/index.html">PowershellによるAutomation Interfaceを使ったプロジェクト更新の自動化</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_deploy_xae/auto_deploy.html">プロジェクトの読み書きの自動化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../powershell_data_edit/index.html">6.10. PowerShellを使ったデータ操作</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reliability/index.html">7.2. 監視と障害対応</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../latency/index.html">Power shellを用いたシステムレイテンシ計測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/bsod.html">BSoD対策</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/perfmon.html">パフォーマンスモニタによる監視</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reliability/after_incident.html">障害発生後の対応方法</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../backup_recovery/index.html">7.3. バックアップとリカバリ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../dongle/index.html">ライセンスドングル</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dongle/dongle.html">ドングル作成手順</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bst/index.html">BSTによるIPCのバックアップリストア</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">8. よくある質問と答え</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/133.html">8.1. TwinCATが対応するリアルタイムEthernetドライバの互換性はどのように調べますか？</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../faq/647.html">8.3. TwinCATと外部機器と通信するにはどんな方法がありますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/5941.html">8.4. EtherCATスレーブごとのフレームエラーの記録方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/resume_op.html">8.5. EtherCATの通信異常が発生した後に自動的にOPに回復するにはどの設定が必要ですか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/fb_local_system_time.html">8.6. PLC RUN後 しばらく FB_LocalSystemTime で取得した時刻データがUNIXエポックになるのはなぜですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/product_finder.html">8.7. このIPCはどのOSが使えますか？またどのTF****が使えますか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/open_from_target.html">8.8. リモートIPCからTwinCATプロジェクトを読み出す方法をおしえてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/IPC_iis_setting.html">8.9. IPCの各種情報をブラウザで提供するBECKHOFF Device ManagerのWEBサービスを起動させるにはどうすればよいですか？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/visualization_password.html">8.10. Visualizationにて、パスワード入力した値を * で隠蔽する方法を教えてください</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/cannot_make_plc_project.html">8.11. PLCプロジェクトが作成できません</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/reretrieving_license_response.html">8.12. ライセンスレスポンスファイルの再発行</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/edit/main/source/influxdb/telegraf.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Beckhoff-JP/TwinCATHowTo/issues/new?title=Issue%20on%20page%20%2Finfluxdb/telegraf.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/influxdb/telegraf.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>付録：Telegraf を用いたIPCのWindowsメトリクス計測</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ipctelegraf">IPCへのTelegrafのインストール</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="telegraf-ipcwindows">
+<h1>付録：Telegraf を用いたIPCのWindowsメトリクス計測<a class="headerlink" href="#telegraf-ipcwindows" title="Link to this heading">#</a></h1>
+<p>Windowsのパフォーマンスを計測するには、Performance monitorがありますが、基本的にWindowsのGUIアプリケーションや.NETのAPIなどを通じてデータ活用する必要があります。</p>
+<p>InfluxDBには姉妹品としてTelegrafと呼ばれるエージェントがあり、Performance monitorで計測できるさまざまなカウンタ値をInfluxDBへ記録できます。</p>
+<p>この節では、Windowsの診断情報をInfluxDBへ記録する方法について説明します。</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ipctelegraf">
+<h1>IPCへのTelegrafのインストール<a class="headerlink" href="#ipctelegraf" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>telegrafは、Beckhoff IPC上にインストールします。telegrafはWindows上のさまざまな稼働データを収集して、influxDBへ記録する機能を果たします。</p>
+<p>influxDBは別の専用サーバに設置していただく場合でも、telegrafはネットワーク経由でさまざまなメトリクスを記録することができます。よって、工場内の全てのIPCに本手順書によるtelegarfをインストールしておき、一か所のinfluxDBサーバへ記録させることで、全IPCの健康状態を監視することが可能になります。</p>
+</div>
+<p>InfluxData社からは、Telegrafと呼ばれるデータ収集エージェントが別途リリースされています。これを用いることで、IPCのWindowsやIPCのハードウェアに関する各種メトリクスを収集し、InfluxDBへ時系列記録させることができます。</p>
+<ol class="arabic">
+<li><p><a class="reference external" href="https://portal.influxdata.com/downloads/">https://portal.influxdata.com/downloads/</a>にアクセスし、TelegrafのWindows binaries(64bit)を選択します。ここに現われたコマンド行2行をクリップボードコピーします。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">wget </span><span class="n">https</span><span class="p">://</span><span class="n">dl</span><span class="p">.</span><span class="n">influxdata</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">telegraf</span><span class="p">/</span><span class="n">releases</span><span class="p">/</span><span class="n">telegraf</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">27</span><span class="p">.</span><span class="n">0_windows_amd64</span><span class="p">.</span><span class="n">zip</span> <span class="n">-UseBasicParsing</span> <span class="n">-OutFile</span> <span class="n">telegraf</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">27</span><span class="p">.</span><span class="n">0_windows_amd64</span><span class="p">.</span><span class="n">zip</span>
+<span class="nb">Expand-Archive</span> <span class="p">.\</span><span class="n">telegraf</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">27</span><span class="p">.</span><span class="n">0_windows_amd64</span><span class="p">.</span><span class="n">zip</span> <span class="n">-DestinationPath</span> <span class="s1">&#39;C:\Program Files\InfluxData\telegraf&#39;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>本節の手順ではtelegrafのバージョン1.27.0を例として説明します。以後、上記のinfluxdataのダウンロードサイトから得られる最新のバージョンに読み替えてください。</p>
+</div>
+</li>
+<li><p>管理者権限でPowershellを開き、コピーしたコマンドを2行実行します。これによりインターネットからtelegrafをダウンロードし、<code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\InfluxData\telegraf</span></code>以下に展開します。</p></li>
+<li><p>influxDBのアクセストークンを発行します。この例では、adminユーザとしての権限でinfluxDBへアクセスするトークンを発行しますが、適切な権限に制限した一般ユーザのトークンを発行した方がセキュリティ上においても適切です。</p>
+<ol class="arabic">
+<li><p>Bucket設定メニューから<code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">Tokens</span></code>を選択します。</p>
+<p><a class="reference internal" href="../_images/2023-06-20-16-56-24.png"><img alt="" class="align-center" src="../_images/2023-06-20-16-56-24.png" style="width: 150px;" /></a></p>
+</li>
+<li><p>外部からアクセスしたい権限と同じ権限を持ったユーザの右側にある歯車アイコンをクリックし、<code class="docutils literal notranslate"><span class="pre">Clone</span></code>ボタンを押します。</p>
+<p><a class="reference internal" href="../_images/2023-06-20-16-59-55.png"><img alt="" class="align-center" src="../_images/2023-06-20-16-59-55.png" style="width: 600px;" /></a></p>
+</li>
+<li><p>API Tokenが表示されたウィンドウがポップアップされます。この文字列をクリップボードにコピーしてください。</p>
+<p><a class="reference internal" href="../_images/2023-06-20-17-03-04.png"><img alt="" class="align-center" src="../_images/2023-06-20-17-03-04.png" style="width: 500px;" /></a></p>
+</li>
+<li><p>登録が完了したら、最新のTokenが最下部に一覧されます。</p>
+<p><a class="reference internal" href="../_images/2023-06-20-17-05-39.png"><img alt="" class="align-center" src="../_images/2023-06-20-17-05-39.png" style="width: 600px;" /></a></p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>コピーする前にポップアップウィンドウ閉じたり、次の手順でAPI Tokenを定義ファイルに書き写す前にクリップボードから削除してしまった場合、API Tokenは二度と閲覧することはできません。一度ごみばこアイコンでTokenを削除して、再度同様の手順で作り直してください。</p>
+</div>
+</li>
+<li><p>展開されたフォルダ内に生成された<code class="docutils literal notranslate"><span class="pre">telegraf.conf</span></code>ファイルをテキストエディタで以下の要領で編集します。</p>
+<ul>
+<li><p>OUTPUT PLUGINS</p>
+<p>telegrafからデータを出力する先に関する設定です。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セクション</p></th>
+<th class="head"><p>キー</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[[outputs.influxdb_v2]]</span></code></p></td>
+<td><p>urls</p></td>
+<td><p>InfluxDBへアクセスするURL</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>token</p></td>
+<td><p>前項で取得したAPI Tokenを設定します</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>organization</p></td>
+<td><p>接続するinfluxDBのorganizaionを設定します。</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>bucket</p></td>
+<td><p>接続するinfluxDBのbucketを設定します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>INPUT PLUGINS</p>
+<p>telegrafで収集するデータ元に関する設定です。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セクション</p></th>
+<th class="head"><p>キー</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[[inputs.cpu]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.disk]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.diskio]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.kernel]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.mem]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.processes]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.swap]]</span></code><code class="docutils literal notranslate"><span class="pre">[[inputs.system]]</span></code></p></td>
+<td><p>全て</p></td>
+<td><p>後述するwin_perf_countersで収集するため、こちらはコメントアウトして無効化する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[[inputs.win_perf_counters]]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[[inputs.win_perf_counters.object]]</span></code>.Processer, LogicalDisk, PhysicalDisk, Network Interface, System, Memory, Paging file</p></td>
+<td><p>デフォルト設定のままコメントを外して有効化。Windowsの基本的なパフォーマンスデータを収集。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>追加</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[[inputs.win_perf_counters.object]]</span></code>.Process</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Instances</span></code>で指定したプロセスのCPU使用率、メモリ使用量などのメトリクスを収集します。</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[[inputs.win_wmi]]</span></code></p></td>
+<td><p>コメントアウトを外して有効化。WMIで収集できるメトリクスを収集可能。ディスク使用量、残量などを収集。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+<p>以上を編集した後の例を以下のとおりunified diff形式で示します。</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-number">リスト 6.7 </span><span class="caption-text">telegraf.conf ファイルの変更点</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-udiff notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="gd">--- C:/Users/Takashii/Documents/manual/TwinCATHowTo/source/influxdb/assets/telegraf.conf.org    Tue Jun 20 17:44:29 2023</span>
+<span class="linenos">  2</span><span class="gi">+++ C:/Users/Takashii/Documents/manual/TwinCATHowTo/source/influxdb/assets/telegraf.conf    Tue Jun 20 17:45:52 2023</span>
+<span class="linenos">  3</span><span class="gu">@@ -275,22 +275,22 @@</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span>
+<span class="linenos">  6</span><span class="w"> </span># # Configuration for sending metrics to InfluxDB 2.0
+<span class="linenos">  7</span><span class="gd">-# [[outputs.influxdb_v2]]</span>
+<span class="linenos">  8</span><span class="gi">+[[outputs.influxdb_v2]]</span>
+<span class="linenos">  9</span><span class="w"> </span>#   ## The URLs of the InfluxDB cluster nodes.
+<span class="linenos"> 10</span><span class="w"> </span>#   ##
+<span class="linenos"> 11</span><span class="w"> </span>#   ## Multiple URLs can be specified for a single cluster, only ONE of the
+<span class="linenos"> 12</span><span class="w"> </span>#   ## urls will be written to each interval.
+<span class="linenos"> 13</span><span class="w"> </span>#   ##   ex: urls = [&quot;https://us-west-2-1.aws.cloud2.influxdata.com&quot;]
+<span class="linenos"> 14</span><span class="gd">-#   urls = [&quot;http://127.0.0.1:8086&quot;]</span>
+<span class="linenos"> 15</span><span class="gi">+  urls = [&quot;http://192.168.1.32:8086&quot;]</span>
+<span class="linenos"> 16</span><span class="w"> </span>#
+<span class="linenos"> 17</span><span class="w"> </span>#   ## Token for authentication.
+<span class="linenos"> 18</span><span class="gd">-#   token = &quot;&quot;</span>
+<span class="linenos"> 19</span><span class="gi">+  token = &quot;m4PbYq_vVRZDjbgRwyEF4BXPDpinq7CkBRX4JJnYNacbD6bSSLaF3AsDvip9vQfmF0A8ZpOlQHYBawCHf_X6-g==&quot;</span>
+<span class="linenos"> 20</span><span class="w"> </span>#
+<span class="linenos"> 21</span><span class="w"> </span>#   ## Organization is the name of the organization you wish to write to.
+<span class="linenos"> 22</span><span class="gd">-#   organization = &quot;&quot;</span>
+<span class="linenos"> 23</span><span class="gi">+  organization = &quot;beckhoff.co.jp&quot;</span>
+<span class="linenos"> 24</span><span class="w"> </span>#
+<span class="linenos"> 25</span><span class="w"> </span>#   ## Destination bucket to write into.
+<span class="linenos"> 26</span><span class="gd">-#   bucket = &quot;&quot;</span>
+<span class="linenos"> 27</span><span class="gi">+  bucket = &quot;machine_data&quot;</span>
+<span class="linenos"> 28</span><span class="w"> </span>#
+<span class="linenos"> 29</span><span class="w"> </span>#   ## The value of this tag will be used to determine the bucket.  If this
+<span class="linenos"> 30</span><span class="w"> </span>#   ## tag is not set the &#39;bucket&#39; option is used as the default.
+<span class="linenos"> 31</span><span class="gu">@@ -3786,95 +3786,95 @@</span>
+<span class="linenos"> 32</span><span class="w"> </span>###############################################################################
+<span class="linenos"> 33</span>
+<span class="linenos"> 34</span>
+<span class="linenos"> 35</span><span class="gd">-# Read metrics about cpu usage</span>
+<span class="linenos"> 36</span><span class="gd">-[[inputs.cpu]]</span>
+<span class="linenos"> 37</span><span class="gd">-  ## Whether to report per-cpu stats or not</span>
+<span class="linenos"> 38</span><span class="gd">-  percpu = true</span>
+<span class="linenos"> 39</span><span class="gd">-  ## Whether to report total system cpu stats or not</span>
+<span class="linenos"> 40</span><span class="gd">-  totalcpu = true</span>
+<span class="linenos"> 41</span><span class="gd">-  ## If true, collect raw CPU time metrics</span>
+<span class="linenos"> 42</span><span class="gd">-  collect_cpu_time = false</span>
+<span class="linenos"> 43</span><span class="gd">-  ## If true, compute and report the sum of all non-idle CPU states</span>
+<span class="linenos"> 44</span><span class="gd">-  report_active = false</span>
+<span class="linenos"> 45</span><span class="gd">-  ## If true and the info is available then add core_id and physical_id tags</span>
+<span class="linenos"> 46</span><span class="gd">-  core_tags = false</span>
+<span class="linenos"> 47</span><span class="gd">-</span>
+<span class="linenos"> 48</span><span class="gd">-</span>
+<span class="linenos"> 49</span><span class="gd">-# Read metrics about disk usage by mount point</span>
+<span class="linenos"> 50</span><span class="gd">-[[inputs.disk]]</span>
+<span class="linenos"> 51</span><span class="gd">-  ## By default stats will be gathered for all mount points.</span>
+<span class="linenos"> 52</span><span class="gd">-  ## Set mount_points will restrict the stats to only the specified mount points.</span>
+<span class="linenos"> 53</span><span class="gd">-  # mount_points = [&quot;/&quot;]</span>
+<span class="linenos"> 54</span><span class="gd">-</span>
+<span class="linenos"> 55</span><span class="gd">-  ## Ignore mount points by filesystem type.</span>
+<span class="linenos"> 56</span><span class="gd">-  ignore_fs = [&quot;tmpfs&quot;, &quot;devtmpfs&quot;, &quot;devfs&quot;, &quot;iso9660&quot;, &quot;overlay&quot;, &quot;aufs&quot;, &quot;squashfs&quot;]</span>
+<span class="linenos"> 57</span><span class="gd">-</span>
+<span class="linenos"> 58</span><span class="gd">-  ## Ignore mount points by mount options.</span>
+<span class="linenos"> 59</span><span class="gd">-  ## The &#39;mount&#39; command reports options of all mounts in parathesis.</span>
+<span class="linenos"> 60</span><span class="gd">-  ## Bind mounts can be ignored with the special &#39;bind&#39; option.</span>
+<span class="linenos"> 61</span><span class="gd">-  # ignore_mount_opts = []</span>
+<span class="linenos"> 62</span><span class="gd">-</span>
+<span class="linenos"> 63</span><span class="gd">-</span>
+<span class="linenos"> 64</span><span class="gd">-# Read metrics about disk IO by device</span>
+<span class="linenos"> 65</span><span class="gd">-[[inputs.diskio]]</span>
+<span class="linenos"> 66</span><span class="gd">-  ## By default, telegraf will gather stats for all devices including</span>
+<span class="linenos"> 67</span><span class="gd">-  ## disk partitions.</span>
+<span class="linenos"> 68</span><span class="gd">-  ## Setting devices will restrict the stats to the specified devices.</span>
+<span class="linenos"> 69</span><span class="gd">-  ## NOTE: Globbing expressions (e.g. asterix) are not supported for</span>
+<span class="linenos"> 70</span><span class="gd">-  ##       disk synonyms like &#39;/dev/disk/by-id&#39;.</span>
+<span class="linenos"> 71</span><span class="gd">-  # devices = [&quot;sda&quot;, &quot;sdb&quot;, &quot;vd*&quot;, &quot;/dev/disk/by-id/nvme-eui.00123deadc0de123&quot;]</span>
+<span class="linenos"> 72</span><span class="gd">-  ## Uncomment the following line if you need disk serial numbers.</span>
+<span class="linenos"> 73</span><span class="gd">-  # skip_serial_number = false</span>
+<span class="linenos"> 74</span><span class="gd">-  #</span>
+<span class="linenos"> 75</span><span class="gd">-  ## On systems which support it, device metadata can be added in the form of</span>
+<span class="linenos"> 76</span><span class="gd">-  ## tags.</span>
+<span class="linenos"> 77</span><span class="gd">-  ## Currently only Linux is supported via udev properties. You can view</span>
+<span class="linenos"> 78</span><span class="gd">-  ## available properties for a device by running:</span>
+<span class="linenos"> 79</span><span class="gd">-  ## &#39;udevadm info -q property -n /dev/sda&#39;</span>
+<span class="linenos"> 80</span><span class="gd">-  ## Note: Most, but not all, udev properties can be accessed this way. Properties</span>
+<span class="linenos"> 81</span><span class="gd">-  ## that are currently inaccessible include DEVTYPE, DEVNAME, and DEVPATH.</span>
+<span class="linenos"> 82</span><span class="gd">-  # device_tags = [&quot;ID_FS_TYPE&quot;, &quot;ID_FS_USAGE&quot;]</span>
+<span class="linenos"> 83</span><span class="gd">-  #</span>
+<span class="linenos"> 84</span><span class="gd">-  ## Using the same metadata source as device_tags, you can also customize the</span>
+<span class="linenos"> 85</span><span class="gd">-  ## name of the device via templates.</span>
+<span class="linenos"> 86</span><span class="gd">-  ## The &#39;name_templates&#39; parameter is a list of templates to try and apply to</span>
+<span class="linenos"> 87</span><span class="gd">-  ## the device. The template may contain variables in the form of &#39;$PROPERTY&#39; or</span>
+<span class="linenos"> 88</span><span class="gd">-  ## &#39;${PROPERTY}&#39;. The first template which does not contain any variables not</span>
+<span class="linenos"> 89</span><span class="gd">-  ## present for the device is used as the device name tag.</span>
+<span class="linenos"> 90</span><span class="gd">-  ## The typical use case is for LVM volumes, to get the VG/LV name instead of</span>
+<span class="linenos"> 91</span><span class="gd">-  ## the near-meaningless DM-0 name.</span>
+<span class="linenos"> 92</span><span class="gd">-  # name_templates = [&quot;$ID_FS_LABEL&quot;,&quot;$DM_VG_NAME/$DM_LV_NAME&quot;]</span>
+<span class="linenos"> 93</span><span class="gd">-</span>
+<span class="linenos"> 94</span><span class="gd">-</span>
+<span class="linenos"> 95</span><span class="gd">-# Get kernel statistics from /proc/stat</span>
+<span class="linenos"> 96</span><span class="gd">-# This plugin ONLY supports Linux</span>
+<span class="linenos"> 97</span><span class="gd">-[[inputs.kernel]]</span>
+<span class="linenos"> 98</span><span class="gd">-  # no configuration</span>
+<span class="linenos"> 99</span><span class="gd">-</span>
+<span class="linenos">100</span><span class="gd">-</span>
+<span class="linenos">101</span><span class="gd">-# Read metrics about memory usage</span>
+<span class="linenos">102</span><span class="gd">-[[inputs.mem]]</span>
+<span class="linenos">103</span><span class="gd">-  # no configuration</span>
+<span class="linenos">104</span><span class="gd">-</span>
+<span class="linenos">105</span><span class="gd">-</span>
+<span class="linenos">106</span><span class="gd">-# Get the number of processes and group them by status</span>
+<span class="linenos">107</span><span class="gd">-# This plugin ONLY supports non-Windows</span>
+<span class="linenos">108</span><span class="gd">-[[inputs.processes]]</span>
+<span class="linenos">109</span><span class="gd">-  ## Use sudo to run ps command on *BSD systems. Linux systems will read</span>
+<span class="linenos">110</span><span class="gd">-  ## /proc, so this does not apply there.</span>
+<span class="linenos">111</span><span class="gd">-  use_sudo = false</span>
+<span class="linenos">112</span><span class="gd">-</span>
+<span class="linenos">113</span><span class="gd">-</span>
+<span class="linenos">114</span><span class="gd">-# Read metrics about swap memory usage</span>
+<span class="linenos">115</span><span class="gd">-[[inputs.swap]]</span>
+<span class="linenos">116</span><span class="gd">-  # no configuration</span>
+<span class="linenos">117</span><span class="gd">-</span>
+<span class="linenos">118</span><span class="gd">-</span>
+<span class="linenos">119</span><span class="gd">-# Read metrics about system load &amp; uptime</span>
+<span class="linenos">120</span><span class="gd">-[[inputs.system]]</span>
+<span class="linenos">121</span><span class="gd">-  # no configuration</span>
+<span class="linenos">122</span><span class="gd">-</span>
+<span class="linenos">123</span><span class="gd">-</span>
+<span class="linenos">124</span><span class="gi">+# # Read metrics about cpu usage</span>
+<span class="linenos">125</span><span class="gi">+# [[inputs.cpu]]</span>
+<span class="linenos">126</span><span class="gi">+#   ## Whether to report per-cpu stats or not</span>
+<span class="linenos">127</span><span class="gi">+#   percpu = true</span>
+<span class="linenos">128</span><span class="gi">+#   ## Whether to report total system cpu stats or not</span>
+<span class="linenos">129</span><span class="gi">+#   totalcpu = true</span>
+<span class="linenos">130</span><span class="gi">+#   ## If true, collect raw CPU time metrics</span>
+<span class="linenos">131</span><span class="gi">+#   collect_cpu_time = false</span>
+<span class="linenos">132</span><span class="gi">+#   ## If true, compute and report the sum of all non-idle CPU states</span>
+<span class="linenos">133</span><span class="gi">+#   report_active = false</span>
+<span class="linenos">134</span><span class="gi">+#   ## If true and the info is available then add core_id and physical_id tags</span>
+<span class="linenos">135</span><span class="gi">+#   core_tags = false</span>
+<span class="linenos">136</span><span class="gi">+#</span>
+<span class="linenos">137</span><span class="gi">+#</span>
+<span class="linenos">138</span><span class="gi">+# # Read metrics about disk usage by mount point</span>
+<span class="linenos">139</span><span class="gi">+# [[inputs.disk]]</span>
+<span class="linenos">140</span><span class="gi">+#   ## By default stats will be gathered for all mount points.</span>
+<span class="linenos">141</span><span class="gi">+#   ## Set mount_points will restrict the stats to only the specified mount points.</span>
+<span class="linenos">142</span><span class="gi">+#   # mount_points = [&quot;/&quot;]</span>
+<span class="linenos">143</span><span class="gi">+#</span>
+<span class="linenos">144</span><span class="gi">+#   ## Ignore mount points by filesystem type.</span>
+<span class="linenos">145</span><span class="gi">+#   ignore_fs = [&quot;tmpfs&quot;, &quot;devtmpfs&quot;, &quot;devfs&quot;, &quot;iso9660&quot;, &quot;overlay&quot;, &quot;aufs&quot;, &quot;squashfs&quot;]</span>
+<span class="linenos">146</span><span class="gi">+#</span>
+<span class="linenos">147</span><span class="gi">+#   ## Ignore mount points by mount options.</span>
+<span class="linenos">148</span><span class="gi">+#   ## The &#39;mount&#39; command reports options of all mounts in parathesis.</span>
+<span class="linenos">149</span><span class="gi">+#   ## Bind mounts can be ignored with the special &#39;bind&#39; option.</span>
+<span class="linenos">150</span><span class="gi">+#   # ignore_mount_opts = []</span>
+<span class="linenos">151</span><span class="gi">+#</span>
+<span class="linenos">152</span><span class="gi">+#</span>
+<span class="linenos">153</span><span class="gi">+# # Read metrics about disk IO by device</span>
+<span class="linenos">154</span><span class="gi">+# [[inputs.diskio]]</span>
+<span class="linenos">155</span><span class="gi">+#   ## By default, telegraf will gather stats for all devices including</span>
+<span class="linenos">156</span><span class="gi">+#   ## disk partitions.</span>
+<span class="linenos">157</span><span class="gi">+#   ## Setting devices will restrict the stats to the specified devices.</span>
+<span class="linenos">158</span><span class="gi">+#   ## NOTE: Globbing expressions (e.g. asterix) are not supported for</span>
+<span class="linenos">159</span><span class="gi">+#   ##       disk synonyms like &#39;/dev/disk/by-id&#39;.</span>
+<span class="linenos">160</span><span class="gi">+#   # devices = [&quot;sda&quot;, &quot;sdb&quot;, &quot;vd*&quot;, &quot;/dev/disk/by-id/nvme-eui.00123deadc0de123&quot;]</span>
+<span class="linenos">161</span><span class="gi">+#   ## Uncomment the following line if you need disk serial numbers.</span>
+<span class="linenos">162</span><span class="gi">+#   # skip_serial_number = false</span>
+<span class="linenos">163</span><span class="gi">+#   #</span>
+<span class="linenos">164</span><span class="gi">+#   ## On systems which support it, device metadata can be added in the form of</span>
+<span class="linenos">165</span><span class="gi">+#   ## tags.</span>
+<span class="linenos">166</span><span class="gi">+#   ## Currently only Linux is supported via udev properties. You can view</span>
+<span class="linenos">167</span><span class="gi">+#   ## available properties for a device by running:</span>
+<span class="linenos">168</span><span class="gi">+#   ## &#39;udevadm info -q property -n /dev/sda&#39;</span>
+<span class="linenos">169</span><span class="gi">+#   ## Note: Most, but not all, udev properties can be accessed this way. Properties</span>
+<span class="linenos">170</span><span class="gi">+#   ## that are currently inaccessible include DEVTYPE, DEVNAME, and DEVPATH.</span>
+<span class="linenos">171</span><span class="gi">+#   # device_tags = [&quot;ID_FS_TYPE&quot;, &quot;ID_FS_USAGE&quot;]</span>
+<span class="linenos">172</span><span class="gi">+#   #</span>
+<span class="linenos">173</span><span class="gi">+#   ## Using the same metadata source as device_tags, you can also customize the</span>
+<span class="linenos">174</span><span class="gi">+#   ## name of the device via templates.</span>
+<span class="linenos">175</span><span class="gi">+#   ## The &#39;name_templates&#39; parameter is a list of templates to try and apply to</span>
+<span class="linenos">176</span><span class="gi">+#   ## the device. The template may contain variables in the form of &#39;$PROPERTY&#39; or</span>
+<span class="linenos">177</span><span class="gi">+#   ## &#39;${PROPERTY}&#39;. The first template which does not contain any variables not</span>
+<span class="linenos">178</span><span class="gi">+#   ## present for the device is used as the device name tag.</span>
+<span class="linenos">179</span><span class="gi">+#   ## The typical use case is for LVM volumes, to get the VG/LV name instead of</span>
+<span class="linenos">180</span><span class="gi">+#   ## the near-meaningless DM-0 name.</span>
+<span class="linenos">181</span><span class="gi">+#   # name_templates = [&quot;$ID_FS_LABEL&quot;,&quot;$DM_VG_NAME/$DM_LV_NAME&quot;]</span>
+<span class="linenos">182</span><span class="gi">+#</span>
+<span class="linenos">183</span><span class="gi">+#</span>
+<span class="linenos">184</span><span class="gi">+# # Get kernel statistics from /proc/stat</span>
+<span class="linenos">185</span><span class="gi">+# # This plugin ONLY supports Linux</span>
+<span class="linenos">186</span><span class="gi">+# [[inputs.kernel]]</span>
+<span class="linenos">187</span><span class="gi">+#   # no configuration</span>
+<span class="linenos">188</span><span class="gi">+#</span>
+<span class="linenos">189</span><span class="gi">+#</span>
+<span class="linenos">190</span><span class="gi">+# # Read metrics about memory usage</span>
+<span class="linenos">191</span><span class="gi">+# [[inputs.mem]]</span>
+<span class="linenos">192</span><span class="gi">+#   # no configuration</span>
+<span class="linenos">193</span><span class="gi">+#</span>
+<span class="linenos">194</span><span class="gi">+#</span>
+<span class="linenos">195</span><span class="gi">+# # Get the number of processes and group them by status</span>
+<span class="linenos">196</span><span class="gi">+# # This plugin ONLY supports non-Windows</span>
+<span class="linenos">197</span><span class="gi">+# [[inputs.processes]]</span>
+<span class="linenos">198</span><span class="gi">+#   ## Use sudo to run ps command on *BSD systems. Linux systems will read</span>
+<span class="linenos">199</span><span class="gi">+#   ## /proc, so this does not apply there.</span>
+<span class="linenos">200</span><span class="gi">+#   #use_sudo = false</span>
+<span class="linenos">201</span><span class="gi">+#</span>
+<span class="linenos">202</span><span class="gi">+#</span>
+<span class="linenos">203</span><span class="gi">+# # Read metrics about swap memory usage</span>
+<span class="linenos">204</span><span class="gi">+# [[inputs.swap]]</span>
+<span class="linenos">205</span><span class="gi">+#   # no configuration</span>
+<span class="linenos">206</span><span class="gi">+#</span>
+<span class="linenos">207</span><span class="gi">+#</span>
+<span class="linenos">208</span><span class="gi">+# # Read metrics about system load &amp; uptime</span>
+<span class="linenos">209</span><span class="gi">+# [[inputs.system]]</span>
+<span class="linenos">210</span><span class="gi">+#   # no configuration</span>
+<span class="linenos">211</span><span class="gi">+#</span>
+<span class="linenos">212</span><span class="gi">+#</span>
+<span class="linenos">213</span><span class="w"> </span># # Gather ActiveMQ metrics
+<span class="linenos">214</span><span class="w"> </span># [[inputs.activemq]]
+<span class="linenos">215</span><span class="w"> </span>#   ## ActiveMQ WebConsole URL
+<span class="linenos">216</span><span class="gu">@@ -8511,141 +8511,149 @@</span>
+<span class="linenos">217</span>
+<span class="linenos">218</span><span class="w"> </span># # # Input plugin to counterPath Performance Counters on Windows operating systems
+<span class="linenos">219</span><span class="w"> </span># # # This plugin ONLY supports Windows
+<span class="linenos">220</span><span class="gd">-# # [[inputs.win_perf_counters]]</span>
+<span class="linenos">221</span><span class="gd">-# #   ## By default this plugin returns basic CPU and Disk statistics.</span>
+<span class="linenos">222</span><span class="gd">-# #   ## See the README file for more examples.</span>
+<span class="linenos">223</span><span class="gd">-# #   ## Uncomment examples below or write your own as you see fit. If the system</span>
+<span class="linenos">224</span><span class="gd">-# #   ## being polled for data does not have the Object at startup of the Telegraf</span>
+<span class="linenos">225</span><span class="gd">-# #   ## agent, it will not be gathered.</span>
+<span class="linenos">226</span><span class="gd">-# #   ## Settings:</span>
+<span class="linenos">227</span><span class="gd">-# #   # PrintValid = false # Print All matching performance counters</span>
+<span class="linenos">228</span><span class="gd">-# #   # Whether request a timestamp along with the PerfCounter data or just use current time</span>
+<span class="linenos">229</span><span class="gd">-# #   # UsePerfCounterTime=true</span>
+<span class="linenos">230</span><span class="gd">-# #   # If UseWildcardsExpansion params is set to true, wildcards (partial wildcards in instance names and wildcards in counters names) in configured counter paths will be expanded</span>
+<span class="linenos">231</span><span class="gd">-# #   # and in case of localized Windows, counter paths will be also localized. It also returns instance indexes in instance names.</span>
+<span class="linenos">232</span><span class="gd">-# #   # If false, wildcards (not partial) in instance names will still be expanded, but instance indexes will not be returned in instance names.</span>
+<span class="linenos">233</span><span class="gd">-# #   #UseWildcardsExpansion = false</span>
+<span class="linenos">234</span><span class="gd">-# #   # When running on a localized version of Windows and with UseWildcardsExpansion = true, Windows will</span>
+<span class="linenos">235</span><span class="gd">-# #   # localize object and counter names. When LocalizeWildcardsExpansion = false, use the names in object.Counters instead</span>
+<span class="linenos">236</span><span class="gd">-# #   # of the localized names. Only Instances can have wildcards in this case. ObjectName and Counters must not have wildcards when this</span>
+<span class="linenos">237</span><span class="gd">-# #   # setting is false.</span>
+<span class="linenos">238</span><span class="gd">-# #   #LocalizeWildcardsExpansion = true</span>
+<span class="linenos">239</span><span class="gd">-# #   # Period after which counters will be reread from configuration and wildcards in counter paths expanded</span>
+<span class="linenos">240</span><span class="gd">-# #   CountersRefreshInterval=&quot;1m&quot;</span>
+<span class="linenos">241</span><span class="gd">-# #   ## Accepts a list of PDH error codes which are defined in pdh.go, if this error is encountered it will be ignored</span>
+<span class="linenos">242</span><span class="gd">-# #   ## For example, you can provide &quot;PDH_NO_DATA&quot; to ignore performance counters with no instances</span>
+<span class="linenos">243</span><span class="gd">-# #   ## By default no errors are ignored</span>
+<span class="linenos">244</span><span class="gd">-# #   ## You can find the list here: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_perf_counters/pdh.go</span>
+<span class="linenos">245</span><span class="gd">-# #   ## e.g.: IgnoredErrors = [&quot;PDH_NO_DATA&quot;]</span>
+<span class="linenos">246</span><span class="gd">-# #   # IgnoredErrors = []</span>
+<span class="linenos">247</span><span class="gd">-# #</span>
+<span class="linenos">248</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">249</span><span class="gd">-# #     # Processor usage, alternative to native, reports on a per core.</span>
+<span class="linenos">250</span><span class="gd">-# #     ObjectName = &quot;Processor&quot;</span>
+<span class="linenos">251</span><span class="gd">-# #     Instances = [&quot;*&quot;]</span>
+<span class="linenos">252</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">253</span><span class="gd">-# #       &quot;% Idle Time&quot;,</span>
+<span class="linenos">254</span><span class="gd">-# #       &quot;% Interrupt Time&quot;,</span>
+<span class="linenos">255</span><span class="gd">-# #       &quot;% Privileged Time&quot;,</span>
+<span class="linenos">256</span><span class="gd">-# #       &quot;% User Time&quot;,</span>
+<span class="linenos">257</span><span class="gd">-# #       &quot;% Processor Time&quot;,</span>
+<span class="linenos">258</span><span class="gd">-# #       &quot;% DPC Time&quot;,</span>
+<span class="linenos">259</span><span class="gd">-# #     ]</span>
+<span class="linenos">260</span><span class="gd">-# #     Measurement = &quot;win_cpu&quot;</span>
+<span class="linenos">261</span><span class="gd">-# #     # Set to true to include _Total instance when querying for all (*).</span>
+<span class="linenos">262</span><span class="gd">-# #     # IncludeTotal=false</span>
+<span class="linenos">263</span><span class="gd">-# #     # Print out when the performance counter is missing from object, counter or instance.</span>
+<span class="linenos">264</span><span class="gd">-# #     # WarnOnMissing = false</span>
+<span class="linenos">265</span><span class="gd">-# #     # Gather raw values instead of formatted. Raw value is stored in the field name with the &quot;_Raw&quot; suffix, e.g. &quot;Disk_Read_Bytes_sec_Raw&quot;.</span>
+<span class="linenos">266</span><span class="gd">-# #     # UseRawValues = true</span>
+<span class="linenos">267</span><span class="gd">-# #</span>
+<span class="linenos">268</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">269</span><span class="gd">-# #     # Disk times and queues</span>
+<span class="linenos">270</span><span class="gd">-# #     ObjectName = &quot;LogicalDisk&quot;</span>
+<span class="linenos">271</span><span class="gd">-# #     Instances = [&quot;*&quot;]</span>
+<span class="linenos">272</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">273</span><span class="gd">-# #       &quot;% Idle Time&quot;,</span>
+<span class="linenos">274</span><span class="gd">-# #       &quot;% Disk Time&quot;,</span>
+<span class="linenos">275</span><span class="gd">-# #       &quot;% Disk Read Time&quot;,</span>
+<span class="linenos">276</span><span class="gd">-# #       &quot;% Disk Write Time&quot;,</span>
+<span class="linenos">277</span><span class="gd">-# #       &quot;% User Time&quot;,</span>
+<span class="linenos">278</span><span class="gd">-# #       &quot;% Free Space&quot;,</span>
+<span class="linenos">279</span><span class="gd">-# #       &quot;Current Disk Queue Length&quot;,</span>
+<span class="linenos">280</span><span class="gd">-# #       &quot;Free Megabytes&quot;,</span>
+<span class="linenos">281</span><span class="gd">-# #     ]</span>
+<span class="linenos">282</span><span class="gd">-# #     Measurement = &quot;win_disk&quot;</span>
+<span class="linenos">283</span><span class="gd">-# #</span>
+<span class="linenos">284</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">285</span><span class="gd">-# #     ObjectName = &quot;PhysicalDisk&quot;</span>
+<span class="linenos">286</span><span class="gd">-# #     Instances = [&quot;*&quot;]</span>
+<span class="linenos">287</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">288</span><span class="gd">-# #       &quot;Disk Read Bytes/sec&quot;,</span>
+<span class="linenos">289</span><span class="gd">-# #       &quot;Disk Write Bytes/sec&quot;,</span>
+<span class="linenos">290</span><span class="gd">-# #       &quot;Current Disk Queue Length&quot;,</span>
+<span class="linenos">291</span><span class="gd">-# #       &quot;Disk Reads/sec&quot;,</span>
+<span class="linenos">292</span><span class="gd">-# #       &quot;Disk Writes/sec&quot;,</span>
+<span class="linenos">293</span><span class="gd">-# #       &quot;% Disk Time&quot;,</span>
+<span class="linenos">294</span><span class="gd">-# #       &quot;% Disk Read Time&quot;,</span>
+<span class="linenos">295</span><span class="gd">-# #       &quot;% Disk Write Time&quot;,</span>
+<span class="linenos">296</span><span class="gd">-# #     ]</span>
+<span class="linenos">297</span><span class="gd">-# #     Measurement = &quot;win_diskio&quot;</span>
+<span class="linenos">298</span><span class="gd">-# #</span>
+<span class="linenos">299</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">300</span><span class="gd">-# #     ObjectName = &quot;Network Interface&quot;</span>
+<span class="linenos">301</span><span class="gd">-# #     Instances = [&quot;*&quot;]</span>
+<span class="linenos">302</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">303</span><span class="gd">-# #       &quot;Bytes Received/sec&quot;,</span>
+<span class="linenos">304</span><span class="gd">-# #       &quot;Bytes Sent/sec&quot;,</span>
+<span class="linenos">305</span><span class="gd">-# #       &quot;Packets Received/sec&quot;,</span>
+<span class="linenos">306</span><span class="gd">-# #       &quot;Packets Sent/sec&quot;,</span>
+<span class="linenos">307</span><span class="gd">-# #       &quot;Packets Received Discarded&quot;,</span>
+<span class="linenos">308</span><span class="gd">-# #       &quot;Packets Outbound Discarded&quot;,</span>
+<span class="linenos">309</span><span class="gd">-# #       &quot;Packets Received Errors&quot;,</span>
+<span class="linenos">310</span><span class="gd">-# #       &quot;Packets Outbound Errors&quot;,</span>
+<span class="linenos">311</span><span class="gd">-# #     ]</span>
+<span class="linenos">312</span><span class="gd">-# #     Measurement = &quot;win_net&quot;</span>
+<span class="linenos">313</span><span class="gd">-# #</span>
+<span class="linenos">314</span><span class="gd">-# #</span>
+<span class="linenos">315</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">316</span><span class="gd">-# #     ObjectName = &quot;System&quot;</span>
+<span class="linenos">317</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">318</span><span class="gd">-# #       &quot;Context Switches/sec&quot;,</span>
+<span class="linenos">319</span><span class="gd">-# #       &quot;System Calls/sec&quot;,</span>
+<span class="linenos">320</span><span class="gd">-# #       &quot;Processor Queue Length&quot;,</span>
+<span class="linenos">321</span><span class="gd">-# #       &quot;System Up Time&quot;,</span>
+<span class="linenos">322</span><span class="gd">-# #     ]</span>
+<span class="linenos">323</span><span class="gd">-# #     Instances = [&quot;------&quot;]</span>
+<span class="linenos">324</span><span class="gd">-# #     Measurement = &quot;win_system&quot;</span>
+<span class="linenos">325</span><span class="gd">-# #</span>
+<span class="linenos">326</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">327</span><span class="gd">-# #     # Example counterPath where the Instance portion must be removed to get data back,</span>
+<span class="linenos">328</span><span class="gd">-# #     # such as from the Memory object.</span>
+<span class="linenos">329</span><span class="gd">-# #     ObjectName = &quot;Memory&quot;</span>
+<span class="linenos">330</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">331</span><span class="gd">-# #       &quot;Available Bytes&quot;,</span>
+<span class="linenos">332</span><span class="gd">-# #       &quot;Cache Faults/sec&quot;,</span>
+<span class="linenos">333</span><span class="gd">-# #       &quot;Demand Zero Faults/sec&quot;,</span>
+<span class="linenos">334</span><span class="gd">-# #       &quot;Page Faults/sec&quot;,</span>
+<span class="linenos">335</span><span class="gd">-# #       &quot;Pages/sec&quot;,</span>
+<span class="linenos">336</span><span class="gd">-# #       &quot;Transition Faults/sec&quot;,</span>
+<span class="linenos">337</span><span class="gd">-# #       &quot;Pool Nonpaged Bytes&quot;,</span>
+<span class="linenos">338</span><span class="gd">-# #       &quot;Pool Paged Bytes&quot;,</span>
+<span class="linenos">339</span><span class="gd">-# #       &quot;Standby Cache Reserve Bytes&quot;,</span>
+<span class="linenos">340</span><span class="gd">-# #       &quot;Standby Cache Normal Priority Bytes&quot;,</span>
+<span class="linenos">341</span><span class="gd">-# #       &quot;Standby Cache Core Bytes&quot;,</span>
+<span class="linenos">342</span><span class="gd">-# #     ]</span>
+<span class="linenos">343</span><span class="gd">-# #     Instances = [&quot;------&quot;] # Use 6 x - to remove the Instance bit from the counterPath.</span>
+<span class="linenos">344</span><span class="gd">-# #     Measurement = &quot;win_mem&quot;</span>
+<span class="linenos">345</span><span class="gd">-# #</span>
+<span class="linenos">346</span><span class="gd">-# #   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">347</span><span class="gd">-# #     # Example query where the Instance portion must be removed to get data back,</span>
+<span class="linenos">348</span><span class="gd">-# #     # such as from the Paging File object.</span>
+<span class="linenos">349</span><span class="gd">-# #     ObjectName = &quot;Paging File&quot;</span>
+<span class="linenos">350</span><span class="gd">-# #     Counters = [</span>
+<span class="linenos">351</span><span class="gd">-# #       &quot;% Usage&quot;,</span>
+<span class="linenos">352</span><span class="gd">-# #     ]</span>
+<span class="linenos">353</span><span class="gd">-# #     Instances = [&quot;_Total&quot;]</span>
+<span class="linenos">354</span><span class="gd">-# #     Measurement = &quot;win_swap&quot;</span>
+<span class="linenos">355</span><span class="gi">+[[inputs.win_perf_counters]]</span>
+<span class="linenos">356</span><span class="gi">+   ## By default this plugin returns basic CPU and Disk statistics.</span>
+<span class="linenos">357</span><span class="gi">+   ## See the README file for more examples.</span>
+<span class="linenos">358</span><span class="gi">+   ## Uncomment examples below or write your own as you see fit. If the system</span>
+<span class="linenos">359</span><span class="gi">+   ## being polled for data does not have the Object at startup of the Telegraf</span>
+<span class="linenos">360</span><span class="gi">+   ## agent, it will not be gathered.</span>
+<span class="linenos">361</span><span class="gi">+   ## Settings:</span>
+<span class="linenos">362</span><span class="gi">+   # PrintValid = false # Print All matching performance counters</span>
+<span class="linenos">363</span><span class="gi">+   # Whether request a timestamp along with the PerfCounter data or just use current time</span>
+<span class="linenos">364</span><span class="gi">+   # UsePerfCounterTime=true</span>
+<span class="linenos">365</span><span class="gi">+   # If UseWildcardsExpansion params is set to true, wildcards (partial wildcards in instance names and wildcards in counters names) in configured counter paths will be expanded</span>
+<span class="linenos">366</span><span class="gi">+   # and in case of localized Windows, counter paths will be also localized. It also returns instance indexes in instance names.</span>
+<span class="linenos">367</span><span class="gi">+   # If false, wildcards (not partial) in instance names will still be expanded, but instance indexes will not be returned in instance names.</span>
+<span class="linenos">368</span><span class="gi">+   #UseWildcardsExpansion = false</span>
+<span class="linenos">369</span><span class="gi">+   # When running on a localized version of Windows and with UseWildcardsExpansion = true, Windows will</span>
+<span class="linenos">370</span><span class="gi">+   # localize object and counter names. When LocalizeWildcardsExpansion = false, use the names in object.Counters instead</span>
+<span class="linenos">371</span><span class="gi">+   # of the localized names. Only Instances can have wildcards in this case. ObjectName and Counters must not have wildcards when this</span>
+<span class="linenos">372</span><span class="gi">+   # setting is false.</span>
+<span class="linenos">373</span><span class="gi">+   #LocalizeWildcardsExpansion = true</span>
+<span class="linenos">374</span><span class="gi">+   # Period after which counters will be reread from configuration and wildcards in counter paths expanded</span>
+<span class="linenos">375</span><span class="gi">+   CountersRefreshInterval=&quot;1m&quot;</span>
+<span class="linenos">376</span><span class="gi">+   ## Accepts a list of PDH error codes which are defined in pdh.go, if this error is encountered it will be ignored</span>
+<span class="linenos">377</span><span class="gi">+   ## For example, you can provide &quot;PDH_NO_DATA&quot; to ignore performance counters with no instances</span>
+<span class="linenos">378</span><span class="gi">+   ## By default no errors are ignored</span>
+<span class="linenos">379</span><span class="gi">+   ## You can find the list here: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/win_perf_counters/pdh.go</span>
+<span class="linenos">380</span><span class="gi">+   ## e.g.: IgnoredErrors = [&quot;PDH_NO_DATA&quot;]</span>
+<span class="linenos">381</span><span class="gi">+   # IgnoredErrors = []</span>
+<span class="linenos">382</span><span class="gi">+</span>
+<span class="linenos">383</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">384</span><span class="gi">+     # Processor usage, alternative to native, reports on a per core.</span>
+<span class="linenos">385</span><span class="gi">+     ObjectName = &quot;Processor&quot;</span>
+<span class="linenos">386</span><span class="gi">+     Instances = [&quot;*&quot;]</span>
+<span class="linenos">387</span><span class="gi">+     Counters = [</span>
+<span class="linenos">388</span><span class="gi">+       &quot;% Idle Time&quot;,</span>
+<span class="linenos">389</span><span class="gi">+       &quot;% Interrupt Time&quot;,</span>
+<span class="linenos">390</span><span class="gi">+       &quot;% Privileged Time&quot;,</span>
+<span class="linenos">391</span><span class="gi">+       &quot;% User Time&quot;,</span>
+<span class="linenos">392</span><span class="gi">+       &quot;% Processor Time&quot;,</span>
+<span class="linenos">393</span><span class="gi">+       &quot;% DPC Time&quot;,</span>
+<span class="linenos">394</span><span class="gi">+     ]</span>
+<span class="linenos">395</span><span class="gi">+     Measurement = &quot;win_cpu&quot;</span>
+<span class="linenos">396</span><span class="gi">+     # Set to true to include _Total instance when querying for all (*).</span>
+<span class="linenos">397</span><span class="gi">+     # IncludeTotal=false</span>
+<span class="linenos">398</span><span class="gi">+     # Print out when the performance counter is missing from object, counter or instance.</span>
+<span class="linenos">399</span><span class="gi">+     # WarnOnMissing = false</span>
+<span class="linenos">400</span><span class="gi">+     # Gather raw values instead of formatted. Raw value is stored in the field name with the &quot;_Raw&quot; suffix, e.g. &quot;Disk_Read_Bytes_sec_Raw&quot;.</span>
+<span class="linenos">401</span><span class="gi">+     # UseRawValues = true</span>
+<span class="linenos">402</span><span class="gi">+</span>
+<span class="linenos">403</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">404</span><span class="gi">+     # Disk times and queues</span>
+<span class="linenos">405</span><span class="gi">+     ObjectName = &quot;LogicalDisk&quot;</span>
+<span class="linenos">406</span><span class="gi">+     Instances = [&quot;*&quot;]</span>
+<span class="linenos">407</span><span class="gi">+     Counters = [</span>
+<span class="linenos">408</span><span class="gi">+       &quot;% Idle Time&quot;,</span>
+<span class="linenos">409</span><span class="gi">+       &quot;% Disk Time&quot;,</span>
+<span class="linenos">410</span><span class="gi">+       &quot;% Disk Read Time&quot;,</span>
+<span class="linenos">411</span><span class="gi">+       &quot;% Disk Write Time&quot;,</span>
+<span class="linenos">412</span><span class="gi">+       &quot;% User Time&quot;,</span>
+<span class="linenos">413</span><span class="gi">+       &quot;% Free Space&quot;,</span>
+<span class="linenos">414</span><span class="gi">+       &quot;Current Disk Queue Length&quot;,</span>
+<span class="linenos">415</span><span class="gi">+       &quot;Free Megabytes&quot;,</span>
+<span class="linenos">416</span><span class="gi">+     ]</span>
+<span class="linenos">417</span><span class="gi">+     Measurement = &quot;win_disk&quot;</span>
+<span class="linenos">418</span><span class="gi">+</span>
+<span class="linenos">419</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">420</span><span class="gi">+     ObjectName = &quot;PhysicalDisk&quot;</span>
+<span class="linenos">421</span><span class="gi">+     Instances = [&quot;*&quot;]</span>
+<span class="linenos">422</span><span class="gi">+     Counters = [</span>
+<span class="linenos">423</span><span class="gi">+       &quot;Disk Read Bytes/sec&quot;,</span>
+<span class="linenos">424</span><span class="gi">+       &quot;Disk Write Bytes/sec&quot;,</span>
+<span class="linenos">425</span><span class="gi">+       &quot;Current Disk Queue Length&quot;,</span>
+<span class="linenos">426</span><span class="gi">+       &quot;Disk Reads/sec&quot;,</span>
+<span class="linenos">427</span><span class="gi">+       &quot;Disk Writes/sec&quot;,</span>
+<span class="linenos">428</span><span class="gi">+       &quot;% Disk Time&quot;,</span>
+<span class="linenos">429</span><span class="gi">+       &quot;% Disk Read Time&quot;,</span>
+<span class="linenos">430</span><span class="gi">+       &quot;% Disk Write Time&quot;,</span>
+<span class="linenos">431</span><span class="gi">+     ]</span>
+<span class="linenos">432</span><span class="gi">+     Measurement = &quot;win_diskio&quot;</span>
+<span class="linenos">433</span><span class="gi">+</span>
+<span class="linenos">434</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">435</span><span class="gi">+     ObjectName = &quot;Network Interface&quot;</span>
+<span class="linenos">436</span><span class="gi">+     Instances = [&quot;*&quot;]</span>
+<span class="linenos">437</span><span class="gi">+     Counters = [</span>
+<span class="linenos">438</span><span class="gi">+       &quot;Bytes Received/sec&quot;,</span>
+<span class="linenos">439</span><span class="gi">+       &quot;Bytes Sent/sec&quot;,</span>
+<span class="linenos">440</span><span class="gi">+       &quot;Packets Received/sec&quot;,</span>
+<span class="linenos">441</span><span class="gi">+       &quot;Packets Sent/sec&quot;,</span>
+<span class="linenos">442</span><span class="gi">+       &quot;Packets Received Discarded&quot;,</span>
+<span class="linenos">443</span><span class="gi">+       &quot;Packets Outbound Discarded&quot;,</span>
+<span class="linenos">444</span><span class="gi">+       &quot;Packets Received Errors&quot;,</span>
+<span class="linenos">445</span><span class="gi">+       &quot;Packets Outbound Errors&quot;,</span>
+<span class="linenos">446</span><span class="gi">+     ]</span>
+<span class="linenos">447</span><span class="gi">+     Measurement = &quot;win_net&quot;</span>
+<span class="linenos">448</span><span class="gi">+</span>
+<span class="linenos">449</span><span class="gi">+</span>
+<span class="linenos">450</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">451</span><span class="gi">+     ObjectName = &quot;System&quot;</span>
+<span class="linenos">452</span><span class="gi">+     Counters = [</span>
+<span class="linenos">453</span><span class="gi">+       &quot;Context Switches/sec&quot;,</span>
+<span class="linenos">454</span><span class="gi">+       &quot;System Calls/sec&quot;,</span>
+<span class="linenos">455</span><span class="gi">+       &quot;Processor Queue Length&quot;,</span>
+<span class="linenos">456</span><span class="gi">+       &quot;System Up Time&quot;,</span>
+<span class="linenos">457</span><span class="gi">+     ]</span>
+<span class="linenos">458</span><span class="gi">+     Instances = [&quot;------&quot;]</span>
+<span class="linenos">459</span><span class="gi">+     Measurement = &quot;win_system&quot;</span>
+<span class="linenos">460</span><span class="gi">+</span>
+<span class="linenos">461</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">462</span><span class="gi">+     # Example counterPath where the Instance portion must be removed to get data back,</span>
+<span class="linenos">463</span><span class="gi">+     # such as from the Memory object.</span>
+<span class="linenos">464</span><span class="gi">+     ObjectName = &quot;Memory&quot;</span>
+<span class="linenos">465</span><span class="gi">+     Counters = [</span>
+<span class="linenos">466</span><span class="gi">+       &quot;Available Bytes&quot;,</span>
+<span class="linenos">467</span><span class="gi">+       &quot;Cache Faults/sec&quot;,</span>
+<span class="linenos">468</span><span class="gi">+       &quot;Demand Zero Faults/sec&quot;,</span>
+<span class="linenos">469</span><span class="gi">+       &quot;Page Faults/sec&quot;,</span>
+<span class="linenos">470</span><span class="gi">+       &quot;Pages/sec&quot;,</span>
+<span class="linenos">471</span><span class="gi">+       &quot;Transition Faults/sec&quot;,</span>
+<span class="linenos">472</span><span class="gi">+       &quot;Pool Nonpaged Bytes&quot;,</span>
+<span class="linenos">473</span><span class="gi">+       &quot;Pool Paged Bytes&quot;,</span>
+<span class="linenos">474</span><span class="gi">+       &quot;Standby Cache Reserve Bytes&quot;,</span>
+<span class="linenos">475</span><span class="gi">+       &quot;Standby Cache Normal Priority Bytes&quot;,</span>
+<span class="linenos">476</span><span class="gi">+       &quot;Standby Cache Core Bytes&quot;,</span>
+<span class="linenos">477</span><span class="gi">+     ]</span>
+<span class="linenos">478</span><span class="gi">+     Instances = [&quot;------&quot;] # Use 6 x - to remove the Instance bit from the counterPath.</span>
+<span class="linenos">479</span><span class="gi">+     Measurement = &quot;win_mem&quot;</span>
+<span class="linenos">480</span><span class="gi">+</span>
+<span class="linenos">481</span><span class="gi">+   [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">482</span><span class="gi">+     # Example query where the Instance portion must be removed to get data back,</span>
+<span class="linenos">483</span><span class="gi">+     # such as from the Paging File object.</span>
+<span class="linenos">484</span><span class="gi">+     ObjectName = &quot;Paging File&quot;</span>
+<span class="linenos">485</span><span class="gi">+     Counters = [</span>
+<span class="linenos">486</span><span class="gi">+       &quot;% Usage&quot;,</span>
+<span class="linenos">487</span><span class="gi">+     ]</span>
+<span class="linenos">488</span><span class="gi">+     Instances = [&quot;_Total&quot;]</span>
+<span class="linenos">489</span><span class="gi">+     Measurement = &quot;win_swap&quot;</span>
+<span class="linenos">490</span><span class="gi">+</span>
+<span class="linenos">491</span><span class="gi">+    [[inputs.win_perf_counters.object]]</span>
+<span class="linenos">492</span><span class="gi">+      # Process metrics, in this case for IIS only</span>
+<span class="linenos">493</span><span class="gi">+      ObjectName = &quot;Process&quot;</span>
+<span class="linenos">494</span><span class="gi">+      Counters = [&quot;% Processor Time&quot;,&quot;Handle Count&quot;,&quot;Private Bytes&quot;,&quot;Thread Count&quot;,&quot;Virtual Bytes&quot;,&quot;Working Set&quot;]</span>
+<span class="linenos">495</span><span class="gi">+      Instances = [&quot;TcSysUI&quot;, &quot;TCATSysSrv&quot;, &quot;TcNcI&quot;, &quot;TcHmiSrv&quot;, &quot;TF6420Server&quot;]</span>
+<span class="linenos">496</span><span class="gi">+      Measurement = &quot;win_proc&quot;</span>
+<span class="linenos">497</span><span class="gi">+      #IncludeTotal=false #Set to true to include _Total instance when querying for all (*).</span>
+<span class="linenos">498</span>
+<span class="linenos">499</span>
+<span class="linenos">500</span><span class="w"> </span># # Input plugin to report Windows services info.
+<span class="linenos">501</span><span class="gu">@@ -8660,20 +8668,21 @@</span>
+<span class="linenos">502</span><span class="w"> </span>#   excluded_service_names = [&#39;WinRM&#39;] # optional, list of service names to exclude
+<span class="linenos">503</span>
+<span class="linenos">504</span>
+<span class="linenos">505</span><span class="gd">-# # Input plugin to query Windows Management Instrumentation</span>
+<span class="linenos">506</span><span class="gd">-# # This plugin ONLY supports Windows</span>
+<span class="linenos">507</span><span class="gd">-# [[inputs.win_wmi]]</span>
+<span class="linenos">508</span><span class="gd">-#   [[inputs.win_wmi.query]]</span>
+<span class="linenos">509</span><span class="gd">-#     # a string representing the WMI namespace to be queried</span>
+<span class="linenos">510</span><span class="gd">-#     namespace = &quot;root\\cimv2&quot;</span>
+<span class="linenos">511</span><span class="gd">-#     # a string representing the WMI class to be queried</span>
+<span class="linenos">512</span><span class="gd">-#     class_name = &quot;Win32_Volume&quot;</span>
+<span class="linenos">513</span><span class="gd">-#     # an array of strings representing the properties of the WMI class to be queried</span>
+<span class="linenos">514</span><span class="gd">-#     properties = [&quot;Name&quot;, &quot;Capacity&quot;, &quot;FreeSpace&quot;]</span>
+<span class="linenos">515</span><span class="gd">-#     # a string specifying a WHERE clause to use as a filter for the WQL</span>
+<span class="linenos">516</span><span class="gd">-#     filter = &#39;NOT Name LIKE &quot;\\\\?\\%&quot;&#39;</span>
+<span class="linenos">517</span><span class="gd">-#     # WMI class properties which should be considered tags instead of fields</span>
+<span class="linenos">518</span><span class="gd">-#     tag_properties = [&quot;Name&quot;]</span>
+<span class="linenos">519</span><span class="gi">+# Input plugin to query Windows Management Instrumentation</span>
+<span class="linenos">520</span><span class="gi">+# This plugin ONLY supports Windows</span>
+<span class="linenos">521</span><span class="gi">+[[inputs.win_wmi]]</span>
+<span class="linenos">522</span><span class="gi">+  [[inputs.win_wmi.query]]</span>
+<span class="linenos">523</span><span class="gi">+    # a string representing the WMI namespace to be queried</span>
+<span class="linenos">524</span><span class="gi">+    namespace = &quot;root\\cimv2&quot;</span>
+<span class="linenos">525</span><span class="gi">+    # a string representing the WMI class to be queried</span>
+<span class="linenos">526</span><span class="gi">+    class_name = &quot;Win32_Volume&quot;</span>
+<span class="linenos">527</span><span class="gi">+    # an array of strings representing the properties of the WMI class to be queried</span>
+<span class="linenos">528</span><span class="gi">+    properties = [&quot;Name&quot;, &quot;Capacity&quot;, &quot;FreeSpace&quot;]</span>
+<span class="linenos">529</span><span class="gi">+    # a string specifying a WHERE clause to use as a filter for the WQL</span>
+<span class="linenos">530</span><span class="gi">+    filter = &#39;NOT Name LIKE &quot;\\\\?\\%&quot;&#39;</span>
+<span class="linenos">531</span><span class="gi">+    # WMI class properties which should be considered tags instead of fields</span>
+<span class="linenos">532</span><span class="gi">+    tag_properties = [&quot;Name&quot;]</span>
+<span class="linenos">533</span><span class="gi">+</span>
+<span class="linenos">534</span>
+<span class="linenos">535</span>
+<span class="linenos">536</span><span class="w"> </span># # Collect Wireguard server interface and peer statistics
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>再度管理者権限で実行されたPowershell内で、以下のコマンドを実行します。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span><span class="p">\</span><span class="n">InfluxData</span><span class="p">\</span><span class="n">telegraf</span><span class="p">\</span><span class="n">telegraf</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">27</span><span class="p">.</span><span class="n">0</span><span class="p">\</span><span class="n">telegraf</span><span class="p">.</span><span class="n">exe</span> <span class="p">-</span><span class="n">-service</span> <span class="n">install</span> <span class="p">-</span><span class="n">-config</span> <span class="s2">&quot;C:\Program Files\InfluxData\telegraf\telegraf-1.27.0\telegraf.conf&quot;</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="n">net</span> <span class="n">telegraf</span> <span class="nb">start</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>以上の設定により、IPC上のサービスに自動的に登録されたtelegrafにより収集されたWindowsのメトリクスを、telegraf.confに設定したinfluxDBサーバに10秒おきに登録されます。この機能は、以後、IPC起動時にサービス設定により自動起動します。</p>
+<p><a class="reference internal" href="../_images/2023-06-20-17-57-01.png"><img alt="" class="align-center" src="../_images/2023-06-20-17-57-01.png" style="width: 600px;" /></a></p>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="query_pattern.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">応用編：さまざまなクエリパターン</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../timescaledb/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">TimescaleDB</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">付録：Telegraf を用いたIPCのWindowsメトリクス計測</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ipctelegraf">IPCへのTelegrafのインストール</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 市橋 卓
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, ベッコフオートメーション株式会社.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
