@@ -3,6 +3,10 @@
 
 Gitには、外部リポジトリと同期するためのPush/Pullコマンドがあります。この操作方法について説明します。
 
+```{hint}
+本節で使用するTwinCAT プロジェクトは、 [Beckhoff-JP/various_blinker](https://github.com/Beckhoff-JP/various_blinker) から取得いただけます。
+```
+
 ## Githubにリポジトリを作成する
 
 準備として、空のリモートリポジトリを作成します。次図の通りNew repositoryを作成します。オープンソースとして一般公開する場合は`Public`を、限られた組織、個人で使う場合は`Private`を選択します。
