@@ -8,8 +8,36 @@
 [https://git-scm.com/install/windows](https://git-scm.com/install/windows) からインストーラをダウンロードしてインストールするか、管理者権限でターミナルを起動してWingetを使ったインストールを行ってください。
 
 ```{code} powershell
-winget install --id Git.Git -e --source winget
+winget install Git.Git
 ```
+
+````{tip}
+[WingetとはMicrosoft社が提供する公式パッケージ管理ツール](https://learn.microsoft.com/ja-jp/windows/package-manager/winget/)です。Wingetを使ってインストールされたソフトウェアは、インストーラを使わずに一括で最新ソフトウェアにアップグレードすることができます。
+
+```{code}
+> winget upgrade --all
+```
+
+任意のソフトウェアを探すには `winget search` に続いて、インストールしたいソフトのキーワードを入力します。
+
+```{code}
+> winget search git
+
+名前                                  ID                              バージョン   一致     ソース
+---------------------------------------------------------------------------------------------------
+My Git                                9NLVK2SL2SSP                    Unknown               msstore
+Git                                   Git.Git                         2.53.0                winget
+Git                                   Git.Git.PreRelease              2.52.0-rc2            winget
+Git                                   Microsoft.Git                   2.52.0.0.5            winget
+GitTop                                AmarBego.GitTop                 0.4.0        Tag: git winget
+RepoZ                                 AndreasWascher.RepoZ            5.5          Tag: git winget
+  :                                           :                        :                       :
+SoX_ng                                sox_ng.sox_ng                   14.6.0.4     Tag: di… winget
+xploview                              xploview.xploview               3.3.31       Tag: di… winget
+```
+
+上記に一覧された中の `ID` 列に表記されたものを、 `winget install` に続いて指定してインストールを行います。gitの場合、`Git.Git` がインストール指定のIDとなります。
+````
 
 ## Git初期設定
 
