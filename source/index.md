@@ -24,6 +24,7 @@ basic.md
 develop_programing.md
 develop_environment.md
 develop_security.md
+develop_safety.md
 develop_motion.md
 develop_information.md
 operation.md
