@@ -44,7 +44,7 @@ EtherCATのPDOのフレームは、最大1498バイトのEtherCATデータエリ
 
 初期状態では、[Infosysのこの説明](https://infosys.beckhoff.com/content/1033/ethercatsystem/2474149131.html?id=3867848852236495949)にあるように、全てのサブデバイスが `<default>` という同一の sync unit となっています。したがって一つでも故障が発生した場合、全てのターミナルの周期通信ができなくなります。
 
-## Sync taskとは
+## Sync unit taskとは
 
 TwinCATにおけるEtherCATの周期通信におけるフレームはタスクに同期して送出されます。
 

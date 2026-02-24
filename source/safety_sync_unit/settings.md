@@ -3,11 +3,22 @@
 (section_dedicated_safety_task)=
 ## Safety専用タスクの作成
 
+``````{grid} 1
+`````{grid-item-card} Task With Imageで新しいタスクを作成します。名前は SafetyTask とします。
 ![](assets/create_safety_task.png){align=center}
+`````
 
+`````{grid-item-card} 安全回路に必要な応答時間の要求に応じたサイクルタイム見積を行います。この見積時間に応じてコアの割り付け、およびBasetime (tick数) 設定を行ってください。
 ![](assets/realtime_setting.png){align=center}
+```{warning}
+{ref}`figure_safety_ethercat_connection` に示すとおり、EtherCATメインデバイスを中心に、SafetyメインインスタンスとSafetyサブインスタンス間で送信ー応答のSafetyサイクルを行うのに最低でも4サイクルのEtherCAT周期通信が必要となります。このサイクル数を考慮し、必要な安全回路の応答時間要求にマージンを加えた十分に短いサイクルタイムを設定してください。
+```
+`````
 
+`````{grid-item-card} FSoEの巡回サイクルタイム設定を tick を指定して行います。
 ![](assets/task_cycle_setting.png){align=center}
+`````
+``````
 
 ## EtherCATの構成
 
@@ -65,11 +76,15 @@ Hot connect グループ内の Safetyターミナルに特別なsync unitを設�
 ```
 ````
 `````
-`````{grid-item-card} 設定を確認すると、SafetyPlc, SafetyIO, Hot connect グループ内にあるSafetyIO, Hot connectグループ内にあるそれ以外のIO という四象限の sync unit ができ、に属する
+`````{grid-item-card} 設定を確認すると、SafetyPlc, SafetyIO, Hot connect グループ内にあるSafetyIO, Hot connectグループ内にあるそれ以外のIO という4パターンの独立した sync unit ができます。
 ![](assets/syncunit_safetyplc.drawio.png){align=center}
 ![](assets/syncunit_safetyio.drawio.png){align=center}
 ![](assets/syncunit_safetyio_hotconnect.drawio.png){align=center}
 ![](assets/syncunit_generalio_hotconnect.drawio.png){align=center}
+`````
+
+`````{grid-item-card} また、EtherCATのデータグラムのリストにおいても、<default> や Hot connect のグループから独立した Safety 用の sync unit 毎のデータグラムが現れていることが確認できます。
+![](assets/ethercat_datagram_list.png){align=center}
 `````
 ``````
 
