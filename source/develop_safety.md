@@ -16,4 +16,5 @@ EtherCATネットワークのようなシリアルバス内に安全データ（
 :caption: 目次
 
 safety_sync_unit/index.md
+hot_connect/safety.md
 ```

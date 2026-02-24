@@ -25,12 +25,6 @@ FSoEではSafetyロジックとIO間をIEC 61784-3 に定められたブラッ�
 
 * Safetyデータ交換用の専用タスクを作成し、PLCなどの一般制御の状態とは独立した周期でFSoEのデータ交換を行う。
 * SafetyロジックとEtherCATメインデバイス、SafetyIOとEtherCATメインデバイス間の周期通信の Sync unitを、それぞれそれ以外の Sync unit から独立する。
-* Hot connectにより動的にEtherCATネットワークが構成される場合、そこに含まれるSafetyブロックを切り離すため個別の Safety Group を設定します。これに合わせて sync unit を個別に割り当てます。これによって Hot connect によりネットワークを切り離した場合にその他のFSoEの交換に影響を与えないようにします。
-
-```{tip}
-`SafeConnShutdown`ファンクションブロックなどを通して安全ロジックの中でHot connectに設定するグループを動的に無効化させて運用します。
-具体的な設定方法については[Beckhoff Automation USの解説ビデオ](https://youtu.be/WKfQWRDJFRQ?si=4mlKE-aDi4fdt0t2)をご参考ください。
-```
 
 上記を対応することで、より安全関連部の制御通信系統が独立させることが可能となります。
 
