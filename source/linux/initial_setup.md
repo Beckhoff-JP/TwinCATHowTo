@@ -125,21 +125,6 @@ Beckhoffの各種製品ソフトウェアは、事前にご登録いただきま
     password <my beckhkoffのログインパスワード>
     ```
 
-2. TwinCAT RT Linux ベータ版のリポジトリ設定
-
-    現在、TwinCAT RT Linuxはベータ段階です。このため、パッケージマネージャのリポジトリサーバは、 `trixie` ではなく、 `trixie-unstable` に書き換える必要があります。`sources.list.d` 以下のファイルを編集します。
-
-    ```{code} bash
-    $ sudo nano /etc/apt/sources.list.d/bhf.list
-    ```
-
-    APTリポジトリを `trixie` から `trixie-unstable` へ書き換えます。
-
-    ```{code} yaml
-    # deb [signed-by=/usr/share/keyrings/bhf.asc] https://deb.beckhoff.com/debian trixie main
-    deb [signed-by=/usr/share/keyrings/bhf.asc] https://deb.beckhoff.com/debian trixie-unstable main # add `-unstable`
-    ```
-
 
 ```{admonition} これ以後の手順実施にはインターネットへの接続が必要です
 :class: important
