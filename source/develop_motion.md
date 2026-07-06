@@ -36,8 +36,9 @@ TwinCATによるPCベースモーション制御システム
 
 Make_Cam/index.md
 AdHo/index.md
-xplanar/index.md
 m_ext_setpoint/index.md
+xplanar/index.md
+xts/index.md
 ```
 
 
