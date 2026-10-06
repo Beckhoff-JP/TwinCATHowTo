@@ -28,3 +28,4 @@ TwinCAT上で制御するモーションデバイスの稼働状態を監視す�
    trigger_export
    watching
    control_by_functionblock.md
+   oversampling
