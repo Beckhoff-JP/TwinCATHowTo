@@ -150,8 +150,8 @@ table inet filter {
        ct state established,related accept
        # echo-request（pingコマンド）を通過
        meta nfproto ipv4 iifname "eno1" oifname "tap2s*" icmp type echo-request accept
-       # UDPポートの5010（SLMP）のみ通過
-       meta nfproto ipv4 iifname "eno1" oifname "tap2s*" udp dport { 5010, 34980 }\
+       # UDPポートの5010（SLMP）と443（HTTPS）のみ通過
+       meta nfproto ipv4 iifname "eno1" oifname "tap2s*" udp dport { 5010, 443 }\
            ct state new counter accept
    }
 }
