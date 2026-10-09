@@ -50,7 +50,7 @@ TwinCAT 3スコープでは、オーバーサンプリング値を単一の変�
 
 ここでは、TwinCATシステムマネージャの設定でEtherCATプロセスイメージをADS公開し、Scope viewに読み込む手順を説明します。
 
-https://infosys.beckhoff.com/content/1033/te13xx_tc3_scopeview/182331147.html?id=3812552154561438343
+{bdg-link-info}`参考Infosys <https://infosys.beckhoff.com/content/1033/te13xx_tc3_scopeview/182331147.html?id=3812552154561438343>`
 
 1. EtherCATメインデバイス直下にある `Image` ツリーを開きます。
 2. ADSタブを開き、「シンボルの作成」オプションをオンにします。ここに表示されているADSポート（下部例では27905）を記憶しておいてください。
