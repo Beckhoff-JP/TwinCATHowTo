@@ -7,4 +7,5 @@ deployment/index.md
 reliability/index.md
 backup_recovery/index.md
 hot_connect/index.md
+etg1510/index.md
 ```

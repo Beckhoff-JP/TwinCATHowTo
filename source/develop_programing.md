@@ -13,4 +13,5 @@
 plc_st_programing/index.md
 plc_object_oriented_programing/index.md
 plc_design_pattern/index.md
+twincat_hmi/index.md
 ```
