@@ -53,7 +53,7 @@ MasterNetId
 
 ```{figure} assets/component_ec_diag_and_slave.png
 :align: center
-:name:figure_tchmi_ecdiag_and_slave
+:name: figure_tchmi_ecdiag_and_slave
 
 EtherCAT診断ビューとサブデバイスビューを並べた画面表示例
 ```
@@ -125,4 +125,38 @@ ENIよりも実際の構成が少ない場合の表示例
 :name: figure_subdevice_view_overview
 
 サブデバイスビューのネットワーク全体部
+```
+
+下部へスクロールすると、選択したサブデバイスの詳細情報を確認できます（{numref}`figure_subdevice_error_detail`）。このエラーは、{numref}`figure_ec_diag_caseof_excessive_device` のENIの構成定義が実際の構成よりも少ない場合の事例のものです。表示箇所からわかることは、
+
+
+Identity invalidメッセージ部
+    : VPRS-Identity にて不整合が発生していること。
+
+Bポート
+    : 無いはずの戻りパケットを検出している。つまり未だ下流にも何等かのデバイスが存在している。
+
+```{figure} assets/component_subdevice_error_detail.png
+:align: center
+:name: figure_subdevice_error_detail
+
+サブデバイスビューのエラー詳細部
+```
+
+Bポートのエラーについては、右側の3つのタブのうち、`Ports` タブを開くことで詳細のエラー情報が得られます（{numref}`figure_subdevice_port_error_detail`）。ここでは、Port B に`Unexpected connection` と表示され、ENIでは接続が無いはずの戻りポートに何等かの接続を検出したことを示しています。
+
+```{figure} assets/component_subdevice_port_error_detail.png
+:align: center
+:name: figure_subdevice_port_error_detail
+
+サブデバイスのポートエラー詳細部
+```
+
+さらに、ENIと実際の構成との差を詳しく調べるため、`Scan network for more information` ボタンを押します。この結果が {numref}`figure_subdevice_error_rescan` の通り表示されます。さきほど、VPRS情報が整合しないことは分かりましたが、右側のEtherCATタブの情報を見ると、実際接続されている`Product Code`と`Revision No.`が表示されます。
+
+```{figure} assets/component_subdevice_error_rescan.png
+:align: center
+:name: figure_subdevice_error_rescan
+
+サブデバイスのエラー詳細取得のための再スキャン
 ```
