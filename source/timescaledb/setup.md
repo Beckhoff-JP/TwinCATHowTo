@@ -181,13 +181,13 @@ C:\Program Files\PostgreSQL\<<PostgreSQLのバージョン番号>>\bin
 
 以上でインストールが完了しました。`postgresql.conf`ファイルをテキストエディタで開いて、以下の行があるか確認してください。
 
-```conf
+```{code} ini
 shared_preload_libraries = 'timescaledb'	# (change requires restart)
 ```
 
 また次のコマンドでDLLのパスを調べ、`timescale*.dll`が存在するか確認します。
 
-```
+``` powershell
 PS > pg_config --pkglibdir --libdir
 C:/PROGRA~1/POSTGR~1/16/lib
 C:/PROGRA~1/POSTGR~1/16/lib

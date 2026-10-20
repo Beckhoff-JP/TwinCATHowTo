@@ -25,7 +25,7 @@ IPCの `/etc/nginx/conf.d/` 以下に、{numref}`nginx_xar1` と {numref}`nginx_
 $ sudo systemctl restart nginx
 ```
 
-```{code-block} conf
+```{code-block} json
 :caption: /etc/nginx/conf.d/xar1_hmi.conf
 :name: nginx_xar1
 
@@ -50,7 +50,7 @@ server {
 }
 ```
 
-```{code-block} conf
+```{code-block} json
 :caption: /etc/nginx/conf.d/xar2_hmi.conf
 :name: nginx_xar2
 

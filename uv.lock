@@ -15,18 +15,6 @@ wheels = [
 ]
 
 [[package]]
-name = "actdiag"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "blockdiag" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/6d/19/7511fa0a0048ddb56966e2ef9bcd0971a9496cbdb1487b0b3e16a79f7acb/actdiag-3.0.0.tar.gz", hash = "sha256:0efc9b2887d3ec765b0f45bde1d5757a52301151ea62bcc2297e77aad9264006", size = 2574809, upload-time = "2021-12-06T16:57:59.862Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/6b/8b/db1a406c6a2238c29b13c22c0dd2171464bfb6672e71c43feaae7ca872e0/actdiag-3.0.0-py3-none-any.whl", hash = "sha256:1b24410a4796ab0d704fcaa96d132b559d2b9b0af194ccc663d7761623cd0581", size = 2581739, upload-time = "2021-12-06T16:57:58.219Z" },
-]
-
-[[package]]
 name = "alabaster"
 version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -313,18 +301,6 @@ wheels = [
 ]
 
 [[package]]
-name = "nwdiag"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "blockdiag" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/5a/75/06920ff030f924638b045be3d1dbaf92b8fc462d154515ef5b6c57d7d561/nwdiag-3.0.0.tar.gz", hash = "sha256:e267530fcaac8a1d9e7403048597ed30e031e17f0191569dc6f704087bacb2eb", size = 7750437, upload-time = "2021-12-06T17:02:48.953Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3d/36/efc7814620986220290ebbe2f270f31043280d37d4e094226b1ede12087d/nwdiag-3.0.0-py3-none-any.whl", hash = "sha256:549cab5400ca33b8c05ea119414fa41e6bd85be222ba524418c2c176eea87e80", size = 7736537, upload-time = "2021-12-06T17:02:47.173Z" },
-]
-
-[[package]]
 name = "packaging"
 version = "25.0"
 source = { registry = "https://pypi.org/simple" }
@@ -478,18 +454,6 @@ wheels = [
 ]
 
 [[package]]
-name = "seqdiag"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "blockdiag" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/9b/66/7d344b87f0a4ce761efe8a16fa41bad28d4685502540899004c5b3ca34ca/seqdiag-3.0.0.tar.gz", hash = "sha256:e15113a28bd075460a62da44e15a88fafa3c81fdf3a35dcd5e3cd64ef15e961a", size = 2619076, upload-time = "2021-12-06T16:56:31.452Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3f/0c/66a3bedcc9fc972031dec8da2a57d92b1970dc58e23ba69178061f73cee3/seqdiag-3.0.0-py3-none-any.whl", hash = "sha256:8fc941a0badc992766ffb393cf46d56f087e6c58438bc20699e7cdbae202033d", size = 2588169, upload-time = "2021-12-06T16:56:29.448Z" },
-]
-
-[[package]]
 name = "setuptools"
 version = "80.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -620,20 +584,6 @@ wheels = [
 ]
 
 [[package]]
-name = "sphinxcontrib-actdiag"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "actdiag" },
-    { name = "blockdiag" },
-    { name = "sphinx" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/00/c9/d890d4a0e0e0efd4cf818e84fad8bbca6799db8b7a4c230c19a776f3c50f/sphinxcontrib-actdiag-3.0.0.tar.gz", hash = "sha256:3c55d454ffc3b9efe7c20f2adaf022199b825612d32f200be8a497aa87e0f81f", size = 6201, upload-time = "2021-12-05T14:38:32.615Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ec/18/46b40737fa7708044c72fc8c9f5f077b307de7a6663c70a657b765ca71fe/sphinxcontrib_actdiag-3.0.0-py2.py3-none-any.whl", hash = "sha256:09fd3abf2ce465146c1c956c2e9501467939fd6395a2eb74b46870892a1977ba", size = 6900, upload-time = "2021-12-05T14:38:31.738Z" },
-]
-
-[[package]]
 name = "sphinxcontrib-applehelp"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -709,40 +659,12 @@ wheels = [
 ]
 
 [[package]]
-name = "sphinxcontrib-nwdiag"
-version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "blockdiag" },
-    { name = "nwdiag" },
-    { name = "sphinx" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c2/8f/cd2a0de83619e0506edd3cfa6a743e030e4665de71d621802796b69dee9b/sphinxcontrib-nwdiag-2.0.0.tar.gz", hash = "sha256:6ee95ad43bad46fe8dc1f65185c8997cb1d16665eee36a7eaaf6de13137ff859", size = 7938, upload-time = "2019-12-10T17:02:13.451Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/af/0a/8c12e9fd26efd667468c9127b907bdb76d8d325806b55b47e1a3049fc8cc/sphinxcontrib_nwdiag-2.0.0-py2.py3-none-any.whl", hash = "sha256:5aae8c83b19e940409554b69249cf97e4f565331effd208cca9fddbc90b6ea36", size = 13248, upload-time = "2019-12-10T17:02:12.194Z" },
-]
-
-[[package]]
 name = "sphinxcontrib-qthelp"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/68/bc/9104308fc285eb3e0b31b67688235db556cd5b0ef31d96f30e45f2e51cae/sphinxcontrib_qthelp-2.0.0.tar.gz", hash = "sha256:4fe7d0ac8fc171045be623aba3e2a8f613f8682731f9153bb2e40ece16b9bbab", size = 17165, upload-time = "2024-07-29T01:09:56.435Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/27/83/859ecdd180cacc13b1f7e857abf8582a64552ea7a061057a6c716e790fce/sphinxcontrib_qthelp-2.0.0-py3-none-any.whl", hash = "sha256:b18a828cdba941ccd6ee8445dbe72ffa3ef8cbe7505d8cd1fa0d42d3f2d5f3eb", size = 88743, upload-time = "2024-07-29T01:09:54.885Z" },
-]
-
-[[package]]
-name = "sphinxcontrib-seqdiag"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "blockdiag" },
-    { name = "seqdiag" },
-    { name = "sphinx" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/9d/e6/5430aa6d8750337e14555d94bf9fac5ae7e1f0ac9198cd0c2c59a2e226b7/sphinxcontrib-seqdiag-3.0.0.tar.gz", hash = "sha256:407e48797673f71d948e9ffa04716cac1d99a9ec8f616de3764d42d033416574", size = 6196, upload-time = "2021-12-05T14:23:15.114Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c5/f2/df3a5068de2ee097cd27e9b36ab6097289b52f4d10f120cfa99ac2c0e470/sphinxcontrib_seqdiag-3.0.0-py2.py3-none-any.whl", hash = "sha256:e9bba2725a538757f8c6ed9d37306b113052bd0799fce022257b015f3f091072", size = 6882, upload-time = "2021-12-05T14:23:14.247Z" },
 ]
 
 [[package]]
@@ -792,7 +714,6 @@ dependencies = [
     { name = "sphinx-copybutton" },
     { name = "sphinx-design" },
     { name = "sphinx-markdown-tables" },
-    { name = "sphinxcontrib-actdiag" },
     { name = "sphinxcontrib-applehelp" },
     { name = "sphinxcontrib-blockdiag" },
     { name = "sphinxcontrib-devhelp" },
@@ -800,9 +721,7 @@ dependencies = [
     { name = "sphinxcontrib-jquery" },
     { name = "sphinxcontrib-jsmath" },
     { name = "sphinxcontrib-mermaid" },
-    { name = "sphinxcontrib-nwdiag" },
     { name = "sphinxcontrib-qthelp" },
-    { name = "sphinxcontrib-seqdiag" },
     { name = "sphinxcontrib-serializinghtml" },
     { name = "sphinxcontrib-youtube" },
 ]
@@ -816,7 +735,6 @@ requires-dist = [
     { name = "sphinx-copybutton" },
     { name = "sphinx-design" },
     { name = "sphinx-markdown-tables" },
-    { name = "sphinxcontrib-actdiag" },
     { name = "sphinxcontrib-applehelp" },
     { name = "sphinxcontrib-blockdiag" },
     { name = "sphinxcontrib-devhelp" },
@@ -824,9 +742,7 @@ requires-dist = [
     { name = "sphinxcontrib-jquery" },
     { name = "sphinxcontrib-jsmath" },
     { name = "sphinxcontrib-mermaid" },
-    { name = "sphinxcontrib-nwdiag" },
     { name = "sphinxcontrib-qthelp" },
-    { name = "sphinxcontrib-seqdiag" },
     { name = "sphinxcontrib-serializinghtml" },
     { name = "sphinxcontrib-youtube" },
 ]

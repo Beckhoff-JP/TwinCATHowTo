@@ -103,7 +103,7 @@ $ sudo nano tc31-xar-base/apt-config/bhf.conf
 
 下記の2行を記述します。 `<my beckhoff username>`と`<my beckhoff password>`の部分は、My Beckhoffのユーザ名とパスワードをそれぞれ記載してください。
 
-```{code-block} conf
+```{code-block} bash
 :caption: tc31-xar-base/apt-config/bhf.conf
 
 machine deb.beckhoff.com login <my beckhoff username> password <my beckhoff password>

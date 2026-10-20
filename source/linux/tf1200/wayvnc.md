@@ -18,7 +18,7 @@ $ nano .config/sway/config
 
 最終行に以下を追加する。
 
-```{code-block} conf
+```{code-block} bash
 :caption: `~TF1200/.config/sway/config` の編集
 
 ### Start wayvnc
@@ -27,7 +27,7 @@ exec /usr/bin/wayvnc 0.0.0.0 5900
 
 `/etc/nftables.conf.d/` 以下に新規で`60-wayvnc.conf`を作成する。
 
-```{code-block} json
+```{code-block} nftable
 :caption: /etc/nftables.conf.d/60-wayvnc.conf を新規作成
 
 table inet filter {
