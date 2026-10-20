@@ -6,6 +6,4 @@ DockerはLinuxを扱う上で避けて通れないツールとなっています
 :caption: 目次
 
 install_docker
-DockerFile
-docker-compose
 ```

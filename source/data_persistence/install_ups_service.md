@@ -44,7 +44,7 @@ Continue? [Y/n] Y
 
 [参考サイト](https://infosys.beckhoff.com/content/1033/beckhoff_rt_linux/20808458635.html?id=6406935338175224747)
 
-```{code-block} conf
+```{code-block} bash
 :caption: /etc/upsservice-bhf.conf
 ## upsservice-bhf.conf ##
 Manufacturer Beckhoff

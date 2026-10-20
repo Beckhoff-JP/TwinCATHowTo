@@ -70,10 +70,10 @@
     <?xml version="1.0"?>
         <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
             <TargetInfo>
-                ...
+                 :
             </TargetInfo>
             <LicenseInfo>
-                <SystemId Level="<<パフォーマンスレベル番号2桁の数字>>">{<<Dongle USB のシステムID>>}</SystemId>
+                <SystemId Level="<<パフォーマンスレベル番号2桁の数字>>">Dongle USB のシステムID</SystemId>
                 <PurchaseOrder><![CDATA[<<ライセンスID>>]]></PurchaseOrder>
                 <IssueTime>YYYY-MM-DDThh:mm:ss</IssueTime>
                 <License ManuallyAdded="true">

@@ -39,11 +39,6 @@ STEP2 : プログラム実装
 
 新たにPOUを追加します。この際、Typeから `Functtion block` を選びます。使用言語は何でも構いません。
 
-```{list-table}
-- * ![](assets/2025-09-30-08-49-00.png){align=center}
-  * ![](assets/2025-09-30-08-48-02.png){align=center}
-```
-
 仕様に基づき、入力変数、出力変数を定義します。また、前節で作成したプログラムから、入力変数、出力変数に置き換えたロジックを定義します。
 
 ```{code-block} iecst
@@ -135,15 +130,6 @@ END_FOR
 ```
 
 このプログラムを動作させてみましょう。`AT%I*` 定義した `buttons[1]`, `buttons[2]` 変数にリンクしたIOがあればこのIOアドレスの入力状態を操作すれば良いのですが、IOが存在しない場合は次のとおり`Preparation`列に状態をセットし、`Write value` にて変数の状態を操作してください。
-
-![](assets/2025-09-30-10-58-04.png){align=center}
-
-```{figure} ./assets/twincat_ope.webm
-:class: controls
-:width: 100%
-
-モニタ、変数への値書き込み、ウォッチ登録、ファンクションブロックモニタ
-```
 
 操作した変数に応じて `lights[1]`、`lights[2]` の何れかの点滅が開始するでしょう。
 

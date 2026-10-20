@@ -97,7 +97,7 @@ PLCのスタートとモニタ
 
     : モニタ中に変数を強制的に値変更する操作する様子を以下の動画でご紹介します。
 
-    : ```{figure} ../plc_object_oriented_programming/assets/twincat_ope.webm
+    : ```{figure} ../plc_object_oriented_programing/assets/twincat_ope.webm
       :class: controls
       :width: 100%
 

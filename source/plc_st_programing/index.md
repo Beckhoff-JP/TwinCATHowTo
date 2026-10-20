@@ -25,6 +25,5 @@ TwinCATを採用する際に最もハードルの高さを感じる一つが、�
 basic_program
 example1
 function_block
-reference_variable
 encapsulation
 ```

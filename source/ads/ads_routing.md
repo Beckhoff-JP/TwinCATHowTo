@@ -88,7 +88,7 @@ TCP, 8016, セキュアADS通信
 
 ```{code-block} python
 :caption: ADS over MQTT で接続する場合のルーティング設定
-:section: ADS_routing_definition_for_mqtt
+:name: ADS_routing_definition_for_mqtt
 
 <?xml version="1.0" encoding="utf-8"?>
 <TcConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
