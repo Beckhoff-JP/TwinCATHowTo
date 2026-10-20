@@ -8,9 +8,20 @@ EtherCATの診断に関する情報は、{ref}`chapter_ethercat_diagnostics`も�
 
 ## インストール
 
-TE2000　TwinCAT HMI プロジェクトの `References` > `Manage NuGet Packages...` を選択してください。BrowsタブからEtherCATの文字で検索して出現する、`Beckhoff.TwinCAT.HMI.EcDiagnosticsControl` をインストールします。
+TE2000　TwinCAT HMI プロジェクトの `References` > `Manage NuGet Packages...` を選択してください。
+
+![](assets/hmi_manage_nuget.png){align=center width=300px}
+
+Browsタブから`EcDiagnostics` の文字列で検索します。次のパッケージを順番にインストールしてください。
+
+Beckhoff.TwinCAT.HMI.EcDiagnostics
+  : {ref}`section_te2000_setup` の節でインストールしたTE2000のバージョンと同じバージョン名を指定してからインストールします。
+
+Beckhoff.TwinCAT.HMI.EcDiagnosticsControl
+  : 最新のものをインストールしてください。
 
 ![](assets/hmi_ecdiag_nuget.png){align=center}
+
 
 ## 初期設定
 
@@ -159,4 +170,35 @@ Bポートのエラーについては、右側の3つのタブのうち、`Ports
 :name: figure_subdevice_error_rescan
 
 サブデバイスのエラー詳細取得のための再スキャン
+```
+
+### IO テスト
+
+Operationalモードで周期通信が行われている間、サブデバイスビューのさらに下部の `Processdata` 部分にてIOの強制制御を行うあことができます。
+
+{numref}`figure_subdevice_view_forcedio1` では、特定の入力信号について Prepared value に `TRUE` をセットし、`Force` ボタンを押すことで、{numref}`figure_subdevice_view_forcedio2` のように強制的に Prepared value にセットした値が反映されます。
+
+
+```{figure} assets/component_subdevice_view_forcedio1.png
+:align: center
+:name: figure_subdevice_view_forcedio1
+
+サブデバイスのIO強制出力（セット）
+```
+
+そのあと、`Release` ボタンを押すと強制制御は解除され、元の入力ラッチが毎サイクル反映される状態に戻ります。
+
+```{figure} assets/component_subdevice_view_forcedio2.png
+:align: center
+:name: figure_subdevice_view_forcedio2
+
+サブデバイスのIO強制出力（リセット）
+```
+
+出力デバイスについてもこの強制出力は可能です。
+
+```{warning}
+プログラムロジックやセンサ等の入力機器の状態に反して入出力を強制的に操作しますので、機器の故障や、意図しないアクチュエータ動作によるケガなど人体への影響を及ぼす事故につながる恐れがあります。
+
+十分に注意してご利用ください。
 ```
