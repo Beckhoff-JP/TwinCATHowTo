@@ -42,7 +42,7 @@ EventLogger.OsEventLog.TypeSupported
     docker-ceであれば、ホスト上の次のディレクトリにコンテナ内の `/etc/TwinCAT` のボリュームの内容が配置されています。まずはここへ移動します。
 
     ``` bash
-    # cd /var/lib/docker/volumes/tc_xar_container_sample_opc_server_xar_data/_data/
+    # cd /var/lib/docker/volumes/tc_xar_container_sample_xar1data/_data/
     # ls
     3.1  Functions
     ```
@@ -53,6 +53,8 @@ EventLogger.OsEventLog.TypeSupported
     # cp -r 3.1/Boot ~Administrator/backup
     # cp -r 3.1/Target/License ~Administrator/backup
     ```
+
+    tc_xar_container_sample_xar**2**dataも同様に別の場所へバックアップを取得してください。
 
 2. Dockerの停止
 
@@ -75,16 +77,19 @@ EventLogger.OsEventLog.TypeSupported
     $ docker compose up -d
     ```
 
-6. Bootフォルダを復帰
+6. バックアップのリストア
 
     ```{code} bash
     $ sudo -s
     [sudo] password for Administrator:
-    # cd /var/lib/docker/volumes/tc_xar_container_sample_tc31xar/_data/
+    # cd /var/lib/docker/volumes/tc_xar_container_sample_xar1data/_data/
     # cp -r ~Administrator/backup/Boot 3.1/
     # cp -r ~Administrator/backup/License 3.1/Target
     # exit
     ```
+
+    tc_xar_container_sample_xar**2**dataも同様に戻してください。
+
 
 7. Docker compose 再起動
 
