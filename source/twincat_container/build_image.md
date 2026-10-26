@@ -134,19 +134,28 @@ $ sudo chmod 600 tc31-xar-base/apt-config/bhf.conf
 $ sudo nano tc31-xar-base/TwinCAT/SysStartupState.reg
 ```
 
-最終行に、`"HeapMemSizeMB"=dword:<heapメモリサイズ MByte>` を定義します。`dword:` につづいて記述する数値は16進数です。たとえば、512MByteのヒープメモリ領域を確保しておく場合は、`dword:00000200`と記述します。
+次の背景色ハイライト部の行定義を追加します。`dword:` につづいて記述する数値は16進数です。
+
+System.HeapMemSize
+  : ADSルータメモリとして確保可能な上限のメモリを設定です。`"HeapMemSizeMB"=dword:<heapメモリサイズ MByte>` の書式で定義してください。たとえば、512MByteのヒープメモリ領域を確保しておく場合は、`dword:00000200`と記述します。
+
+EventLogger.OsEventLog.TypeSupported
+  : TwinCATイベントエラーやメッセージをLinuxのログシステムと連携する設定です。全て連携する場合は`"TypesSupported"=dword:00000003` を定義します。詳細は、 {ref}`code_map_event_logger_with_journals` をご覧ください。
 
 ```{code-block} ini
+:emphasize-lines: 8,9,10
 :caption: tc31-xar-base/TwinCAT/SysStartupState.reg
+:name: code_sys_startup_state_reg
+Windows Registry Editor Version 5.00
 
-Windows Registry Editor Version 5.00^M
-^M
-; SysStartupState defines the TwinCAT System Service Startup State^M
-; RUN = "SysStartupState"=dword:00000005^M
-; CONFIG = "SysStartupState"=dword:0000000f^M
-[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Beckhoff\TwinCAT3\System]^M
-"SysStartupState"=dword:00000005^M
-"HeapMemSizeMB"=dword:00000200 # この1行を追加 追加したいHeapメモリサイズを16進数で表現。（0x0000200 = 512MByte）
+; SysStartupState defines the TwinCAT System Service Startup State
+; RUN = "SysStartupState"=dword:00000005
+; CONFIG = "SysStartupState"=dword:0000000f
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Beckhoff\TwinCAT3\System]
+"SysStartupState"=dword:00000005
+"HeapMemSizeMB"=dword:00000200
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Beckhoff\TwinCAT3\EventLogger\OsEventLog]
+"TypesSupported"=dword:00000003
 ```
 
 ### ADS-over-MQTTの設定

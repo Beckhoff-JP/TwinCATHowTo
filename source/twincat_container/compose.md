@@ -18,41 +18,41 @@ container_name, hostnameを差別化し、ネットワークのIPアドレスと
 :name: docker-compose_double_twincat
 
 services:
-mosquitto:
-    image: eclipse-mosquitto:latest
-    :
+  mosquitto:
+      image: eclipse-mosquitto:latest
+      :
 
-tc31-xar-1:                         # baseから1への名称変更
-    image: tc31-xar-base:latest
-    container_name: tc31-xar-1　　　　 # 名称変更
-    hostname: tc31-xar-1　　　　　　　  # 名称変更
-    :
-    networks:
-    container-network:
-        ipv4_address: 192.168.20.3
-    :
-    environment:
-    #- PCI_DEVICES=NONE
-    - AMS_NETID=15.15.15.15.1.1 
-    :
-tc31-xar-2:
-    image: tc31-xar-base:latest
-    container_name: tc31-xar-2
-    hostname: tc31-xar-2
-    :
-    networks:
-    container-network:
-        ipv4_address: 192.168.20.4
-    :
-    environment:
-    #- PCI_DEVICES=NONE
-    - AMS_NETID=15.15.15.16.1.1 
+  tc31-xar-1:                         # baseから1への名称変更
+      image: tc31-xar-base:latest
+      container_name: tc31-xar-1　　　　 # 名称変更
+      hostname: tc31-xar-1　　　　　　　  # 名称変更
+      :
+      networks:
+      container-network:
+          ipv4_address: 192.168.20.3
+      :
+      environment:
+      #- PCI_DEVICES=NONE
+      - AMS_NETID=15.15.15.15.1.1 
+      :
+  tc31-xar-2:
+      image: tc31-xar-base:latest
+      container_name: tc31-xar-2
+      hostname: tc31-xar-2
+      :
+      networks:
+      container-network:
+          ipv4_address: 192.168.20.4
+      :
+      environment:
+      #- PCI_DEVICES=NONE
+      - AMS_NETID=15.15.15.16.1.1 
 ```
 
 
 ### 永続化ボリューム設定
 
-TwinCATにてActive Configurationを行うと、ランタイムイメージが `/etc/TwinCAT/3.1` 上に作成されます。この場所をホストOS上のストレージに展開するため、それぞれのコンテナ用に `xar1data`, `xar2data` という名前のボリュームを作成します。（{numref}`docker-compose_volumes`）
+TwinCATにてActive Configurationを行うと、ランタイムイメージが `/etc/TwinCAT` 上に作成されます。この場所をホストOS上のストレージに展開するため、それぞれのコンテナ用に `xar1data`, `xar2data` という名前のボリュームを作成します。（{numref}`docker-compose_volumes`）
 
 これを行わないとメモリ上にデータが作成されますので、再起動するとランタイムイメージは消滅してしまいます。
 
@@ -62,19 +62,19 @@ TwinCATにてActive Configurationを行うと、ランタイムイメージが `
 
 services:
     :
-tc31-xar-1:
-    :
-    volumes:
-    - xar1data:/etc/TwinCAT/3.1
+  tc31-xar-1:
+      :
+      volumes:
+      - xar1data:/etc/TwinCAT
 
-tc31-xar-2:
-    :
-    volumes:
-    - xar2data:/etc/TwinCAT/3.1
+  tc31-xar-2:
+      :
+      volumes:
+      - xar2data:/etc/TwinCAT
 
-volumes:
-   xar1data:
-   xar2data:
+  volumes:
+    xar1data:
+    xar2data:
 ```
 
 以上の変更を加えた全体のdocker-compose.yamlを{numref}`whole_docker_compose_yaml`に掲載します。
@@ -114,9 +114,13 @@ services:
     depends_on:
       - mosquitto
     privileged: true
+    logging:
+      driver: "journald"
+      options:
+        tag: "twincat-container"
     volumes:
       - /dev/hugepages:/dev/hugepages:rw
-      - xar1data:/etc/TwinCAT/3.1               # 追加
+      - xar1data:/etc/TwinCAT                # 追加
     networks:
       container-network:
         ipv4_address: 192.168.20.3
@@ -148,9 +152,13 @@ services:
     depends_on:
       - mosquitto
     privileged: true
+    logging:
+      driver: "journald"
+      options:
+        tag: "twincat-container"
     volumes:
       - /dev/hugepages:/dev/hugepages:rw
-      - xar2data:/etc/TwinCAT/3.1               # 追加
+      - xar2data:/etc/TwinCAT                 # 追加
     networks:
       container-network:
         ipv4_address: 192.168.20.4

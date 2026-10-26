@@ -44,7 +44,7 @@ Ethernetリアルタイムドライバへのアクセスが可能
 
 * 2つのTwinCATコンテナが稼働するようにします。
 * それぞれのTwinCATコンテナには、TF5000(NC PTP)、TF1810（PLC HMI Web）を追加インストールし、コンテナ上のランタイムによりモーション制御、およびHMI操作が可能にします。
-* `/etc/TwinCAT/3.1` 以下のフォルダをホスト側のディレクトリにvolumeを作成し、ファイルとして永続化できるようにします。これにより再起動後もBootイメージが再現され、自動RUN MODE, Auto start boot projectが維持できるようになります。
+* `/etc/TwinCAT` 以下のフォルダをホスト側のディレクトリにvolumeを作成し、ファイルとして永続化できるようにします。これにより再起動後もBootイメージが再現され、自動RUN MODE, Auto start boot projectが維持できるようになります。
 * PLC HMI WebはPort 42341 でHTTPサービスが起動します。SSLには非対応のため、nginx リバースプロキシを通して外部アクセス可能にします。
 
 ![](assets/twincat_container_structure.png){align=center}
@@ -56,4 +56,5 @@ Ethernetリアルタイムドライバへのアクセスが可能
 build_image
 compose
 reverse_proxy
+rebuild
 ```

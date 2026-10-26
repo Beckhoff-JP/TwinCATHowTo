@@ -11,5 +11,6 @@ reverse_proxy/index
 docker/index
 ../twincat_container/index
 tasks/index
+logging
 ```
 
