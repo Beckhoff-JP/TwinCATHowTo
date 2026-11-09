@@ -134,7 +134,7 @@ $ sudo touch /etc/nginx/conf.d/IPC_plchmi.conf
 編集します。
 
 ```{code} bash
-$ sudo touch /etc/nginx/conf.d/IPC_plchmi.conf
+$ sudo nano /etc/nginx/conf.d/IPC_plchmi.conf
 ```
 
 設定は以下の通りです。ポート80は外部からはアクセスできず、自分自身からのみリクエストに受け付ける設定です。外部からは443（SSL）のみ接続を許可しています。
