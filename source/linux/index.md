@@ -12,5 +12,6 @@ docker/index
 ../twincat_container/index
 tasks/index
 logging
+cpuisolate
 ```
 
