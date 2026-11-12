@@ -65,7 +65,9 @@ PLCであれば [このページ](https://infosys.beckhoff.com/content/1033/tc3_
 :caption: 目次
 
 ads_routing
+devtools
 ../ads_plc/index
 ../ads_python/index
 ../powershell_data_edit/powershell
+../ads_over_mqtt/dotnet
 ```
