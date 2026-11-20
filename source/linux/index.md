@@ -13,5 +13,6 @@ docker/index
 tasks/index
 logging
 cpuisolate
+os_release_bhf
 ```
 

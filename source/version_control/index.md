@@ -24,6 +24,7 @@ TwinCATでチーム開発を行う為の機能が大別して2つ用意されて
 :caption: 目次
 
 source_control
+project_preperation
 create_repository
 clone_repository
 commit
